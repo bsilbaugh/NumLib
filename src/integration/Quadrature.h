@@ -24,6 +24,14 @@ namespace numlib{ namespace integration{
  */
 QuadRule GaussQuadTable(Index n);
 
+//! Returns the Gauss quadrature rule associated with n quad points
+/*!
+ *  Employs the same quadrature rules as GaussQuadTable, except the
+ *  lookup is performed by number of quad points instead of polynomial
+ *  degree.
+ */
+QuadRule InvGaussQuadTable(Index n);
+
 }} //::numlib::integration
 
 #endif

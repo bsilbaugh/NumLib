@@ -11,6 +11,72 @@ QuadRule GaussQuadTable(Index n)
 			// drop through
 			
 		case 1:
+			return InvGaussQuadTable(1);
+
+		case 2:
+			// drop through
+
+		case 3:
+			return InvGaussQuadTable(2);
+
+		case 4:
+			// drop through
+
+		case 5:
+			return InvGaussQuadTable(3);
+
+		case 6:
+			// drop through
+
+		case 7:
+			return InvGaussQuadTable(4);
+
+		case 8:
+			// drop through
+
+		case 9:
+			return InvGaussQuadTable(5);
+
+		case 10:
+			// drop through
+
+		case 11:
+			return InvGaussQuadTable(6);
+
+		case 12:
+			// drop through
+
+		case 13:
+			return InvGaussQuadTable(7);
+
+		case 14:
+			// drop through
+
+		case 15:
+			return InvGaussQuadTable(8);
+
+		case 16:
+			// drop through
+
+		case 17:
+			// drop through
+
+		case 18:
+			// drop through
+
+		case 19:
+			return InvGaussQuadTable(10);
+
+		default:
+			throw NumLibError();
+	}
+}
+
+QuadRule InvGaussQuadTable(Index n)
+{
+	switch(n)
+	{
+		case 1:
 		{
 
 			QuadRule q(1);
@@ -23,9 +89,6 @@ QuadRule GaussQuadTable(Index n)
 		}
 
 		case 2:
-			// drop through
-
-		case 3:
 		{
 
 			QuadRule q(2);
@@ -39,9 +102,7 @@ QuadRule GaussQuadTable(Index n)
 			return q;
 		}
 
-		case 4:
-
-		case 5:
+		case 3:
 		{
 			QuadRule q(3);
 
@@ -56,12 +117,8 @@ QuadRule GaussQuadTable(Index n)
 			return q;
 		}
 
-		case 6:
-			// drop through
-
-		case 7:
+		case 4:
 		{
-
 			QuadRule q(4);
 
 			q.grid(3) = 0.86113631;
@@ -77,10 +134,7 @@ QuadRule GaussQuadTable(Index n)
 			return q;
 		}
 
-		case 8:
-			// drop through
-
-		case 9:
+		case 5:
 		{
 
 			QuadRule q(5);
@@ -100,10 +154,7 @@ QuadRule GaussQuadTable(Index n)
 			return q;
 		}
 
-		case 10:
-			// drop through
-
-		case 11:
+		case 6:
 		{
 
 			QuadRule q(6);
@@ -125,10 +176,7 @@ QuadRule GaussQuadTable(Index n)
 			return q;
 		}
 
-		case 12:
-			// drop through
-
-		case 13:
+		case 7:
 		{
 			QuadRule q(7);
 
@@ -151,10 +199,7 @@ QuadRule GaussQuadTable(Index n)
 			return q;
 		}
 
-		case 14:
-			// drop through
-
-		case 15:
+		case 8:
 		{
 			QuadRule q(8);
 
@@ -179,16 +224,11 @@ QuadRule GaussQuadTable(Index n)
 			return q;
 		}
 
-		case 16:
-			// drop through
+		case 9:
+			/* \todo 9-point scheme data need to be generated */
+			throw NumLibError(); 
 
-		case 17:
-			// drop through
-
-		case 18:
-			// drop through
-
-		case 19:
+		case 10:
 		{
 			QuadRule q(10);
 
@@ -218,7 +258,6 @@ QuadRule GaussQuadTable(Index n)
 		}
 
 		default:
-
 			throw NumLibError();
 	}
 }
