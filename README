@@ -1,0 +1,43 @@
+===========================================================================
+                                 NumLib
+
+                        A C++ numerical library
+===========================================================================
+
+DESCRIPTION
+---------------------------------------------------------------------------
+
+	The objective of this library is to provide a consistent set of tools 
+for numerical computing in C++, while also provide efficient array 
+interoperability with Fortran and Python numerical libraries. The objective 
+is not to compete with NumPy, or future Python numerical libraries, but to 
+provide a library that is interoperable with such libraries while 
+facilitating the rapid development of hybrid Python/C++ computational 
+software.
+
+	Many numerical libraries already exist within the C++ community; e.g. 
+Boost uBlas, MTL, Blitz++, TNT (NIST), LAPACK++, JAMA, etc. So one approach 
+would be to simply develop python bindings for one of these. However, each 
+of these libraries seem to only provide a subset of the tools needed to
+support the development of computational mechanics software. 
+
+	In regards to performance, the philosphy adopted here is, if one
+can deligate the CPU intensive task to optimized Fortran libraries
+(e.g. system tuned LAPACK or FFT libraries) then why not use these?
+Thus, while the focus of this library is to provide tools for numerical
+computing in C++, the implementation of some C++ class methods may be 
+delagated to legacy fortran libraries (either system installed libraries 
+or internal fortran code snipets). An alternative is to use advanced 
+templating techniques; however, these methods at best match the 
+performance of a Fortran library. It remains to be shown that templating 
+techniques can consistently exceed a tuned Fortran library (e.g. ATLAS).
+
+DIRECTORY STRUCTURE
+---------------------------------------------------------------------------
+
+src/
+	array/
+ 	base/
+	linalg/
+	integration/
+	tensor/
