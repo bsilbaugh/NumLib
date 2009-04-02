@@ -68,6 +68,8 @@ QuadRule GaussQuadTable(Index n)
 			return InvGaussQuadTable(10);
 
 		default:
+			DEBUG_PRINT_VAR( n );
+			DEBUG_PRINT( "ERROR: Polynomial of degree n no supported" );
 			throw NumLibError();
 	}
 }
@@ -226,6 +228,7 @@ QuadRule InvGaussQuadTable(Index n)
 
 		case 9:
 			/* \todo 9-point scheme data need to be generated */
+			DEBUG_PRINT("ERROR: 9-point quadrature not available" );
 			throw NumLibError(); 
 
 		case 10:
@@ -258,6 +261,8 @@ QuadRule InvGaussQuadTable(Index n)
 		}
 
 		default:
+			DEBUG_PRINT_VAR( n );
+			DEBUG_PRINT("ERROR: n-point quadrature scheme not availible" );
 			throw NumLibError();
 	}
 }
