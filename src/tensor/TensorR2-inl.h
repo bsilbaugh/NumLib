@@ -18,6 +18,12 @@ Real TensorR2::operator()(Index i, Index j) const
 	return *(indexMap[i-1][j-1]);
 }
 
+inline
+TensorR2 & TensorR2::zero()
+{
+	a11 = a12 = a13 = a21 = a22 = a23 = a31 = a32 = a33 = 0.0;
+}
+
 //! Creates the identity-3 tensor
 inline
 TensorR2 identity()

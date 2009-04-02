@@ -43,6 +43,9 @@ public:
 	//! Returns Cartesian component (index base 1)
 	Real operator()(Index i, Index j) const;
 
+	//! Sets all components to zero
+	TensorR2 & zero();
+
 	//! In-place addition
 	TensorR2 & operator+=(const TensorR2 & other);
 
