@@ -34,7 +34,7 @@ public:
 	ReferenceFrame & operator=(const ReferenceFrame & other);
 
 	//! Returns the ith unit basis vector
-	const TensorR1 & operator()(Index i);
+	const TensorR1 & operator()(Index i) const;
 
 private:
 

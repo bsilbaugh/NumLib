@@ -40,7 +40,7 @@ ReferenceFrame & ReferenceFrame::operator=(const ReferenceFrame & other)
 }
 
 inline
-const TensorR1 & ReferenceFrame::operator()(Index i)
+const TensorR1 & ReferenceFrame::operator()(Index i) const
 {
 	switch(i)
 	{
