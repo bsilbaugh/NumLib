@@ -63,6 +63,22 @@ const TensorR1 & ReferenceFrame::operator()(Index i) const
 }
 
 inline
+TensorR1 & ReferenceFrame::operator()(Index i)
+{
+	switch(i)
+	{
+		case 1: 
+			return e1;
+		case 2: 
+			return e2;
+		case 3: 
+			return e3;
+		default:
+			throw IndexError();
+	}
+}
+
+inline
 void ReferenceFrame::copy(const ReferenceFrame & other)
 {
 	e1 = other.e1;

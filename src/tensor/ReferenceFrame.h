@@ -39,6 +39,9 @@ public:
 	//! Returns the ith unit basis vector
 	const TensorR1 & operator()(Index i) const;
 
+	//! Returns the ith unit basis vector
+	TensorR1 & operator()(Index i);
+
 private:
 
 	TensorR1 e1;
