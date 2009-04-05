@@ -18,6 +18,9 @@ public:
 	//! Constructs a reference frame with cardinal basis
 	ReferenceFrame();
 
+	//! Constructs a reference frame from triad of orthonormal basis vectors
+	ReferenceFrame(const TensorR1 e1_, const TensorR1 & e2_, const TensorR1 & e3_);
+
 	//! Constructs a rotated reference frame defined by a rotation tensor
 	/*!
 	 *  The rotation tensor 'r' is taken to be a map which rotates any

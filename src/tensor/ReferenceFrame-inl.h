@@ -13,6 +13,13 @@ ReferenceFrame::ReferenceFrame():
 }
 
 inline
+ReferenceFrame::ReferenceFrame(const TensorR1 e1_, const TensorR1 & e2_, 
+		const TensorR1 & e3_):
+	e1(e1_), e2(e2_), e3(e3_)
+{
+}
+
+inline
 ReferenceFrame::ReferenceFrame(const TensorR2 & r):
 	e1(r(1,1), r(2,1), r(3,1)),
 	e2(r(1,2), r(2,2), r(3,2)),
