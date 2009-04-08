@@ -27,6 +27,27 @@ TensorR2 rot(const RotVector & rv)
 	return tmp;
 }
 
+TensorR2 rot(const ReferenceFrame & frame)
+{
+	TensorR1 e1 = frame(1);
+	TensorR1 e2 = frame(2);
+	TensorR1 e3 = frame(3);
+
+	Real a11 = e1(1); 
+	Real a12 = e2(1); 
+	Real a13 = e3(1);
+
+	Real a21 = e1(2); 
+	Real a22 = e2(2); 
+	Real a23 = e3(2);
+
+	Real a31 = e1(3); 
+	Real a32 = e2(3); 
+	Real a33 = e3(3);
+
+	return TensorR2(a11, a12, a13, a21, a22, a23, a31, a32, a33);
+}
+
 TensorR2 tanMap(const RotVector & rv)
 {
 	using std::sin;

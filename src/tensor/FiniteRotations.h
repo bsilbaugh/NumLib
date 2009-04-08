@@ -26,6 +26,7 @@
 
 #include "TensorR1.h"
 #include "TensorR2.h"
+#include "ReferenceFrame.h"
 #include "TensorExpressions.h"
 
 // Rotation parameter vector types
@@ -35,6 +36,9 @@ namespace numlib{ namespace tensor{
 
 //! Maps the rotation vector to the corresponding rotation tensor
 TensorR2 rot(const RotVector & rv);
+
+//! Maps a reference frame to a rotation from the canonical unit basis
+TensorR2 rot(const ReferenceFrame & frame);
 
 //! Returns the tensor which maps the rotation vector increment to the local tangent space of R
 /*!
