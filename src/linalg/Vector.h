@@ -20,6 +20,12 @@ typedef boost::numeric::ublas::vector<Real> Vector;
 //! Unbounded sparse vector
 typedef boost::numeric::ublas::compressed_vector<Real> SparseVec;
 
+//! Vector range proxy
+typedef boost::numeric::ublas::vector_range<Vector> VectorRange;
+
+//! Vector slice proxy
+typedef boost::numeric::ublas::vector_slice<Vector> VectorSlice;
+
 //! Unbounded zero vector
 typedef boost::numeric::ublas::zero_vector<Real> ZeroVec;
 
