@@ -30,8 +30,14 @@ typedef boost::numeric::ublas::slice Slice;
 //! Vector range proxy
 typedef boost::numeric::ublas::vector_range<Vector> VectorRange;
 
+//! Const Vector range proxy
+typedef boost::numeric::ublas::vector_range<const Vector> ConstVectorRange;
+
 //! Vector slice proxy
 typedef boost::numeric::ublas::vector_slice<Vector> VectorSlice;
+
+//! Const Vector slice proxy
+typedef boost::numeric::ublas::vector_slice<const Vector> ConstVectorSlice;
 
 //! Unbounded zero vector
 typedef boost::numeric::ublas::zero_vector<Real> ZeroVec;
