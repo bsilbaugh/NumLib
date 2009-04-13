@@ -7,6 +7,7 @@
 
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/vector_sparse.hpp>
+#include <boost/numeric/ublas/storage.hpp>
 #include <boost/numeric/ublas/io.hpp>
 
 #include "../base/debug_tools.h"
@@ -19,6 +20,12 @@ typedef boost::numeric::ublas::vector<Real> Vector;
 
 //! Unbounded sparse vector
 typedef boost::numeric::ublas::compressed_vector<Real> SparseVec;
+
+//! Index range
+typedef boost::numeric::ublas::range Range;
+
+//! Index slice
+typedef boost::numeric::ublas::slice Slice;
 
 //! Vector range proxy
 typedef boost::numeric::ublas::vector_range<Vector> VectorRange;
