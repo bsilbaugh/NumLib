@@ -6,6 +6,9 @@
  *  instead of integer values.
  */
 
+#ifndef RANDOM_H
+#define RANDOM_H
+
 #include "numlib-config.h"
 #include <cstdlib>
 #include <ctime>
@@ -28,3 +31,5 @@ Real randomNumber()
 }
 
 }
+
+#endif
