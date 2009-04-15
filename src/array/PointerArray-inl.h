@@ -67,12 +67,14 @@ void PointerArray<T>::clear()
 template<class T>
 T*& PointerArray<T>::operator[](Index i)
 {
+	ASSERT( i < n ); /* check limits when in debug mode */
 	return data[i];
 }
 
 template<class T>
 const T* PointerArray<T>::operator[](Index i) const
 {
+	ASSERT( i < n ); /* check limits when in debug mode */
 	return data[i];
 }
 
