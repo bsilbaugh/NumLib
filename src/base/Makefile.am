@@ -10,6 +10,7 @@ library_include_HEADERS = constants.h \
 						  NumLibError.h \
 						  IndexError.h \
 						  random.h \
+						  StopWatch.h \
 						  io.h
 
 libnumlib_base_a_SOURCES = constants.cpp \
@@ -20,4 +21,5 @@ libnumlib_base_a_SOURCES = constants.cpp \
 						   NumLibError.h \
 						   IndexError.h \
 						   random.h \
+						   StopWatch.h \
 						   io.h
