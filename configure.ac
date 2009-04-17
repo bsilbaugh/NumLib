@@ -16,6 +16,11 @@ AC_ARG_ENABLE(debug,
 			  AC_HELP_STRING([--enable-debug],
 							 [Enables all debug print statements and assertions (default: no)]),,enable_debug=no)
 
+
+if test "$ac_cv_env_CXXFLAGS_set" != set ; then
+	CXXFLAGS="-O2"
+fi
+
 dnl Check if debuggin is to be enabled
 if test "x$enable_debug == xyes"; then
 	AC_DEFINE(DEBUG)
