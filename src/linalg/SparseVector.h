@@ -89,6 +89,8 @@ private:
 
 };
 
+#include "SparseVector-inl.h"
+
 }}//::numlib::linalg
 
 #endif
