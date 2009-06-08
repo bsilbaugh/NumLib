@@ -399,6 +399,15 @@ void ArrayBase<T>::operator/=(const ArrayBase<T> & arr)
 			tmp(i) = x/arr(i);                      \
 		return tmp;                                 \
 	}												\
+													\
+	friend											\
+	T sum(const Tsub & arr)							\
+	{												\
+	  T tmp = 0;									\
+	  for(Index i=0; i<arr.n; ++i)					\
+		tmp += arr(i);								\
+	  return tmp;									\
+	}												\
 
 #define ARRAY_ALL_OPERATORS(Tsub, T) 		\
 		ARRAY_INPLACE_OPERATORS(Tsub, T) 	\
