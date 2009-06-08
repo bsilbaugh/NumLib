@@ -8,16 +8,15 @@
 
 namespace numlib{ namespace linalg{
 
-template< class KeyType >
 class SparseUnion
 {
 public:
 
-  SparseUnion(const SparsePattern<KeyType> & spL, const SparsePattern<KeyType> & spR);
+  SparseUnion(const SparsePattern & spL, const SparsePattern & spR);
 
   ~SparseUnion();
 
-  const SparsePattern<KeyType> & sparsePattern() {return spU;}
+  const SparsePattern & sparsePattern() {return spU;}
 
   Index leftIndex(Index k) {return kLU[k];}
 
@@ -27,7 +26,7 @@ private:
 
   DISALLOW_COPY_AND_ASSIGN( SparseUnion<KeyType> );
 
-  SparsePattern<KeyType> spU;
+  SparsePattern spU;
 
   //! Number of elements from "left" pattern which are in the union
   Size nLU;
@@ -42,7 +41,7 @@ private:
   Index* kRU;
 
   //! Finds the union of "left" and "right" sparsity patterns
-  void findUnion(const SparsePattern<KeyType> & spL, const SparsePattern<KeyType> & spR);
+  void findUnion(const SparsePattern & spL, const SparsePattern & spR);
 
 };
 
