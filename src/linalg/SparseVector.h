@@ -4,7 +4,7 @@
 #ifndef SPARSEVECTOR_H
 #define SPARSEVECTOR_H
 
-#include "../array/Array1D.h"
+#include "SparsePattern.h"
 
 namespace numlib{ namespace linalg{
 
@@ -26,8 +26,6 @@ template< class T >
 class SparseVector
 {
 public:
-
-  typedef Array1D<Index> SparsePattern;
 
   //! Constructs a sparse vector of dim n, with nn non-zero elements
   SparseVector(Size n_, Size nn);
