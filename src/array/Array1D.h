@@ -27,7 +27,7 @@ public:
 	 *	Memory for 'size' number of elements is allocated and left
 	 *	uninitialized.
 	 */
-	Array1D(Size imax):ArrayBase<T>(imax), ni(imax)
+	Array1D(Size imax=0):ArrayBase<T>(imax), ni(imax)
 	{
 	}
 
@@ -60,6 +60,13 @@ public:
 
 	//! Array size
 	Size size() const { return ni; }
+
+    //! Resizes array to hold n elements
+    void resize(Size imax)
+    {
+	  ni = imax;
+	  ArrayBase<T>::resize(imax);
+    }
 
 	//! Read/write element access
 	T & operator()(Index i) 

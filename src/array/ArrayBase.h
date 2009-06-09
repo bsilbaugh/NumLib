@@ -48,7 +48,7 @@ public:
 	 *	Memory for 'size' number of elements is allocated and left
 	 *	uninitialized.
 	 */
-	ArrayBase(Size size);
+	ArrayBase(Size size=0);
 
 	//! Constructs an array from a raw C pointer to a 1D array
 	/*!
@@ -71,6 +71,13 @@ public:
 
 	//! Returns total number of elements contained in the array
 	Size size(){return n;}
+
+    //! Reallocates internal memory to hold n elements
+    /*! 
+     *  Original data is not guaranteed to be preserved. The resize operation
+     *  is provided primarily for initialization of default constructed arrays.
+     */
+    void resize(Size n_);
 
 	//! Assignment from array
 	/*!
@@ -162,6 +169,14 @@ ArrayBase<T> &  ArrayBase<T>::operator=(const ArrayBase & arr)
 		data[i] = arr.data[i];
 
 	return *this;
+}
+
+template<class T>
+void ArrayBase<T>::resize(Size size)
+{
+  n = size;
+  delete[] data;
+  data = new T[n];
 }
 
 template<class T>
