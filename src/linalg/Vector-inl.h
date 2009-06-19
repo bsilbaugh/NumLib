@@ -20,8 +20,6 @@ Vector<T>::~Vector()
 template<class T>
 Vector<T> & Vector<T>::operator=(const Vector & other)
 {
-  ASSERT( data.size() == other.size() );
-
   if(&other!=this)
 	data = other.data;
   return *this;
