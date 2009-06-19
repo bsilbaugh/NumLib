@@ -61,21 +61,21 @@ template<class T> inline
 const T & TriMatrix<T>::lower(Index k) const
 {
   ASSERT( k < n );
-  return lower(k);
+  return lowerBand(k);
 }
 
 template<class T> inline
 const T & TriMatrix<T>::diag(Index k) const
 {
   ASSERT( k < n );
-  return diag(k);
+  return diagBand(k);
 }
 
 template<class T> inline
 const T & TriMatrix<T>::upper(Index k) const
 {
   ASSERT( k < n );
-  return upper(k);
+  return upperBand(k);
 }
 
 template<class T> inline
