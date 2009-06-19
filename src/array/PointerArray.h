@@ -5,6 +5,7 @@
 #define POINTERARRAY_H
 
 #include "../base/numlib-config.h"
+#include "../base/debug_tools.h"
 
 namespace numlib{ namespace array{
 
