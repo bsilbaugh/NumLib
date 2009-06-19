@@ -10,6 +10,8 @@
 #ifndef NUMLIB_CONFIG_H
 #define NUMLIB_CONFIG_H
 
+#include <cmath>
+
 namespace numlib{
 
 //! default floating point type for real numbers
