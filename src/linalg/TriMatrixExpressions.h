@@ -1,6 +1,9 @@
 /*! \file TriMatrixExpressions.h
  */
 
+#ifndef TRIMATRIXEXPRESSIONS_H
+#define TRIMATRIXEXPRESSIONS_H
+
 #include "../array/Array1D.h"
 #include "Vector.h"
 #include "TriMatrix.h"
@@ -88,3 +91,5 @@ void solveThomas(const TriMatrix<T> & a, Vector<T> & rhs)
 }
 
 }}//::numlib::linalg
+
+#endif
