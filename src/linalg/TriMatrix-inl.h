@@ -90,8 +90,11 @@ void TriMatrix<T>::resize(Size n_)
 	 diagBand.resize(n);
 	 upperBand.resize(n);
 
-	 lowerBand(0) = zero;
-	 upperBand(n-1) = zero;
+	 if(n > 0)
+	 {
+		  lowerBand(0) = zero;
+		  upperBand(n-1) = zero;
+	 }
 }
 
 template<class T> inline
