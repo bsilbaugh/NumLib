@@ -24,7 +24,7 @@ class TriMatrix
 {
 public:
 
-	 TriMatrix(Size n_);
+	 TriMatrix(Size n_=0);
 
 	 TriMatrix(const TriMatrix & other);
 
@@ -51,6 +51,9 @@ public:
 
 	 //! Returns kth row element in upper band
 	 const T & upper(Index k) const;
+
+	 //! Resizes array to n x n; contents not preserved
+	 void resize(Size n_);
 
 	 /* Generic matrix container interface */
 

@@ -3,8 +3,11 @@ template<class T>
 TriMatrix<T>::TriMatrix(Size n_):
   n(n_),zero(0),lowerBand(n),diagBand(n),upperBand(n)
 {
-  lowerBand(0) = zero;
-  upperBand(n-1) = zero;
+	 if(n > 0)
+	 {
+		  lowerBand(0) = zero;
+		  upperBand(n-1) = zero;
+	 }
 }
 
 template<class T>
@@ -76,6 +79,19 @@ const T & TriMatrix<T>::upper(Index k) const
 {
   ASSERT( k < n );
   return upperBand(k);
+}
+
+template<class T>
+void TriMatrix<T>::resize(Size n_)
+{
+	 n = n_;
+
+	 lowerBand.resize(n);
+	 diagBand.resize(n);
+	 upperBand.resize(n);
+
+	 lowerBand(0) = zero;
+	 upperBand(n-1) = zero;
 }
 
 template<class T> inline
