@@ -38,6 +38,9 @@ public:
 	 //! Copy constructor (deep copy)
 	 HessMatrix(const HessMatrix & other);
 
+	 //! Constructs an m x m Hessenberg from and m+1 x m Hessenberg
+	 HessMatrix(const HessMatrix & other, bool extended);
+
 	 //! Destructor
 	 ~HessMatrix();
 

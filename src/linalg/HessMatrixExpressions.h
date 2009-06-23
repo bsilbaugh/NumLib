@@ -43,7 +43,7 @@ void factorLU(HessMatrix<T> & hess)
 {
 	 // Get problem size...
 
-	 ASSERT( hess.size1() == hess.size2() );
+	 ASSERT( hess.size2() == hess.size1() );
 
 	 Size n = hess.size2();
 

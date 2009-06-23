@@ -25,6 +25,14 @@ HessMatrix<T>::HessMatrix(const HessMatrix & other):
 }
 
 template<class T>
+HessMatrix<T>::HessMatrix(const HessMatrix & other, bool extended):
+	 n(0),m(0),columns(0),zero(0)
+{
+	 copy(other);
+	 n = m;
+}
+
+template<class T>
 HessMatrix<T>::~HessMatrix()
 {
 	 delete[] columns;
