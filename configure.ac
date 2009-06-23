@@ -52,6 +52,7 @@ AC_CONFIG_FILES([Makefile
 				 src/Makefile
 				 src/base/Makefile
 				 src/linalg/Makefile
+				 src/solvers/Makefile
 				 src/array/Makefile
 				 src/tensor/Makefile
 				 src/integration/Makefile
