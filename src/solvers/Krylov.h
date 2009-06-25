@@ -26,6 +26,9 @@ namespace numlib{ namespace solver{
  *  NOTE: This is code is experimental and subject to revision. Future versions
  *  may not be backwards compatible with old implemenations--caveat emptor.
  *  
+ *  \todo Replace use of function prod with an in-place matrix vector product 
+ *   to avoid temporaries (e.g. prodIP).
+ *
  *  \todo Could also implement this as a template function instead?
  */
 template<class T, class L, class K, class P>
