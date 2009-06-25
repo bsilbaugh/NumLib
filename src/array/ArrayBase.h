@@ -416,6 +416,15 @@ void ArrayBase<T>::operator/=(const ArrayBase<T> & arr)
 	}												\
 													\
 	friend											\
+	Tsub abs(const Tsub & arr)						\
+	{												\
+		Tsub tmp(arr.n);                            \
+		for(Index i=0; i<arr.n; i++)                \
+			 tmp(i) = ::numlib::abs(arr(i));		\
+		return tmp;                                 \
+	}												\
+													\
+	friend											\
 	T sum(const Tsub & arr)							\
 	{												\
 	  T tmp = 0;									\
