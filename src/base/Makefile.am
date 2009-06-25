@@ -12,6 +12,7 @@ library_include_HEADERS = constants.h \
 						  IndexError.h \
 						  random.h \
 						  StopWatch.h \
+						  ScopedTimer.h \
 						  io.h
 
 libnumlib_base_a_SOURCES = constants.cpp \
