@@ -2,45 +2,73 @@
  */
 
 template<class T, class NL, class K, class P>
-NewtonKrylov<T,NL,K,P>::NewtonKrylov(Size n_, Size mmax_, Size lmax_, Size nlmax_):
-  n(n_), mmax(mmax_), lmax(lmax_), nlmax(nlmax_), krylov(n_,mmax_)
+NewtonKrylov<T,NL,K,P>::NewtonKrylov(Size n_, Size mmax_, Size lmax_, Real tol_):
+	 n(n_), 
+	 mmax(mmax_), 
+	 lmax(lmax_), 
+	 tol(tol_), 
+	 r(n_), 
+	 rn(0),	 
+	 krylov(n_,mmax_)
 {
 }
 
 template<class T, class NL, class K, class P>
-T NewtonKrylov<T,NL,K,P>::iter(const NL & f, const VecType & u0)
+T NewtonKrylov<T,NL,K,P>::newSequence(NL & f, const VecType & u0)
 {
-  
-  // Compute initial residual...
 
-  r = f(u0);
-  rn = norm2(r);
+	 // Compute initial residual...
 
-  return rn;
+	 DEBUG_PRINT( "Computing initial residual" );
+
+	 f.eval(u0, r);
+	 rn = norm2(r);
+
+	 DEBUG_PRINT_VAR( rn );
+
+	 return rn;
 }
 
 template<class T, class NL, class K, class P>
-T NewtonKrylov<T,NL,K,P>::iter(const NL & f, const VecType & u)
+T NewtonKrylov<T,NL,K,P>::iter(NL & f, VecType & u)
 {
-  
-  // Set initial guess for linear problem...
 
-  VecType du(n);
-  du.zero();
+	 // Create approximate Gateaux operator...
 
-  // Solve for Newton correction...
+	 GateauxFD<T,NL> gateaux(f, u, r); /* r = f(u) */
 
-  liter = 0;
-  while( (rn > tol) and (liter++ < lmax) )
-	rn = krylov.solve(gateux, du, -r, tol);
+	 // Set initial guess for linear problem...
 
-  u += du;
+	 VecType du(n);
+	 du.zero();
 
-  // Update nonlinear residual...
+	 /* Since initial guess, du, is set to zero, the current nonlinear residual
+	  * is equal to the initial residual of the linearized system */
 
-  r = f(u);
-  rn = norm2(r);
+	 // Solve for Newton correction...
 
-  return rn;
+	 DEBUG_PRINT( "Solving for newton correction..." );
+
+	 r *= -1.0;
+	 Index liter = 0;
+     while( (rn > tol) and (liter++ < lmax) )
+	 {
+		  rn = krylov.solve(gateaux, du, r, tol);
+
+		  DEBUG_PRINT_VAR( rn );
+	 }
+
+	 u += du;
+
+	 // Update nonlinear residual...
+
+	 DEBUG_PRINT( "Updating nonlinear residual" );
+
+	 f.eval(u, r); /* r = f(u) */
+	 rn = norm2(r);
+
+	 DEBUG_PRINT_VAR( rn );
+
+	 return rn;
 
 }
