@@ -63,6 +63,9 @@ public:
    template<class T2> friend
    T2 norm2(const Vector<T2> & u);
 
+   template<class T2> friend
+   Vector<T2> abs(const Vector<T2> & u);
+
 private:
   
    //! element array

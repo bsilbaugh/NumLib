@@ -17,6 +17,14 @@ T norm2(const Vector<T> & u)
   return std::sqrt(tmp);
 }
 
+template<class T>
+Vector<T> abs(const Vector<T> & u)
+{
+	 Vector<T> tmp(u.size());
+	 tmp.data = array::abs(u.data);
+	 return tmp;
+}
+
 	/*** Vector-Scalar operations ***/
 
 template<class T> inline
