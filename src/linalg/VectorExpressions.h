@@ -21,7 +21,7 @@ template<class T>
 Vector<T> abs(const Vector<T> & u)
 {
 	 Vector<T> tmp(u.size());
-	 tmp.data = array::abs(u.data);
+	 tmp.data = ::numlib::array::abs(u.data);
 	 return tmp;
 }
 
