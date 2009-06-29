@@ -114,6 +114,8 @@ public:
 	ARRAY_ALL_OPERATORS(Array2D, T)
 };
 
+ARRAY_OVERLOADED_OPERATORS(Array2D)
+
 template<class T>
 Array2D<T> & Array2D<T>::operator=(const Array2D<T> & arr)
 {

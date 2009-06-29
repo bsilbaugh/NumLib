@@ -86,14 +86,16 @@ public:
 		return ArrayBase<T>::data[i]; 
 	}
 
-	template<class T1>
-	friend std::ostream & operator<<(std::ostream & os, const Array1D<T1> & arr);
+//	template<class T1>
+//	friend std::ostream & operator<<(std::ostream & os, const Array1D<T1> & arr);
 
 	// Add array operators
 	
-	ARRAY_ALL_OPERATORS(Array1D, T)
+    ARRAY_ALL_OPERATORS(Array1D, T)
 
 };
+
+ARRAY_OVERLOADED_OPERATORS( Array1D )
 
 template<class T>
 Array1D<T> & Array1D<T>::operator=(const Array1D<T> & arr)
@@ -108,6 +110,7 @@ Array1D<T> & Array1D<T>::operator=(const Array1D<T> & arr)
 	return *this;
 }
 
+/*
 template<class T>
 std::ostream & operator<<(std::ostream & os, const Array1D<T> & arr)
 {
@@ -115,6 +118,7 @@ std::ostream & operator<<(std::ostream & os, const Array1D<T> & arr)
 		os<<" "<<arr.data[i];
 	return os;
 }
+*/
 
 /*
 template<>
