@@ -6,4 +6,10 @@ library_include_HEADERS = Arnoldi.h \
 						  Krylov-inl.h \
 						  Krylov.h \
 						  KrylovSpaceAO-inl.h \
-						  KrylovSpaceAO.h
+						  KrylovSpaceAO.h \
+						  GateauxFD.h \
+						  GateauxFD-inl.h \
+						  NewtonKrylov.h \
+						  NewtonKrylov-inl.h \
+						  NewtonArnoldi.h \
+						  NewtonArnoldi-inl.h
