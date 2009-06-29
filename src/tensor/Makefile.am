@@ -13,7 +13,9 @@ libnumlib_tensor_a_SOURCES = TensorR1.h \
 							 FiniteRotations.cpp \
 							 FiniteRotations.h \
 							 ReferenceFrame.h \
-							 ReferenceFrame-inl.h
+							 ReferenceFrame-inl.h \
+							 MovingReferenceFrame.h \
+						     MovingReferenceFrame.cpp
 
 library_includedir=$(includedir)/numlib/tensor
 
@@ -25,4 +27,5 @@ library_include_HEADERS = TensorR1.h \
 						  RotVector.h \
 						  FiniteRotations.h \
 						  ReferenceFrame.h \
-						  ReferenceFrame-inl.h
+						  ReferenceFrame-inl.h \
+						  MovingReferenceFrame.h
