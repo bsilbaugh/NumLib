@@ -33,7 +33,7 @@
 		std::cout << "\nERROR Assert " << #statement << " failed\n"; \
 		std::cout << "on line " << __LINE__ << "\n"; \
 		std::cout << "in file " << __FILE__ << "\n\n"; \
-		throw NumLibError();						   \
+		throw AssertError();						   \
 	}
 #endif
 
