@@ -30,9 +30,9 @@
 #define ASSERT( statement ) \
 	if ( !(statement) ) \
     { \
-		std::cout << "\nERROR Assert " << #statement << " failed\n"; \
-		std::cout << "on line " << __LINE__ << "\n"; \
-		std::cout << "in file " << __FILE__ << "\n\n"; \
+		std::cerr << "\nERROR Assert " << #statement << " failed\n"; \
+		std::cerr << "on line " << __LINE__ << "\n"; \
+		std::cerr << "in file " << __FILE__ << "\n\n"; \
 		throw AssertError();						   \
 	}
 #endif
