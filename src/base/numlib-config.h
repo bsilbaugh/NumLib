@@ -10,6 +10,8 @@
 #ifndef NUMLIB_CONFIG_H
 #define NUMLIB_CONFIG_H
 
+#include <cmath>
+
 namespace numlib{
 
 //! default floating point type for real numbers
@@ -50,6 +52,36 @@ typedef unsigned long int UInt;
 
 //! default boolean type
 typedef bool Bool;
+
+/*** Common basic functions ****/
+
+using std::cos;
+
+using std::sin;
+
+//! Computes the absolute value of a number
+inline
+Real abs(const Real & x)
+{
+	 return std::fabs(x);
+}
+
+//! Returns the maximum value of a pair of Real numbers
+inline
+Real max(const Real & a, const Real & b)
+{
+	 if(b > a)
+		  return b;
+	 else
+		  return a;
+}
+
+//! Returns the sign of a floating point number
+inline
+Real sign(const Real & val)
+{
+	 return val/std::fabs(val);
+}
 
 }
 

@@ -1,52 +1,80 @@
 /*! \file Vector.h
- *  \brief uBLAS typedefs
  */
 
 #ifndef VECTOR_H
 #define VECTOR_H
 
-#include <boost/numeric/ublas/vector.hpp>
-#include <boost/numeric/ublas/vector_sparse.hpp>
-#include <boost/numeric/ublas/storage.hpp>
-#include <boost/numeric/ublas/io.hpp>
-
-#include "../base/debug_tools.h"
-#include "../base/numlib-config.h"
+#include "../array/Array1D.h"
 
 namespace numlib{ namespace linalg{
 
-//! Unbounded dense vector
-typedef boost::numeric::ublas::vector<Real> Vector;
+//! Dense vector model
+/*!
+ *  Models a dense vector for elements of type T, where type T may be any complete
+ *  numerical type.
+ */
+template<class T>
+class Vector
+{
+public:
 
-//! Unbounded sparse vector
-typedef boost::numeric::ublas::compressed_vector<Real> SparseVec;
+   //! Constructs a vector with dimension n
+   Vector(Size n_=0);
 
-//! Index range
-typedef boost::numeric::ublas::range Range;
+   //! Copy constructor (deep copy)
+   Vector(const Vector & other);
 
-//! Index slice
-typedef boost::numeric::ublas::slice Slice;
+   //! Destructor
+   ~Vector();
 
-//! Vector range proxy
-typedef boost::numeric::ublas::vector_range<Vector> VectorRange;
+   //! Assignment (deep copy)
+   Vector & operator=(const Vector & other);
 
-//! Const Vector range proxy
-typedef boost::numeric::ublas::vector_range<const Vector> ConstVectorRange;
+   //! Sets all elements to zero
+   void zero();
 
-//! Vector slice proxy
-typedef boost::numeric::ublas::vector_slice<Vector> VectorSlice;
+   /* Container interface */
 
-//! Const Vector slice proxy
-typedef boost::numeric::ublas::vector_slice<const Vector> ConstVectorSlice;
+   Size size() const;
 
-//! Unbounded zero vector
-typedef boost::numeric::ublas::zero_vector<Real> ZeroVec;
+   //! Resizes vector to hold n elements
+   /*!
+	*  Original contents may be destroyed. Resize operation is provided to
+	*  facilitate initialization of default constructed vectors.
+	*/
+   void resize(Size n_);
 
-//! Unbounded unit vector
-typedef boost::numeric::ublas::unit_vector<Real> UnitVec;
+   T & operator()(Index i);
 
-//! L2-norm
-using boost::numeric::ublas::norm_2;
+   const T & operator()(Index i) const;
 
-}}
+   /* In-place arithmetic operators */
+
+   Vector & operator*=(const T & c);
+
+   Vector & operator/=(const T & c);
+
+   Vector & operator+=(const Vector & other);
+
+   Vector & operator-=(const Vector & other);
+
+   /* Friend functions */
+
+   template<class T2> friend
+   T2 norm2(const Vector<T2> & u);
+
+   template<class T2> friend
+   Vector<T2> abs(const Vector<T2> & u);
+
+private:
+  
+   //! element array
+   array::Array1D<T> data;
+
+};
+
+#include "Vector-inl.h"
+
+}}//::numlib::linalg
+
 #endif

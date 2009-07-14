@@ -48,7 +48,7 @@ public:
 	 *	Memory for 'size' number of elements is allocated and left
 	 *	uninitialized.
 	 */
-	ArrayBase(Size size);
+	ArrayBase(Size size=0);
 
 	//! Constructs an array from a raw C pointer to a 1D array
 	/*!
@@ -71,6 +71,13 @@ public:
 
 	//! Returns total number of elements contained in the array
 	Size size(){return n;}
+
+    //! Reallocates internal memory to hold n elements
+    /*! 
+     *  Original data is not guaranteed to be preserved. The resize operation
+     *  is provided primarily for initialization of default constructed arrays.
+     */
+    void resize(Size n_);
 
 	//! Assignment from array
 	/*!
@@ -162,6 +169,14 @@ ArrayBase<T> &  ArrayBase<T>::operator=(const ArrayBase & arr)
 		data[i] = arr.data[i];
 
 	return *this;
+}
+
+template<class T>
+void ArrayBase<T>::resize(Size size)
+{
+  n = size;
+  delete[] data;
+  data = new T[n];
 }
 
 template<class T>
@@ -371,38 +386,58 @@ void ArrayBase<T>::operator/=(const ArrayBase<T> & arr)
 	} 												\
 
 
-#define ARRAY_FRIEND_OPERATORS(Tsub, T)				\
-													\
-	friend											\
-	Tsub operator+(const T & x, const Tsub & arr)	\
-	{												\
-		return arr + x;								\
-	}												\
-													\
-	friend											\
-	Tsub operator-(const T & x, const Tsub & arr)	\
-	{												\
-		return -1.0*(arr - x);					    \
-	}												\
-													\
-	friend											\
-	Tsub operator*(const T & x, const Tsub & arr)	\
-	{												\
-		return arr * x;								\
-	}												\
-													\
-	friend											\
-	Tsub operator/(const T & x, const Tsub & arr)	\
-	{												\
-		Tsub tmp(arr.n);                            \
-		for(Index i=0; i<arr.n; i++)                \
-			tmp(i) = x/arr(i);                      \
-		return tmp;                                 \
-	}												\
+#define ARRAY_FRIEND_OPERATORS(Tsub, TT)
+
+#define ARRAY_OVERLOADED_OPERATORS(Tsub)			        \
+	 														\
+	 template<class TT>										\
+	 Tsub<TT> operator+(const TT & x, const Tsub<TT> & arr)	\
+	 {														\
+		  return arr + x;									\
+	 }														\
+	 														\
+     template<class TT>										\
+	 Tsub<TT> operator-(const TT & x, const Tsub<TT> & arr)	\
+	 {														\
+		  return -1.0*(arr - x);							\
+	 }														\
+	 														\
+	 template<class TT>										\
+	 Tsub<TT> operator*(const TT & x, const Tsub<TT> & arr)	\
+	 {														\
+		  return arr * x;									\
+	 }														\
+	 														\
+	 template<class TT>										\
+	 Tsub<TT> operator/(const TT & x, const Tsub<TT> & arr)	\
+	 {														\
+		  Tsub<TT> tmp(arr.n);								\
+		  for(Index i=0; i<arr.size(); i++)					\
+			   tmp(i) = x/arr(i);							\
+		  return tmp;										\
+	 }														\
+	 														\
+	 template<class TT>										\
+	 Tsub<TT> abs(const Tsub<TT> & arr)						\
+	 {														\
+		  Tsub<TT> tmp(arr.n);								\
+		  for(Index i=0; i<arr.size(); i++)					\
+			   tmp(i) = ::numlib::abs(arr(i));				\
+		  return tmp;										\
+	 }														\
+	 														\
+	 template<class TT>										\
+	 TT sum(const Tsub<TT> & arr)							\
+	 {														\
+		  TT tmp = 0;										\
+		  for(Index i=0; i<arr.size(); ++i)					\
+			   tmp += arr(i);								\
+		  return tmp;										\
+	 }														\
 
 #define ARRAY_ALL_OPERATORS(Tsub, T) 		\
 		ARRAY_INPLACE_OPERATORS(Tsub, T) 	\
 		ARRAY_CONST_OPERATORS(Tsub, T) 		\
-		ARRAY_FRIEND_OPERATORS(Tsub, T)
+		ARRAY_FRIEND_OPERATORS(Tsub,T)
 
 #endif

@@ -9,6 +9,7 @@
 #define DEBUG_TOOLS_H
 
 #include <iostream>
+#include "NumLibError.h"
 
 //! Prints msg to STDOUT
 #ifndef DEBUG
@@ -22,16 +23,17 @@
 #define DEBUG_PRINT_VAR( var ) \
 	DEBUG_PRINT( #var << " = " << var )
 
-//! Prints error to STDOUT if statement evaluates to false
+//! Prints error to STDOUT and throws if statement evaluates to false
 #ifndef DEBUG
 #define ASSERT( statement )
 #else
-#define ASSERT( statement ) \
-	if ( !(statement) ) \
-    { \
-		std::cout << "\nERROR Assert " << #statement << " failed\n"; \
-		std::cout << "on line " << __LINE__ << "\n"; \
-		std::cout << "in file " << __FILE__ << "\n\n"; \
+#define ASSERT( statement )						                     \
+	 if ( !(statement) )											 \
+	 {																 \
+		std::cerr << "\nERROR Assert " << #statement << " failed\n"; \
+		std::cerr << "on line " << __LINE__ << "\n";				 \
+		std::cerr << "in file " << __FILE__ << "\n\n";				 \
+		exit(EXIT_FAILURE);											 \
 	}
 #endif
 

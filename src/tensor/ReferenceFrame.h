@@ -31,6 +31,7 @@ public:
 	//! Copy constructor
 	ReferenceFrame(const ReferenceFrame & other);
 
+	 virtual
 	~ReferenceFrame();
 
 	//! Assignment
@@ -42,11 +43,13 @@ public:
 	//! Returns the ith unit basis vector
 	TensorR1 & operator()(Index i);
 
-private:
+protected:
 
 	TensorR1 e1;
 	TensorR1 e2;
 	TensorR1 e3;
+
+private:
 
 	void copy(const ReferenceFrame & other);
 

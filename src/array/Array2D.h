@@ -43,7 +43,7 @@ public:
 	 * 	Memory for imax*jmax number of elements is allocated
 	 * 	and left uninitialized.
 	 */
-	Array2D(Size imax, Size jmax):ArrayBase<T>(imax*jmax),
+	Array2D(Size imax=0, Size jmax=0):ArrayBase<T>(imax*jmax),
 	ni(imax), nj(jmax), si(1),sj(imax){ }
 
 	//! Copy constructor
@@ -75,6 +75,21 @@ public:
 	//! Array size - number of elements along second axis
 	Size size2() const {return nj; }
 
+    //! Resizes array to hold imax rows and jmax columns
+    /*!
+	 *  Original contents of the array are not guaranteed to be preserved.
+	 *  The resize operation is intended for initialization of default constructed
+	 *  arrays.
+	 */
+    void resize(Size imax, Size jmax)
+    {
+	    ni = imax;
+	    nj = jmax;
+		sj = imax;
+	    ArrayBase<T>::resize(ni*nj);
+	}
+
+
 	//! Read/write element access
 	T & operator()(Index i, Index j) 
 	{ 
@@ -98,6 +113,8 @@ public:
 	
 	ARRAY_ALL_OPERATORS(Array2D, T)
 };
+
+ARRAY_OVERLOADED_OPERATORS(Array2D)
 
 template<class T>
 Array2D<T> & Array2D<T>::operator=(const Array2D<T> & arr)
