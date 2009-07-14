@@ -8,6 +8,55 @@
 
 namespace numlib{ namespace linalg{
 
+    /*** partitioning utilities ***/
+
+//! Copies a contiguous range of elements from vector u into vector up
+/*!
+ *  Per C iteration conventions, 'first' is the index of the first element, 
+ *  and 'last' is the index of the last element plus 1; thus, the size of
+ *  the partition is 'last' - 'first'.
+ *
+ *  This isn't a very efficient vector partitioning scheme, but it is
+ *  quite robust and safe.
+ */
+template<class T>
+void getPartition(const Vector<T> & u, Vector<T> & up, Index first, Index last)
+{
+	 ASSERT( last <= u.size() );
+	 ASSERT( first <= last );
+
+	 Size n = last - first;
+
+	 if( up.size() != n ) 
+		  up.resize(n);
+
+	 for(Index i=0; i<n; ++i)
+		  up(i) = u(first + i);
+}
+
+//! Copies all of the elements in vector up into a contiguous range of vector u
+/*!
+ *  Per C iteration conventions, 'first' is the index of the first element, 
+ *  and 'last' is the index of the last element plus 1; thus, the size of
+ *  the partition is 'last' - 'first'.
+ *
+ *  This isn't a very efficient vector partitioning scheme, but it is
+ *  quite robust and safe.
+ */
+template<class T>
+void setPartition(Vector<T> & u, const Vector<T> & up, Index first, Index last)
+{
+	 ASSERT( last <= u.size() );
+	 ASSERT( first <= last );
+
+	 Size n = last - first;
+	 
+	 ASSERT( up.size() == n );
+
+	 for(Index i=0; i<n; ++i)
+		  u(first + i) = up(i);
+}
+
     /*** Norm Operators ***/
 
 template<class T>
