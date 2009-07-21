@@ -411,7 +411,7 @@ void ArrayBase<T>::operator/=(const ArrayBase<T> & arr)
 	 template<class TT>										\
 	 Tsub<TT> operator/(const TT & x, const Tsub<TT> & arr)	\
 	 {														\
-		  Tsub<TT> tmp(arr.n);								\
+		  Tsub<TT> tmp(arr.size());							\
 		  for(Index i=0; i<arr.size(); i++)					\
 			   tmp(i) = x/arr(i);							\
 		  return tmp;										\
@@ -420,7 +420,7 @@ void ArrayBase<T>::operator/=(const ArrayBase<T> & arr)
 	 template<class TT>										\
 	 Tsub<TT> abs(const Tsub<TT> & arr)						\
 	 {														\
-		  Tsub<TT> tmp(arr.n);								\
+		  Tsub<TT> tmp(arr.size());							\
 		  for(Index i=0; i<arr.size(); i++)					\
 			   tmp(i) = ::numlib::abs(arr(i));				\
 		  return tmp;										\
