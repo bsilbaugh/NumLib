@@ -4,9 +4,24 @@
 #ifndef VECTOREXPRESSIONS_H
 #define VECTOREXPRESSIONS_H
 
+#include <iostream>
 #include "Vector.h"
 
 namespace numlib{ namespace linalg{
+
+    /*** IO utilities ***/
+
+template<class T>
+std::ostream & operator<<(std::ostream & os, const Vector<T> & u)
+{
+	 for(Index i=0; i<u.size()-1; ++i)
+	 {
+		  os<<u(i)<<" ";
+	 }
+	 os<<u(u.size()-1);
+	 return os;
+}
+
 
     /*** partitioning utilities ***/
 
