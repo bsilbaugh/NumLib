@@ -13,6 +13,18 @@ NewtonKrylov<T,NL,K,P>::NewtonKrylov(Size n_, Size mmax_, Size lmax_, Real tol_)
 {
 }
 
+template<class T, class NL, class K, class P> inline
+void NewtonKrylov<T,NL,K,P>::tolerance(Real tol_)
+{
+	 tol = tol_;
+}
+
+template<class T, class NL, class K, class P> inline
+Real NewtonKrylov<T,NL,K,P>::tolerance() const
+{
+	 return tol;
+}
+
 template<class T, class NL, class K, class P>
 T NewtonKrylov<T,NL,K,P>::newSequence(NL & f, const VecType & u0)
 {
@@ -57,6 +69,8 @@ T NewtonKrylov<T,NL,K,P>::iter(NL & f, VecType & u)
 
 		  DEBUG_PRINT_VAR( rn );
 	 }
+
+	 DEBUG_PRINT_VAR( du );
 
 	 u += du;
 

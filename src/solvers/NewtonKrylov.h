@@ -43,6 +43,12 @@ public:
 
 	 NewtonKrylov(Size n_, Size mmax_, Size lmax_, Real tol_);
 
+	 //! Sets convergence tolerance
+	 void tolerance(Real tol_);
+
+	 //! Returns convergence tolerance currently being used by solver
+	 Real tolerance() const;
+
 	 //! Initialize a new non-linear iteration sequence
 	 /*!
 	  *  The residual 2-norm of the nonlinear system, f(u), is returned
