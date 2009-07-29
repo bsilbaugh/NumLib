@@ -64,10 +64,10 @@ private:
 	 VecType typu;
 
 	 //! Vector to in which the derivative is evaluated
-	 const VecType & u;
+	 VecType u;
 
 	 //! Value of nonliner operator f evaluated at u, i.e. f(u).
-	 const VecType & fu;
+	 VecType fu;
 
 };
 
