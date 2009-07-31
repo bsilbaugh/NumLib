@@ -6,7 +6,6 @@
 #define ROTVECTOR_H
 
 #include "TensorR1.h"
-#include "TensorR2.h"
 
 namespace numlib{ namespace tensor{
 
@@ -43,16 +42,11 @@ class RotVector: public TensorR1
 {
 public:
 
-	//! Initializes rotation vector to zero
-	RotVector():TensorR1() {}
+	 //! Initializes rotation vector with provided Cartesian components
+	 RotVector(Real x1=0.0, Real x2=0.0, Real x3=0.0);
 
-	//! Initializes rotation vector with provided Cartesian components
-	RotVector(Real x1, Real x2, Real x3):TensorR1(x1, x2, x3) {}
-
-	//! Initializes a rotation vector from the rotation tensor
-	RotVector(const TensorR2 & rotTensor);
-
-	virtual ~RotVector() {}
+	 virtual 
+	 ~RotVector();
 
 };
 
