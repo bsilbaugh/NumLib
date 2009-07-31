@@ -18,6 +18,8 @@ public:
 
 	 EulerParameterVector(const TensorR2 & r);
 
+	 EulerParameterVector(const TensorR1 & e, Real theta);
+
 	 EulerParameterVector(const EulerParameterVector & other);
 
 	 ~EulerParameterVector();

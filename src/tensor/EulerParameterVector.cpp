@@ -35,6 +35,21 @@ EulerParameterVector::EulerParameterVector(const TensorR2 & r)
 	 q3 = (r21 - r12)/q44;
 }
 
+EulerParameterVector::EulerParameterVector(const TensorR1 & e, Real theta)
+{
+	 using std::cos;
+	 using std::sin;
+
+	 Real theta2 = 0.5*theta;
+	 Real c = cos(theta2);
+	 Real s = sin(theta2);
+
+	 q4 = c;
+	 q1 = e(1)*s;
+	 q2 = e(2)*s;
+	 q3 = e(3)*s;
+}
+
 EulerParameterVector::EulerParameterVector(const EulerParameterVector & other):
 	 q1(other.q1),
 	 q2(other.q2),
