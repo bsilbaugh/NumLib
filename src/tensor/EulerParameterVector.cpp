@@ -65,13 +65,15 @@ EulerParameterVector::~EulerParameterVector()
 
 EulerParameterVector & EulerParameterVector::operator=(const EulerParameterVector & other)
 {
-	 if(&other != this)
+	 if(&other == this)
 		  return *this;
 
 	 q1 = other.q1;
 	 q2 = other.q2;
 	 q3 = other.q3;
 	 q4 = other.q4;
+
+	 return *this;
 	 
 }
 
