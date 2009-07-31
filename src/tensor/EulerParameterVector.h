@@ -24,6 +24,12 @@ public:
 
 	 EulerParameterVector & operator=(const EulerParameterVector & other);
 
+	 //! Returns the effective rotation angle about the rotation axis
+	 Real rotationAngle() const;
+
+	 //! Returns the rotation axis (normalized to unity)
+	 TensorR1 rotationAxis() const;
+
 	 Real & operator()(Index i);
 
 	 const Real & operator()(Index i) const;

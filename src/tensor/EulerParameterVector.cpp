@@ -60,6 +60,33 @@ EulerParameterVector & EulerParameterVector::operator=(const EulerParameterVecto
 	 
 }
 
+Real EulerParameterVector::rotationAngle() const
+{
+	 using std::acos;
+
+	 return 2.0*acos(q4);
+}
+
+TensorR1 EulerParameterVector::rotationAxis() const
+{
+	 using std::sin;
+
+	 Real theta = rotationAngle();
+
+	 /* theta should be mod to [0, pi) */
+
+	 if(theta == 0.0)
+		  return TensorR1(0.0, 0.0, 0.0);
+
+	 Real s = sin(0.5*theta);
+
+	 Real e1 = q1/s;
+	 Real e2 = q2/s;
+	 Real e3 = q3/s;
+
+	 return TensorR1(e1, e2, e3);
+}
+
 Real & EulerParameterVector::operator()(Index i)
 {
 	 switch(i)
