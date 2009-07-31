@@ -63,8 +63,15 @@ public:
 	TensorR2 transpose(const TensorR2 & t);
 
 	//! Returns the vector associated with a skew symmetric tensor
+	/*!
+	 *  \todo This should have been called 'axial'... :c)
+	 */
 	friend 
 	TensorR1 unskew(const TensorR2 & t);
+
+    //! Trace
+	friend
+	Real trace(const TensorR2 & t);
 
 	//! Inner/dot product of rank 2 tensors
 	friend

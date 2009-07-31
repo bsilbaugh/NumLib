@@ -31,11 +31,19 @@
 
 // Rotation parameter vector types
 #include "RotVector.h"
+#include "EulerParameterVector.h"
 
 namespace numlib{ namespace tensor{
 
 //! Maps the rotation vector to the corresponding rotation tensor
 TensorR2 rot(const RotVector & rv);
+
+//! Maps the euler parameter vector to the corresponding rotation tensor
+/*!
+ *  Formulation base on chapter 2 of Amirouche (Amirouche. Fundamentals
+ *  of Multibody Dynamics. 2006. Birkhauser Boston.).
+ */
+TensorR2 rot(const EulerParameterVector & rv);
 
 //! Maps a reference frame to a rotation from the canonical unit basis
 TensorR2 rot(const ReferenceFrame & frame);

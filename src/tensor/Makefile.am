@@ -8,6 +8,8 @@ libnumlib_tensor_a_SOURCES = TensorR1.h \
 							 TensorR2-inl.h \
 							 TensorExpressions.cpp \
 							 TensorExpressions.h \
+							 EulerParameterVector.h \
+							 EulerParameterVector.cpp \
 							 RotVector.cpp \
 							 RotVector.h \
 							 FiniteRotations.cpp \
@@ -24,6 +26,7 @@ library_include_HEADERS = TensorR1.h \
 						  TensorR2.h \
 						  TensorR2-inl.h \
 						  TensorExpressions.h \
+						  EulerParameterVector.h \
 						  RotVector.h \
 						  FiniteRotations.h \
 						  ReferenceFrame.h \

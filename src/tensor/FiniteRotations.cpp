@@ -27,6 +27,36 @@ TensorR2 rot(const RotVector & rv)
 	return tmp;
 }
 
+TensorR2 rot(const EulerParameterVector & rv)
+{
+	 using std::sin;
+	 using std::cos;
+
+	 Real q1 = rv(1);
+	 Real q2 = rv(2);
+	 Real q3 = rv(3);
+	 Real q4 = rv(4);
+
+	 Real q1q1 = q1*q1;
+	 Real q2q2 = q2*q2;
+	 Real q3q3 = q3*q3;
+	 Real q4q4 = q4*q4;
+
+	 Real a11 = q1q1 - q2q2 - q3q3 + q4q4;
+	 Real a12 = 2.0*(q1*q2 - q3*q4);
+	 Real a13 = 2.0*(q1*q3 + q2*q4);
+
+	 Real a21 = 2.0*(q1*q2 + q3*q4);
+	 Real a22 = -q1q1 + q2q2 - q3q3 + q4q4;
+	 Real a23 = 2.0*(q2*q3 - q1*q4);
+
+	 Real a31 = 2.0*(q1*q3 - q2*q4);
+	 Real a32 = 2.0*(q2*q3 + q1*q4);
+	 Real a33 = -q1q1 - q2q2 + q3q3 + q4q4;
+
+	return TensorR2(a11, a12, a13, a21, a22, a23, a31, a32, a33);
+}
+
 TensorR2 rot(const ReferenceFrame & frame)
 {
 	TensorR1 e1 = frame(1);

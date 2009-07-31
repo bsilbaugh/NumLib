@@ -73,6 +73,12 @@ TensorR1 unskew(const TensorR2 & t)
 	return TensorR1(t.a32, t.a13, t.a21);
 }
 
+inline
+Real trace(const TensorR2 & t)
+{
+	 return t.a11 + t.a12 + t.a13;
+}
+
 //! Constructs the tensor product of two vectors, \f$ \mathbf{A} = \mathbf{u} \otimes \mathbf{v} \f$
 inline
 TensorR2 dyad(const TensorR1 & u, const TensorR1 & v)
