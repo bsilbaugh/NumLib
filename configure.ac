@@ -56,5 +56,6 @@ AC_CONFIG_FILES([Makefile
 				 src/array/Makefile
 				 src/tensor/Makefile
 				 src/integration/Makefile
+				 src/reconstruction/Makefile
 				 ])
 AC_OUTPUT

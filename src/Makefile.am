@@ -4,4 +4,5 @@ SUBDIRS = base\
 	      solvers \
 		  array \
 		  tensor \
-		  integration
+		  integration \
+		  reconstruction
