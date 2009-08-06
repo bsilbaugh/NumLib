@@ -16,6 +16,11 @@ namespace numlib{ namespace reconstruction{
  *  and stored for reuse. Linear extrapolation is performed for unbounded
  *  points.
  *
+ *  \todo Factor out extrapolation into a separate operator, with its type
+ *   given as a template parameter (default being linear extrapolation)?
+ *   This would allow the user to customize extrapolation behavior, and would
+ *   allow resuse of linear extrapolation in higher order interpolation operators.
+ *
  *  Template parameters:
  *  GridType := Any 1D array like container
  *  VecFieldType := Any 1D array like container containing vector numeric types
