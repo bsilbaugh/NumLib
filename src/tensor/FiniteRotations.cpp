@@ -78,6 +78,19 @@ TensorR2 rot(const ReferenceFrame & frame)
 	return TensorR2(a11, a12, a13, a21, a22, a23, a31, a32, a33);
 }
 
+void rotInc(const TensorR2 & r, const TensorR2 & r0, RotVector & rvinc)
+{
+	 TensorR2 rinc = dot(transpose(r0), r);
+	 EulerParameterVector einc(rinc);
+
+	 TensorR1 e = einc.rotationAxis();
+	 Real theta = einc.rotationAngle();
+
+	 rvinc(1) = e(1)*theta;
+	 rvinc(2) = e(2)*theta;
+	 rvinc(3) = e(3)*theta;
+}
+
 TensorR2 tanMap(const RotVector & rv)
 {
 	using std::sin;

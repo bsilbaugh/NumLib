@@ -48,6 +48,9 @@ TensorR2 rot(const EulerParameterVector & rv);
 //! Maps a reference frame to a rotation from the canonical unit basis
 TensorR2 rot(const ReferenceFrame & frame);
 
+//! Computes the material (right) incremental rotation vector
+void rotInc(const TensorR2 & r, const TensorR2 & r0, RotVector & rvinc);
+
 //! Returns the tensor which maps the rotation vector increment to the local tangent space of R
 /*!
  *	This map is most often used to compute curvature (angular velocity)
