@@ -134,4 +134,14 @@ const Real & EulerParameterVector::operator()(Index i) const
 	 }
 }
 
+std::ostream & operator<<(std::ostream & os, const EulerParameterVector & ep)
+{
+	 os<<std::scientific
+	   <<"( "<<ep.q1
+	   <<", "<<ep.q2
+	   <<", "<<ep.q3
+	   <<", "<<ep.q4
+	   <<" )";
+}
+
 }}//::numlib::tensor

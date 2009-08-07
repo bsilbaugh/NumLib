@@ -4,6 +4,9 @@
 #ifndef EULERPARAMETERVECTOR_H
 #define EULERPARAMETERVECTOR_H
 
+#include <iostream>
+#include <iomanip>
+
 #include "TensorR2.h"
 #include "TensorExpressions.h"
 
@@ -35,6 +38,10 @@ public:
 	 Real & operator()(Index i);
 
 	 const Real & operator()(Index i) const;
+
+	 //! Insertion operator
+	 friend
+	 std::ostream & operator<<(std::ostream & os, const EulerParameterVector & ep);
 
 private:
 
