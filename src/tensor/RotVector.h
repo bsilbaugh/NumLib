@@ -50,6 +50,46 @@ public:
 
 };
 
+inline
+RotVector operator+(const RotVector & u, const RotVector & v)
+{
+	 RotVector tmp(u);
+	 tmp += v;
+	 return tmp;
+}
+
+inline
+RotVector operator-(const RotVector & u, const RotVector & v)
+{
+	 RotVector tmp(u);
+	 tmp -= v;
+	 return tmp;
+}
+
+inline
+RotVector operator*(const RotVector & u, Real c)
+{
+	 RotVector tmp(u);
+	 tmp *= c;
+	 return tmp;
+}
+
+inline
+RotVector operator*(Real c, const RotVector & u)
+{
+	 RotVector tmp(u);
+	 tmp *= c;
+	 return tmp;
+}
+
+inline
+RotVector operator/(const RotVector & u, Real c)
+{
+	 RotVector tmp(u);
+	 tmp /= c;
+	 return tmp;
+}
+
 }} //::numlib::tensor
 
 #endif
