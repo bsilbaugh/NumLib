@@ -18,6 +18,17 @@ p(nsrc)
 
 	 // Find partitions...
 
+	 DEBUG_PRINT_VAR( nsrc );
+	 DEBUG_PRINT_VAR( ndst );
+
+	 ASSERT( srcGrid.size() == nsrc );
+	 ASSERT( dstGrid.size() == ndst );
+	 ASSERT( basisL.size() == ndst );
+	 ASSERT( basisR.size() == ndst );
+	 ASSERT( p.size() == nsrc );
+
+	 DEBUG_PRINT("Finding partitions...");
+
 	 partitionByIntervals(srcGrid, dstGrid, p);
 
 	 // Compute gradient extrapolation coefficients...
