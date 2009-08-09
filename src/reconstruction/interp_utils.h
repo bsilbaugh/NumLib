@@ -35,13 +35,18 @@ void partitionByIntervals(const ArrayT & x, const ArrayT & y, IndexArrayT & p)
 
 	 // Find partitions...
 
+	 Index i(0);
 	 Index j(0);
 
-	 for(Index i=0; i<nx; ++i)
+	 while( (i < nx) and (x(i) < y(j)) )
+		  p(i++) = j;
+
+	 while( i < nx )
 	 {
 		  p(i) = j;
-		  while( y(j) < x(i) )
+		  while( (j < ny) and (y(j) < x(i)) )
 			   p(i) = ++j;
+		  ++i;
 	 }
 
 }
