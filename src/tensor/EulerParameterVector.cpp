@@ -101,6 +101,8 @@ TensorR1 EulerParameterVector::rotationAxis() const
 	 Real e2 = q2/s;
 	 Real e3 = q3/s;
 
+	 ASSERT( fabs(e1*e1 + e2*e2 + e3*e3 - 1.0) < 1.0E-10 );
+
 	 return TensorR1(e1, e2, e3);
 }
 
