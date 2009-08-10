@@ -40,6 +40,8 @@ void GateauxFD<T,NL>::eval(const VecType & v, VecType & dfv) const
 
 	 ASSERT( fabs(h) > 0 );
 
+	 DEBUG_PRINT_VAR( h );
+
 	 // Compute perturbed solution...
 
 	 VecType upert(u);
