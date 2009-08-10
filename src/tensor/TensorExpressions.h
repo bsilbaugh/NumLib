@@ -76,7 +76,7 @@ TensorR1 unskew(const TensorR2 & t)
 inline
 Real trace(const TensorR2 & t)
 {
-	 return t.a11 + t.a12 + t.a13;
+	 return t.a11 + t.a22 + t.a33;
 }
 
 //! Constructs the tensor product of two vectors, \f$ \mathbf{A} = \mathbf{u} \otimes \mathbf{v} \f$
