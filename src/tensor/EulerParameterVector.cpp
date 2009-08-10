@@ -81,7 +81,7 @@ Real EulerParameterVector::rotationAngle() const
 {
 	 using std::acos;
 
-	 return 2.0*acos(q4);
+	 return acos(2.0*q4);
 }
 
 TensorR1 EulerParameterVector::rotationAxis() const
