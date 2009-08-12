@@ -11,6 +11,10 @@ EulerParameterVector::EulerParameterVector(Real q1_, Real q2_, Real q3_, Real q4
 	 q3(q3_),
 	 q4(q4_)
 {
+	 DEBUG_PRINT_VAR( q1 );
+	 DEBUG_PRINT_VAR( q2 );
+	 DEBUG_PRINT_VAR( q3 );
+	 DEBUG_PRINT_VAR( q4 );
 }
 
 EulerParameterVector::EulerParameterVector(const TensorR2 & r)
@@ -26,13 +30,22 @@ EulerParameterVector::EulerParameterVector(const TensorR2 & r)
 	 Real r23 = r(2,3);
 	 Real r32 = r(3,2);
 
-	 q4 = sqrt(0.25*(trace(r) + 1.0));
+	 Real tr = trace(r);
+
+	 ASSERT( tr > -1.0 );
+
+	 q4 = sqrt(0.25*(tr + 1.0));
 
 	 Real q44 = 4.0*q4;
 
 	 q1 = (r32 - r23)/q44;
 	 q2 = (r13 - r31)/q44;
 	 q3 = (r21 - r12)/q44;
+
+	 DEBUG_PRINT_VAR( q1 );
+	 DEBUG_PRINT_VAR( q2 );
+	 DEBUG_PRINT_VAR( q3 );
+	 DEBUG_PRINT_VAR( q4 );
 }
 
 EulerParameterVector::EulerParameterVector(const TensorR1 & e, Real theta)
@@ -81,6 +94,8 @@ Real EulerParameterVector::rotationAngle() const
 {
 	 using std::acos;
 
+	 DEBUG_PRINT_VAR( q4 );
+
 	 return 2.0*acos(q4);
 }
 
@@ -88,19 +103,20 @@ TensorR1 EulerParameterVector::rotationAxis() const
 {
 	 using std::sin;
 
-	 Real theta = rotationAngle();
+	 Real s = sqrt(q1*q1 + q2*q2 + q3*q3);
 
-	 /* theta should be mod to [0, pi) */
+	 if( s < 1.0E-12 ) return TensorR1(0,0,0);
 
-	 if(theta == 0.0)
-		  return TensorR1(0.0, 0.0, 0.0);
-
-	 Real s = sin(0.5*theta);
+	 DEBUG_PRINT_VAR( s );
+	 DEBUG_PRINT_VAR( q1 );
+	 DEBUG_PRINT_VAR( q2 );
+	 DEBUG_PRINT_VAR( q3 );
 
 	 Real e1 = q1/s;
 	 Real e2 = q2/s;
 	 Real e3 = q3/s;
 
+	 DEBUG_PRINT_VAR( e1*e1 + e2*e2 + e3*e3 );
 	 ASSERT( fabs(e1*e1 + e2*e2 + e3*e3 - 1.0) < 1.0E-10 );
 
 	 return TensorR1(e1, e2, e3);
