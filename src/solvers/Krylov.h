@@ -43,7 +43,7 @@ public:
 
 	 T solve(const L & linO, VecType & x, const VecType & b, const T & tol);
 
-	 Size subSpaceDim(){return m;}
+	 Size subSpaceDim() const {return m;}
 
 private:
 
