@@ -45,6 +45,13 @@ template<class T, class NL, class K, class P>
 T NewtonKrylov<T,NL,K,P>::iter(NL & f, VecType & u)
 {
 
+	 // Clear convergent histories for linear solver...
+
+	 DEBUG_PRINT("Clearing linear convergence history...");
+
+	 convHist.clear();
+	 dimHist.clear();
+
 	 // Create approximate Gateaux operator...
 
 	 GateauxFD<T,NL> gateaux(f, u, r); /* r = f(u) */
@@ -63,11 +70,17 @@ T NewtonKrylov<T,NL,K,P>::iter(NL & f, VecType & u)
 
 	 r *= -1.0;
 	 Index liter = 0;
+	 Size m;
      while( (rn > tol) and (liter++ < lmax) )
 	 {
 		  rn = krylov.solve(gateaux, du, r, tol);
+		  m = krylov.subSpaceDim();
 
 		  DEBUG_PRINT_VAR( rn );
+		  DEBUG_PRINT_VAR( m );
+
+		  convHist.push_back(rn);
+		  dimHist.push_back(m);
 	 }
 
 	 DEBUG_PRINT_VAR( du );
@@ -85,4 +98,16 @@ T NewtonKrylov<T,NL,K,P>::iter(NL & f, VecType & u)
 
 	 return rn;
 
+}
+
+template<class T, class NL, class K, class P>
+const RealList & NewtonKrylov<T,NL,K,P>::krylovConvHist() const
+{
+	 return convHist;
+}
+
+template<class T, class NL, class K, class P>
+const SizeList & NewtonKrylov<T,NL,K,P>::krylovDimHist() const
+{
+	 return dimHist;
 }

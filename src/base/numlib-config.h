@@ -11,6 +11,7 @@
 #define NUMLIB_CONFIG_H
 
 #include <cmath>
+#include <list>
 
 namespace numlib{
 
@@ -49,6 +50,15 @@ typedef long int Int;
  *	An example might be bit interleaving.
  */
 typedef unsigned long int UInt;
+
+//! List for Real types
+typedef std::list<Real> RealList;
+
+//! List for Index types
+typedef std::list<Index> IndexList;
+
+//! List for Size types
+typedef std::list<Size> SizeList;
 
 //! default boolean type
 typedef bool Bool;

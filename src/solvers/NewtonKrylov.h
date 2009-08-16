@@ -4,6 +4,7 @@
 #ifndef NEWTONKRYLOV_H
 #define NEWTONKRYLOV_H
 
+#include <list>
 #include "Krylov.h"
 #include "GateauxFD.h"
 
@@ -72,6 +73,10 @@ public:
 	  */
 	 const VecType & residual(){return r;}
 
+	 const RealList & krylovConvHist() const;
+
+	 const SizeList & krylovDimHist() const;
+
 private:
 
 	 DISALLOW_COPY_AND_ASSIGN( NewtonKrylov );
@@ -96,6 +101,12 @@ private:
 
 	 //! Linear Krylov Solver
 	 Krylov<T,GateauxFD<T,NL>,K,P> krylov;
+
+	 //! Linear Krylov convergent history
+	 RealList convHist;
+
+	 //! Linear Krylov space dimension history
+	 SizeList dimHist;
 
 };
 
