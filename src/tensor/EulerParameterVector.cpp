@@ -36,6 +36,13 @@ EulerParameterVector::EulerParameterVector(const TensorR2 & r)
 
 	 q4 = sqrt(0.25*(tr + 1.0));
 
+	 /* Sometimes the above expression for q4 results in a value slightly 
+		greater than 1.0 (e.g. 1.00000000005). If left this way computation 
+		of rotation angle via acos(q4) will give NaN. So, if q4 > 1.0 we 
+		assume its due to rounding error and manually fix it. */
+
+	 if(q4 > 1.0) q4 = 1.0;
+
 	 Real q44 = 4.0*q4;
 
 	 q1 = (r32 - r23)/q44;
