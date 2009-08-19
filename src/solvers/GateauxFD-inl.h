@@ -35,7 +35,8 @@ void GateauxFD<T,NL>::eval(const VecType & v, VecType & dfv) const
 	 Real h = eps;
 
 	 if(uTv_abs > 0)
-		  h = (eps/vn)*max(uTv_abs, typuTv)*uTv_sign;
+//		  h = (eps/vn)*max(uTv_abs, typuTv)*uTv_sign
+		  h = (eps/vn)*max(uTv_abs, 1.0E-6)*uTv_sign;
 //		  h = (eps/vn)*max(uTv_abs, typuTv); /* Seems to work better ? */
 
 	 ASSERT( fabs(h) > 0 );
