@@ -12,4 +12,6 @@ library_include_HEADERS = Arnoldi.h \
 						  NewtonKrylov.h \
 						  NewtonKrylov-inl.h \
 						  NewtonArnoldi.h \
-						  NewtonArnoldi-inl.h
+						  NewtonArnoldi-inl.h \
+						  PseudoTransientOperator.h \
+						  PseudoTransientOperator-inl.h
