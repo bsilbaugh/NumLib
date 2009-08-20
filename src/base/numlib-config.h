@@ -29,13 +29,13 @@ typedef double Real;
  *	This typedef allows tayloring of integer type used for array
  *	indicies as well as adding clarity to code.
  */
-typedef unsigned int Index;
+typedef size_t Index;
 
 //! default array size type
 /*!
  *	This typedef is used primarily for code clarity.
  */
-typedef unsigned int Size;
+typedef size_t Size;
 
 //! default signed integer
 /*!
