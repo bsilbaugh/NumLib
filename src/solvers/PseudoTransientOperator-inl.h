@@ -68,9 +68,9 @@ Real PseudoTransientOperator<T,NL>::nextTimeLevel(const VecType & u)
 
 	 // Update work vector...
 
-	 w = uk;
-	 w -= u;
-	 w *= (0.5/dtau);
+//	 w = uk;
+//	 w -= u;
+//	 w *= (0.5/dtau);
 
 	 // Pivot reference solution...
 
@@ -78,7 +78,7 @@ Real PseudoTransientOperator<T,NL>::nextTimeLevel(const VecType & u)
 
 	 // Update tscale to correspond to BDF2...
 
-	 tscale = 1.5/dtau;
+//	 tscale = 1.5/dtau;
 
 	 return rn;
 }
@@ -92,6 +92,8 @@ void PseudoTransientOperator<T,NL>::eval(const VecType & u, VecType & r)
 
 	 // Add contribution from pseudo transient ...
 
-	 r -= tscale*(u - uk);
-	 r -= w;
+//	 r -= tscale*(u - uk);
+//	 r -= w;
+
+	 r -= (u - uk)/dtau;
 }
