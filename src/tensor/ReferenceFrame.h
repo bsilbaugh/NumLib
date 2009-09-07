@@ -49,6 +49,8 @@ protected:
 	TensorR1 e2;
 	TensorR1 e3;
 
+	void setBasis(const TensorR2& r);
+
 private:
 
 	void copy(const ReferenceFrame & other);

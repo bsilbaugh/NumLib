@@ -40,29 +40,23 @@ public:
 	 //! Returns frame position
 	 const TensorR1 & position() const {return x;}
 
+	 //! Sets frame orientation
+	 void orientation(const TensorR2 & r)
+	 {
+		 ReferenceFrame::setBasis(r);
+	 }
+
 	 //! Sets frame velocity
 	 void velocity(const TensorR1 & v_) {v = v_;}
 
 	 //! Returns frame velocity
 	 const TensorR1 & velocity() const {return v;}
 
-	 //! Sets frame acceleration
-	 void acceleration(const TensorR1 & a_) {a = a_;}
-
-	 //! Returns frame acceleration
-	 const TensorR1 & acceleration() const {return a;}
-
 	 //! Sets frame material angular velocity
 	 void angularVelocity(const TensorR1 & omega_) {omega = omega_;}
 
 	 //! Returns frame material angular velocity
 	 const TensorR1 & angularVelocity() const {return omega;}
-
-	 //! Sets frame material angular acceleration
-	 void angularAcceleration(const TensorR1 & omega_dot_) {omega_dot = omega_dot_;}
-
-	 //! Returns frame material angular acceleration
-	 const TensorR1 & angularAcceleration() const {return omega_dot;}
 
 private:
 
@@ -74,14 +68,8 @@ private:
 	 //! Velocity of frame origin
 	 TensorR1 v;
 
-	 //! Acceleration of frame
-	 TensorR1 a;
-
 	 //! Material angular velocity of frame
 	 TensorR1 omega;
-
-	 //! Material angular acceleration of frame
-	 TensorR1 omega_dot;
 
 };
 

@@ -20,11 +20,9 @@ ReferenceFrame::ReferenceFrame(const TensorR1 e1_, const TensorR1 & e2_,
 }
 
 inline
-ReferenceFrame::ReferenceFrame(const TensorR2 & r):
-	e1(r(1,1), r(2,1), r(3,1)),
-	e2(r(1,2), r(2,2), r(3,2)),
-	e3(r(1,3), r(2,3), r(3,3))
+ReferenceFrame::ReferenceFrame(const TensorR2 & r)
 {
+	setBasis(r);
 }
 
 inline
@@ -84,6 +82,14 @@ void ReferenceFrame::copy(const ReferenceFrame & other)
 	e1 = other.e1;
 	e2 = other.e2;
 	e3 = other.e3;
+}
+
+inline
+void ReferenceFrame::setBasis(const TensorR2 & r)
+{
+	e1 = TensorR1(r(1,1), r(2,1), r(3,1));
+	e2 = TensorR1(r(1,2), r(2,2), r(3,2));
+	e3 = TensorR1(r(1,3), r(2,3), r(3,3));
 }
 
 }}//::numlib::tensor
