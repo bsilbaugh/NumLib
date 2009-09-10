@@ -1,0 +1,20 @@
+===========================================================================
+                        NumLib - Python Bindings
+===========================================================================
+
+This contains the Python language bindings for the NumLib library. The
+directory structure mimicks that of a typical python package. In
+general, there is a python module for each NumLib C++ library.
+
+By default, the python bindings are installed inplace. If you wish to 
+actually install the python bindings, copy the numlib directory to the 
+site-packages directory under your python install directory.
+
+Generation of python bindings was facilitated by the Boost.Python
+library. Each NumLib python module requires dynamic linkage with
+the boost_python library (e.g. libboost_python.so). This library
+contains a global registry of automatic python/numlib type conversions 
+which is shared by all boost.python modules imported by the python 
+interpretor. This global registry enables separate projects which
+use NumLib to avoid having to reimplement the python bindings for
+NumLib types and/or redefine python/NumLib type convertions.
