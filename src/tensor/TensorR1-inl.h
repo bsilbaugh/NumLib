@@ -50,6 +50,7 @@ inline
 TensorR1 & TensorR1::zero()
 {
 	x = y = z = 0.0;
+	return *this;
 }
 
 inline
