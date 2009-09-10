@@ -159,6 +159,7 @@ inline
 std::ostream & operator<<(std::ostream & os, const TensorR1 & u)
 {
 	os<<std::scientific<<"( "<<u.x<<", "<<u.y<<", "<<u.z<<" )";
+	return os;
 }
 
 }} //::numlib::tensor
