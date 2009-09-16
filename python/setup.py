@@ -21,7 +21,7 @@ lib_dirs.append(boost_dir+'/lib')
 
 inc_dirs = []
 inc_dirs.append(numlib_dir+'/include')
-inc_dirs.append(boost_dir+'/include ')
+inc_dirs.append(boost_dir+'/include')
 
 libs = []
 libs.append("boost_python")
@@ -51,11 +51,20 @@ tensor_exp = Extension('tensor/_tensor_exp', ['numlib/tensor/tensor_exp.cpp'],\
 		libraries=libs
 		)
 
+reconstruction = \
+Extension('reconstruction/_reconstruction',\
+		 ['numlib/reconstruction/reconstruction.cpp'],\
+		 include_dirs=inc_dirs,\
+		 library_dirs=lib_dirs,\
+		 libraries=libs
+		 )
+
 mods = []
 #mods.append(boostpy_test)
-#mods.append(array)
+mods.append(array)
 mods.append(tensor)
 mods.append(tensor_exp)
+mods.append(reconstruction)
 
 setup(name='numlib',\
 	  version='0.0',\
