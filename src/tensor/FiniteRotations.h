@@ -35,6 +35,24 @@
 
 namespace numlib{ namespace tensor{
 
+//! Returns rotation tensor about x-axis
+/*!
+ *  Positive rotation is defined per "right hand rule"
+ */
+TensorR2 rotX(Real theta);
+
+//! Returns rotation tensor about y-axis
+/*!
+ *  Positive rotation is defined per "right hand rule"
+ */
+TensorR2 rotY(Real theta);
+
+//! Returns rotation tensor about z-axis
+/*!
+ *  Positive rotation is defined per "right hand rule"
+ */
+TensorR2 rotZ(Real theta);
+
 //! Maps the rotation vector to the corresponding rotation tensor
 TensorR2 rot(const RotVector & rv);
 

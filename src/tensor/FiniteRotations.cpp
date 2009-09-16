@@ -3,6 +3,45 @@
 
 namespace numlib{ namespace tensor{
 
+TensorR2 rotX(Real theta)
+{
+	using std::cos;
+	using std::sin;
+
+	Real c = cos(theta);
+	Real s = sin(theta);
+
+	return TensorR2(1, 0,  0,
+			        0, c, -s,
+					0, s,  c);
+}
+
+TensorR2 rotY(Real theta)
+{
+	using std::cos;
+	using std::sin;
+
+	Real c = cos(theta);
+	Real s = sin(theta);
+
+	return TensorR2(c,  0, -s,
+			        0,  1,  0,
+					s,  0,  c);
+}
+
+TensorR2 rotZ(Real theta)
+{
+	using std::cos;
+	using std::sin;
+
+	Real c = cos(theta);
+	Real s = sin(theta);
+
+	return TensorR2(c, -s, 0,
+			        s,  c, 0,
+					0,  0, 1);
+}
+
 TensorR2 rot(const RotVector & rv)
 {
 	using std::sin;
