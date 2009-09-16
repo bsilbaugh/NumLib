@@ -50,7 +50,7 @@ def vectorField1DFromNumpy(numpyArray):
 	vectorField1D = VectorField1D(n)
 
 	for i in range(n):
-		vectorField1D[i] = Tensor(numpyArray[0,i], \
+		vectorField1D[i] = TensorR1(numpyArray[0,i], \
 				   				  numpyArray[1,i], \
 				                  numpyArray[2,i])
 
