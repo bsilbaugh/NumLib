@@ -16,7 +16,7 @@
 #define DEBUG_PRINT( msg )
 #else
 #define DEBUG_PRINT( msg) \
-	std::cout<< "(debug print: file " << __FILE__ << ", line no "<<  __LINE__ << ") " << msg <<std::endl;
+	std::cout<< "(debug print: file " << __FILE__ << ", line no "<<  __LINE__ << ") \n\t" << msg <<std::endl;
 #endif
 
 //! Prints the name of a variable and its value to STDOUT
