@@ -24,9 +24,9 @@ TensorR2 rotY(Real theta)
 	Real c = cos(theta);
 	Real s = sin(theta);
 
-	return TensorR2(c,  0, -s,
-			        0,  1,  0,
-					s,  0,  c);
+	return TensorR2( c,  0,  s,
+			         0,  1,  0,
+					-s,  0,  c);
 }
 
 TensorR2 rotZ(Real theta)
