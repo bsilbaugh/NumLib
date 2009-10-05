@@ -21,6 +21,10 @@ void GateauxFD<T,NL>::eval(const VecType & v, VecType & dfv) const
 
 	 // Compute step size...
 
+	 Real h = eps;
+
+#ifdef GATEAUX_USE_ADAPTIVE_STEP_SIZE
+
 	 dfv = abs(v); /* temporarily store |v| in dfv */
 
 	 Real uTv = prod(u,v);
@@ -30,12 +34,12 @@ void GateauxFD<T,NL>::eval(const VecType & v, VecType & dfv) const
 
 	 ASSERT( vn > 0 );
 
-	 Real h = eps;
-
 	 if(uTv_abs > 0)
 		  h = (eps/vn)*max(uTv_abs, 1.0E-6)*uTv_sign;
 
 	 ASSERT( fabs(h) > 0 );
+
+#endif
 
 	 DEBUG_PRINT_VAR( h );
 
