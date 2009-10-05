@@ -60,9 +60,6 @@ private:
 	 //! Nonlinear operator f(u)
 	 NL & f;
 
-	 //! "Typical" value of u (see Brown and Saad)
-	 VecType typu;
-
 	 //! Vector to in which the derivative is evaluated
 	 VecType u;
 
