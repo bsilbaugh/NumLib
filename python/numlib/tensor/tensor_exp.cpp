@@ -3,12 +3,12 @@
  *
  *  Both AML and Rodymol currently use an ad-hoc implementation of
  *  scalar, vector, and tensor fields based on Array1D. This module
- *  provides a common set of python bindings for these types. Thistensor types
- *  particular implementation is not part of the "official" NumLib
- *  library since Array1D implements operations that are not
- *  strickly defined for such field types (e.g. division of a
- *  vector field by another vector field). Once, proper field types
- *  have been implemented, this module can be dumped.
+ *  provides a common set of python bindings for these types. This 
+ *  ad-hoc implementation of tensor field types is not part of the 
+ *  "official" NumLib library since Array1D implements operations 
+ *  that are not strickly defined for such field types (e.g. division 
+ *  of a vector field by another vector field). Once, proper field types
+ *  have been implemented, this module can be discarded.
  */
 
 #include <boost/python.hpp>
