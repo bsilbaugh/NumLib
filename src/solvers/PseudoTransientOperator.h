@@ -97,6 +97,9 @@ private:
 	 //! Working vector associated with the difference between k and k-1 time levels
 	 VecType w;
 
+	 //! Steady residual vector
+	 VecType r_steady;
+
 	 //! Reference to nonlinear operator class which implements F(u).
 	 NL & f;
 

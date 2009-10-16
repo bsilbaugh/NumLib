@@ -7,12 +7,14 @@ PseudoTransientOperator<T,NL>::PseudoTransientOperator(Size n, NL & f_):
 	 tscale(1.0/dtau), /* initialize to time scaling to Implicit Euler */
 	 uk(n),
 	 w(n),
+	 r_steady(n),
 	 f(f_)
 {
 	 // Set default initial condition to zero...
 
 	 uk.zero();
 	 w.zero();
+	 r_steady.zero();
 
 	 DEBUG_PRINT_VAR( dtau );
 	 DEBUG_PRINT_VAR( tscale );
@@ -62,10 +64,6 @@ Real PseudoTransientOperator<T,NL>::nextTimeLevel(const VecType & u)
 
 	 DEBUG_PRINT_VAR( dtau );
 
-	 // Compute steady residual norm of previous time level...
-
-	 Real rn = norm2( u - uk )/dtau;
-
 	 // Update work vector...
 
 //	 w = uk;
@@ -80,7 +78,7 @@ Real PseudoTransientOperator<T,NL>::nextTimeLevel(const VecType & u)
 
 //	 tscale = 1.5/dtau;
 
-	 return rn;
+	 return norm2( r_steady );
 }
 
 template<class T, class NL>
@@ -88,12 +86,12 @@ void PseudoTransientOperator<T,NL>::eval(const VecType & u, VecType & r)
 {
 	 // Evaluate F(u)...
 
-	 f.eval(u, r);
+	 f.eval(u, r_steady);
 
 	 // Add contribution from pseudo transient ...
 
 //	 r -= tscale*(u - uk);
 //	 r -= w;
 
-	 r -= (u - uk)/dtau;
+	 r = r_steady - (u - uk)/dtau;
 }
