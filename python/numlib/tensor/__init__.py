@@ -59,7 +59,7 @@ def vectorField1DFromNumpy(numpyArray):
 def numpyFromTensorField1D(tensorField1D):
 
 	n = len(tensorField1D)
-	numpyArray = np.empty((3,3,n), type=float)
+	numpyArray = np.empty((3,3,n), dtype=float)
 
 	for i in range(n):
 
