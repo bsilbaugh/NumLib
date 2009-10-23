@@ -46,7 +46,7 @@ RotInterp<GridType,TensorFieldType>::operator()(const TensorFieldType& srcField,
 
 	// Set reference rotation...
 
-	TensorR2 r0 = srcField(0);
+	tensor::TensorR2 r0 = srcField(0);
 
 	// Compute rotation increments...
 
