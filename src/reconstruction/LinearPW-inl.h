@@ -63,7 +63,11 @@ p(nsrc)
 
 template<class GridType, class VecFieldType>
 LinearPW<GridType,VecFieldType>::LinearPW(const LinearPW & other):
-  nsrc(other.nsrc),ndst(other.ndst),basisL(other.basisL),basisR(other.basisR)
+  	nsrc(other.nsrc),
+	ndst(other.ndst),
+	basisL(other.basisL),
+	basisR(other.basisR),
+	p(other.p)
 {
 }
 
