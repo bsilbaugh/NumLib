@@ -46,6 +46,8 @@ private:
 
 };
 
+#include "RotInterp-inl.h"
+
 }}//::numlib::reconstruction
 
 #endif

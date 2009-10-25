@@ -1,10 +1,6 @@
 /*! \file RotInterp-inl.h
  */
 
-#include "RotInterp-inl.h"
-
-namespace numlib{ namespace reconstruction{
-
 RotInterp<GridType,TensorFieldType>::RotInterp(const GridType& srcGrid, 
 											   const GridType& dstGrid):
 	nsrc(srcGrid.size()),
@@ -67,4 +63,3 @@ RotInterp<GridType,TensorFieldType>::operator()(const TensorFieldType& srcField,
 
 }
 
-}}//::numlib::reconstruction
