@@ -1,6 +1,7 @@
 /*! \file RotInterp-inl.h
  */
 
+template<class GridType, class TensorFieldType>
 RotInterp<GridType,TensorFieldType>::RotInterp(const GridType& srcGrid, 
 											   const GridType& dstGrid):
 	nsrc(srcGrid.size()),
@@ -9,6 +10,7 @@ RotInterp<GridType,TensorFieldType>::RotInterp(const GridType& srcGrid,
 {
 }
 
+template<class GridType, class TensorFieldType>
 RotInterp<GridType,TensorFieldType>::RotInterp(const RotInterp& other):
 	nsrc(other.nsrc),
 	ndst(other.ndst),
@@ -16,12 +18,14 @@ RotInterp<GridType,TensorFieldType>::RotInterp(const RotInterp& other):
 {
 }
 
+template<class GridType, class TensorFieldType>
 RotInterp<GridType,TensorFieldType>::~RotInterp()
 {
 	/* nothing to delete */
 }
 
-RotInterp& 
+template<class GridType, class TensorFieldType>
+RotInterp<GridType,TensorFieldType>& 
 RotInterp<GridType,TensorFieldType>::operator=(const RotInterp& other)
 {
 	if(&other == this) return *this;
@@ -33,9 +37,10 @@ RotInterp<GridType,TensorFieldType>::operator=(const RotInterp& other)
 	return *this;
 }
 
+template<class GridType, class TensorFieldType>
 void 
 RotInterp<GridType,TensorFieldType>::operator()(const TensorFieldType& srcField,
-												const TensorFieldType& dstField)
+												TensorFieldType& dstField)
 {
 	ASSERT(srcField.size() == nsrc);
 	ASSERT(dstField.size() == ndst);
