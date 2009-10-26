@@ -27,25 +27,45 @@ libs = []
 libs.append("boost_python")
 libs.append("numlib_tensor")
 
+dmacros = [('DEBUG', 1)]
+undmacros = ['NDEBUG']
+arch = ['-arch', 'i386']
+
 boostpy_test = Extension('boostpy_test',['numlib/boostpy_test.cpp'],\
+		define_macros=dmacros, \
+		undef_macros=undmacros, \
+		extra_compile_args=arch,\
+		extra_link_args=arch,\
 		include_dirs=inc_dirs,\
 		library_dirs=lib_dirs, \
 		libraries=libs \
 		)
 
 array = Extension('array/_array', ['numlib/array/array.cpp'],\
+		define_macros=dmacros, \
+		undef_macros=undmacros, \
+		extra_compile_args=arch,\
+		extra_link_args=arch,\
 		include_dirs=inc_dirs,\
 		library_dirs=lib_dirs,\
 		libraries=libs
 		)
 
 tensor = Extension('tensor/_tensor', ['numlib/tensor/tensor.cpp'],\
+		define_macros=dmacros, \
+		undef_macros=undmacros, \
+		extra_compile_args=arch,\
+		extra_link_args=arch,\
 		include_dirs=inc_dirs,\
 		library_dirs=lib_dirs,\
 		libraries=libs
 		)
 
 tensor_exp = Extension('tensor/_tensor_exp', ['numlib/tensor/tensor_exp.cpp'],\
+		define_macros=dmacros, \
+		undef_macros=undmacros, \
+		extra_compile_args=arch,\
+		extra_link_args=arch,\
 		include_dirs=inc_dirs,\
 		library_dirs=lib_dirs,\
 		libraries=libs
@@ -54,6 +74,10 @@ tensor_exp = Extension('tensor/_tensor_exp', ['numlib/tensor/tensor_exp.cpp'],\
 reconstruction = \
 Extension('reconstruction/_reconstruction',\
 		 ['numlib/reconstruction/reconstruction.cpp'],\
+		 define_macros=dmacros, \
+		 undef_macros=undmacros, \
+		 extra_compile_args=arch,\
+		 extra_link_args=arch,\
 		 include_dirs=inc_dirs,\
 		 library_dirs=lib_dirs,\
 		 libraries=libs
