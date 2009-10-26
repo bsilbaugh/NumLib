@@ -29,7 +29,7 @@ template<class T>
 void Vector<T>::zero()
 {
   T zero(0);
-  data *= zero;
+  data = zero; /* broadcast zero to all elements */
 }
 
 template<class T> inline
