@@ -5,6 +5,7 @@
 #include <boost/python.hpp>
 #include "numlib/tensor/TensorR1.h"
 #include "numlib/tensor/TensorR2.h"
+#include "numlib/tensor/TensorExpressions.h"
 #include <sstream>
 
 using namespace numlib;
