@@ -1,7 +1,9 @@
 /*! \file debug_tools.h
  *  \brief A collection of debugging macro utiltilies
  *
- *  To activiate all debugging macros define DEBUG.
+ *  Debugging assertions are activated when DEBUG is defined. Debug
+ *  print statements are activated when DEBUG is set to a value
+ *  greater than 1.
  *
  */
 
@@ -11,12 +13,12 @@
 #include <iostream>
 #include "NumLibError.h"
 
-//! Prints msg to STDOUT
-#ifndef DEBUG
-#define DEBUG_PRINT( msg )
-#else
+//! Prints msg to STDOUT if DEBUG set to a value greater than 1
+#if DEBUG>1
 #define DEBUG_PRINT( msg) \
 	std::cout<< "(debug print: file " << __FILE__ << ", line no "<<  __LINE__ << ") \n\t" << msg <<std::endl;
+#else
+#define DEBUG_PRINT( msg )
 #endif
 
 //! Prints the name of a variable and its value to STDOUT
