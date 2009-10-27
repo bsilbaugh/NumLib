@@ -14,7 +14,11 @@ AC_ARG_WITH(boost,
 
 AC_ARG_ENABLE(debug,
 			  AC_HELP_STRING([--enable-debug],
-							 [Enables all debug print statements and assertions (default: no)]),,enable_debug=no)
+							 [Enables all debugging assertions (default: no)]),,enable_debug=no)
+AC_ARG_ENABLE(debug_print,
+			  AC_HELP_STRING([--enable-debug-print],
+							 [Enables all debug assertions and print statements (default: no)]),,enable_debug_print=no)
+
 
 
 if test "$ac_cv_env_CXXFLAGS_set" != set ; then
@@ -22,8 +26,12 @@ if test "$ac_cv_env_CXXFLAGS_set" != set ; then
 fi
 
 dnl Check if debuggin is to be enabled
-if test "x$enable_debug == xyes"; then
-	AC_DEFINE(DEBUG)
+if test "$enable_debug" = yes; then
+	AC_DEFINE(DEBUG,1)
+fi
+
+if test "$enable_debug_print" = yes; then
+	AC_DEFINE(DEBUG,2)
 fi
 
 dnl Check for Boost Libraries, if not given assume installed 
