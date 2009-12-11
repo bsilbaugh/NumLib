@@ -5,4 +5,5 @@ SUBDIRS = base\
 		  array \
 		  tensor \
 		  integration \
-		  reconstruction
+		  reconstruction \
+		  nnet
