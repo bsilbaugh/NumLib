@@ -1,6 +1,8 @@
 /*! \file Neuron-imp.h
  */
 
+#define WEIGHT_IC_SF 1.0E-2
+
 namespace numlib{ namespace nnet{
 
 template<class VectorType, class ActFuncType>
@@ -16,11 +18,11 @@ Neuron<VectorType, ActFuncType>::Neuron(const ActFunc& prototype,
 
 	randomSeed();
 	for(Index i=0; i<nx; ++i)
-		wx(i) = randomNumber();
+		wx(i) = randomNumber()*WEIGHT_IC_SF;
 
 	randomSeed();
 	for(Index i=0; i<nu; ++i)
-		wu(i) = randomNumber();
+		wu(i) = randomNumber()*WEIGHT_IC_SF;
 
 }
 
@@ -62,7 +64,7 @@ void Neuron<VectorType,ActFuncType>::inputSize(Size nu_)
 
 	randomSeed();
 	for(Index i=0; i<nu; ++i)
-		wu(i) = randomNumber();
+		wu(i) = randomNumber()*WEIGHT_IC_SF;
 
 }
 
@@ -80,7 +82,7 @@ void Neuron<VectorType,ActFuncType>::stateSize(Size nx_)
 
 	randomSeed();
 	for(Index i=0; i<nx; ++i)
-		wx(i) = randomNumber();
+		wx(i) = randomNumber()*WEIGHT_IC_SF;
 
 }
 
