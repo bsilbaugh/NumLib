@@ -22,7 +22,7 @@ AC_ARG_ENABLE(debug_print,
 
 
 if test "$ac_cv_env_CXXFLAGS_set" != set ; then
-	CXXFLAGS=" -g -O3 -fno-common"
+	CXXFLAGS=" -g -O3 -fno-common -fPIC"
 fi
 
 dnl Check if debuggin is to be enabled
