@@ -24,7 +24,6 @@ AC_ARG_ENABLE(debug_print,
 if test "$ac_cv_env_CXXFLAGS_set" != set ; then
 	CXXFLAGS=" -g -ansi -O3 -fPIC -fno-common -Werror -Wall -W"
 	CXXFLAGS="$CXXFLAGS -Wconversion -Wshadow -Wcast-qual -Wcast-align"
-    CXXFLAGS="$CXXFLAGS	-Wshorten-64-to-32 -Wabi"
 fi
 
 dnl Check if debuggin is to be enabled
