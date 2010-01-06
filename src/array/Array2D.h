@@ -43,8 +43,8 @@ public:
 	 * 	Memory for imax*jmax number of elements is allocated
 	 * 	and left uninitialized.
 	 */
-	Array2D(Size imax=0, Size jmax=0):ArrayBase<T>(imax*jmax),
-	ni(imax), nj(jmax), si(1),sj(imax){ }
+	Array2D(Size imax_=0, Size jmax_=0):ArrayBase<T>(imax_*jmax_),
+	ni(imax_), nj(jmax_), si(1),sj(imax_){ }
 
 	//! Copy constructor
 	Array2D(const Array2D & arr):ArrayBase<T>(arr), 
@@ -81,11 +81,11 @@ public:
 	 *  The resize operation is intended for initialization of default constructed
 	 *  arrays.
 	 */
-    void resize(Size imax, Size jmax)
+    void resize(Size imax_, Size jmax_)
     {
-	    ni = imax;
-	    nj = jmax;
-		sj = imax;
+	    ni = imax_;
+	    nj = jmax_;
+		sj = imax_;
 	    ArrayBase<T>::resize(ni*nj);
 	}
 
