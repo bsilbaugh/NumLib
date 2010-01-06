@@ -28,8 +28,8 @@ Vector<T> & Vector<T>::operator=(const Vector & other)
 template<class T>
 void Vector<T>::zero()
 {
-  T zero(0);
-  data = zero; /* broadcast zero to all elements */
+  T z(0);
+  data = z; /* broadcast zero to all elements */
 }
 
 template<class T> inline
