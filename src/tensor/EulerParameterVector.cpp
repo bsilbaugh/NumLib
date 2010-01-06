@@ -141,7 +141,11 @@ Real & EulerParameterVector::operator()(Index i)
 		  return q3;
 	 case 4:
 		  return q4;
+	 default:
+		  throw IndexError();
 	 }
+
+	 return q1; // needed to avoid compiler warning
 }
 
 const Real & EulerParameterVector::operator()(Index i) const
@@ -156,7 +160,11 @@ const Real & EulerParameterVector::operator()(Index i) const
 		  return q3;
 	 case 4:
 		  return q4;
+	 default:
+		  throw IndexError();
 	 }
+
+	 return q1; // needed to avoid compiler warning
 }
 
 std::ostream & operator<<(std::ostream & os, const EulerParameterVector & ep)
@@ -167,6 +175,8 @@ std::ostream & operator<<(std::ostream & os, const EulerParameterVector & ep)
 	   <<", "<<ep.q3
 	   <<", "<<ep.q4
 	   <<" )";
+
+	 return os;
 }
 
 }}//::numlib::tensor
