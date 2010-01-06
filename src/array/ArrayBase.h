@@ -59,7 +59,7 @@ public:
 	 *	It is assumed that the data is Fortran contiguous; i.e.
 	 *	column major.
 	 */
-	ArrayBase(T* data_, Size size):data(data_), n(size)
+	ArrayBase(T* data_, Size n_):data(data_), n(n_)
 	{
 	}
 
@@ -133,9 +133,9 @@ public:
 /* IMPLEMENTATION DETAILS */
 
 template<class T>
-ArrayBase<T>::ArrayBase(Size size)
+ArrayBase<T>::ArrayBase(Size n_)
 {
-	n = size;
+	n = n_;
 	data = new T[n];
 }
 
@@ -172,9 +172,9 @@ ArrayBase<T> &  ArrayBase<T>::operator=(const ArrayBase & arr)
 }
 
 template<class T>
-void ArrayBase<T>::resize(Size size)
+void ArrayBase<T>::resize(Size n_)
 {
-  n = size;
+  n = n_;
   delete[] data;
   data = new T[n];
 }

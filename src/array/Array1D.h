@@ -40,7 +40,7 @@ public:
 	 *	It is assumed that the data is Fortran contiguous; i.e.
 	 *	column major.
 	 */
-	Array1D(T* data_, Size size):ArrayBase<T>(data_, size) { }
+	Array1D(T* data_, Size n_):ArrayBase<T>(data_, n_) { }
 
 	//! Copy constructor
 	Array1D(const Array1D & arr):ArrayBase<T>(arr) { ni = arr.ni; }
