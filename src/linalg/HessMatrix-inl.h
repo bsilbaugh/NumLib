@@ -28,8 +28,15 @@ template<class T>
 HessMatrix<T>::HessMatrix(const HessMatrix & other, bool extended):
 	 n(0),m(0),columns(0),zero(0)
 {
-	 copy(other);
-	 n = m;
+
+	/*** this needs to get cleaned up! ***/
+	/* Really should get rid of extended option and make as
+	 * separate type */
+
+	 ASSERT( extended == false );
+
+ 	 copy(other);
+ 	 n = m;
 }
 
 template<class T>
