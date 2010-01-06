@@ -58,6 +58,8 @@ TensorR2 & TensorR2::operator+=(const TensorR2 & other)
 	a31 += other.a31;
 	a32 += other.a32;
 	a33 += other.a33;
+
+	return *this;
 }
 
 TensorR2 & TensorR2::operator-=(const TensorR2 & other)
@@ -73,6 +75,8 @@ TensorR2 & TensorR2::operator-=(const TensorR2 & other)
 	a31 -= other.a31;
 	a32 -= other.a32;
 	a33 -= other.a33;
+
+	return *this;
 }
 
 TensorR2 & TensorR2::operator*=(Real a)
@@ -88,6 +92,8 @@ TensorR2 & TensorR2::operator*=(Real a)
 	a31 *= a;
 	a32 *= a;
 	a33 *= a;
+
+	return *this;
 }
 
 TensorR2 & TensorR2::operator/=(Real a)
@@ -105,6 +111,8 @@ TensorR2 & TensorR2::operator/=(Real a)
 	a31 /= a;
 	a32 /= a;
 	a33 /= a;
+
+	return *this;
 }
 
 TensorR2 dot(const TensorR2 & t1, const TensorR2 & t2)
