@@ -1,7 +1,10 @@
 
 template<class T, class NL>
 GateauxFD<T,NL>::GateauxFD(NL & f_, const VecType & u_, const VecType & fu_):
-	 f(f_), u(u_), fu(fu_), eps(1.0E-6)
+	 eps(1.0E-6),
+	 f(f_), 
+	 u(u_), 
+	 fu(fu_)
 {
 	 eps = std::sqrt(eps);
 }
