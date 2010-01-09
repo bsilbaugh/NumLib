@@ -94,4 +94,10 @@ void PseudoTransientOperator<T,NL>::eval(const VecType & u, VecType & r)
 //	 r -= w;
 
 	 r = r_steady - (u - uk)/dtau;
+
+	 DEBUG_PRINT("Writting u, r, r_steady to log files...");
+	 DEBUG_LOG("pseudo_tran_res_operator-u.dat", u);
+	 DEBUG_LOG("pseudo_tran_res_operator-r.dat", r);
+	 DEBUG_LOG("pseudo_tran_res_operator-r_steady.dat", r_steady);
+
 }
