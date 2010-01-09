@@ -27,7 +27,7 @@ libs = []
 libs.append("boost_python")
 libs.append("numlib_tensor")
 
-dmacros = [('DEBUG', 1)]
+dmacros = [('DEBUG', 3)]
 undmacros = ['NDEBUG']
 arch = ['-arch', 'i386']
 
