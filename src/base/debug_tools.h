@@ -57,7 +57,7 @@ template<class T>
 void append_to_log(const char* log_file_name, T var)
 {
 	std::ofstream log_file;
-	log_file.open(log_file_name);
+	log_file.open(log_file_name, std::ios_base::app);
 	log_file<<var<<std::endl;
 	log_file.close();
 }
