@@ -1,12 +1,12 @@
 
 template<class T, class NL>
 GateauxFD<T,NL>::GateauxFD(NL & f_, const VecType & u_, const VecType & fu_):
-	 eps(1.0E-6),
+	 eps(1.0E-5),
 	 f(f_), 
 	 u(u_), 
 	 fu(fu_)
 {
-	 eps = std::sqrt(eps);
+	 //eps = std::sqrt(eps);
 }
 
 template<class T, class NL>
@@ -37,8 +37,7 @@ void GateauxFD<T,NL>::eval(const VecType & v, VecType & dfv) const
 
 	 ASSERT( vn > 0 );
 
-	 if(uTv_abs > 0)
-		  h = (eps/vn)*max(uTv_abs, 1.0E-6)*uTv_sign;
+	 h = (eps/vn)*max(uTv_abs, 1.0E-6)*uTv_sign;
 
 	 ASSERT( fabs(h) > 0 );
 
