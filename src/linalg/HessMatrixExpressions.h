@@ -217,6 +217,79 @@ void solveLU(const HessMatrix<T> & hessLU, const Vector<Index> & p, Vector<T> & 
 	 }
 }
 
+//! Directly Solves [H]{x} = {b} where [H] is upper Hessenberg
+/*!
+ *  Solves [H]{x} = {b} using Gauss elimination with row pivoting.
+ *
+ *  On input, 'hess' is the upper Hessenberg matrix [H] and 'x' is
+ *  the RHS vector {b}. On output, 'hess' has been overwritten with
+ *  work the pivoted upper triangular matrix [U] and 'x' contains the
+ *  solution vector {x}. The returned 'hess' is not particularly useful
+ *  to the caller, however, often this function is used as a component
+ *  in an algorithm in which preserving [H] is not really needed and
+ *  may essentially be destroyed once {x} is known. If preserving [H]
+ *  is needed, then one can simply copy [H] to a temporary HessMatrix
+ *  prior to calling this routine.
+ */
+template<class T>
+void solveInPlace(HessMatrix<T>& hess, Vector<T>& x)
+{
+
+	Size n = x.size();
+
+	ASSERT( hess.size2() == n );
+
+	// Setup pivot array...
+
+	Vector<Index> p(n);	
+	for(Index i=0; i<n; ++i)
+		p(i) = i;
+
+	// Setup intermediate work vector...
+
+	Vector<T> d(x);
+
+	// Forward pass of Gauss elimination...
+	
+	for(Index i=1; i<n; ++i)
+	{
+
+		// Pivot...
+
+		if( fabs(hess(p(i),i-1)) > fabs(hess(p(i-1),i-1)) )
+		{
+			Index tmp = p(i-1);
+			p(i-1) = p(i);
+			p(i) = tmp;
+		}
+
+		// Zero element below pivot ...
+
+		Real c = hess(p(i),i-1)/hess(p(i-1),i-1);
+
+		for(Index j=i; j<n; ++j)
+			hess(p(i),j) -= c*hess(p(i-1),j);
+
+		d(p(i)) -= c*d(p(i-1));
+
+	}
+
+	// Backward pass...
+
+	for(Index k=n; k>0; --k)
+	{
+		Index i = k-1;
+
+		Real z(0.0);
+		for(Index j=i+1; j<n; ++j)
+			z += hess(p(i),j)*x(j);
+
+		ASSERT( !(is_zero(hess(p(i),i))) );
+
+		x(i) = (d(p(i)) - z)/hess(p(i),i);
+	}
+}
+
 }}//::numlib::linalg
 
 #endif
