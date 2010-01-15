@@ -93,8 +93,6 @@ Real sign(const Real & val)
 	 return val/std::fabs(val);
 }
 
-}
-
 //! Checks if a value is zero
 inline
 bool is_zero(const Real x)
@@ -102,5 +100,7 @@ bool is_zero(const Real x)
 	Real one(1.0);
 	return (one + x == one);
 }
+
+}//::numlib
 
 #endif
