@@ -31,8 +31,7 @@ public:
 	  *  an specialized form of LU factorization could also be used; however, since
 	  *  the factorization would need to be repeated for each subspace expansion,
 	  *  it was deemed that Gaussian elimination would provide comparible run-time
-	  *  performance and require less memeory (only need to store the upper
-	  *  triangular matrix instead of both L and U matricies).
+	  *  performance.
 	  *
 	  *  \todo Allow both 'hess' and 'y' to be sized to mmax instead of m?
 	  */
@@ -49,13 +48,7 @@ public:
 
 		   HessType hess(extHess, false);
 
-		   // Compute LU factorization of hess...
-
-		   linalg::factorLU(hess);
-
-		   // Solve $[H]{y} = \beta e_1$...	
-
-		   linalg::solveLU(hess, y);
+		   linalg::solveInPlace(hess, y);
 
 		   // Return residual 2-norm of subspace approximation ...
 
