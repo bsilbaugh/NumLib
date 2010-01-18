@@ -1,7 +1,7 @@
 
 template<class T, class NL>
 GateauxFD<T,NL>::GateauxFD(NL & f_, const VecType & u_, const VecType & fu_):
-	 eps(1.0E-5),
+	 eps(1.0E-2),
 	 f(f_), 
 	 u(u_), 
 	 fu(fu_)
