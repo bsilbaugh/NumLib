@@ -1,12 +1,12 @@
 
 template<class T, class NL>
 GateauxFD<T,NL>::GateauxFD(NL & f_, const VecType & u_, const VecType & fu_):
-	 eps(1.0E-6),
+	 eps(1.0E-9),
 	 f(f_), 
 	 u(u_), 
 	 fu(fu_)
 {
-	 // eps = std::sqrt(eps);
+	 eps = std::sqrt(eps);
 }
 
 template<class T, class NL>
@@ -26,8 +26,6 @@ void GateauxFD<T,NL>::eval(const VecType & v, VecType & dfv) const
 
 	 Real h = eps;
 
-#ifdef GATEAUX_USE_ADAPTIVE_STEP_SIZE
-
 	 dfv = abs(v); /* temporarily store |v| in dfv */
 
 	 Real uTv = prod(u,v);
@@ -37,30 +35,20 @@ void GateauxFD<T,NL>::eval(const VecType & v, VecType & dfv) const
 
 	 ASSERT( vn > 0 );
 
-	 h = (eps/vn)*max(uTv_abs, 1.0E-6)*uTv_sign;
+	 h = (eps/vn)*max(uTv_abs, eps)*uTv_sign;
 
 	 ASSERT( fabs(h) > 0 );
-
-#endif
 
 	 DEBUG_PRINT_VAR( h );
 
 	 // Compute perturbed solution and evaluate finite difference...
 
-	 VecType fpert(v.size());
-	 VecType upert(v.size());
-
-	 upert  =  v;
+	 VecType upert(v);
 	 upert *=  h;
 	 upert +=  u;
 	 f.eval(upert, dfv); /* dfv = f(u+h*v) */
 
-	 upert  =  v;
-	 upert *= -h;
-	 upert +=  u;
-	 f.eval(upert, fpert); /* fpert = f(u-h*v) */
-
-	 dfv -= fpert;       /* dfv = f(u+h*v) - f(u-h*v)     */
-	 dfv /= (2.0*h);     /* dfv = [f(u+h*v) - f(u)]/2h */
+	 dfv -= fu;   /* dfv = f(u+h*v) - f(u)     */
+	 dfv /= h;    /* dfv = [f(u+h*v) - f(u)]/h */
 
 }
