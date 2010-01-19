@@ -90,7 +90,8 @@ Real max(const Real & a, const Real & b)
 inline
 Real sign(const Real & val)
 {
-	 return val/std::fabs(val);
+	 if(val < 0.0) return -1;
+	 return 1;
 }
 
 //! Checks if a value is zero
