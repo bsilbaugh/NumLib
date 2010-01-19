@@ -1,12 +1,12 @@
 
 template<class T, class NL>
 GateauxFD<T,NL>::GateauxFD(NL & f_, const VecType & u_, const VecType & fu_):
-	 eps(1.0E-2),
+	 eps(1.0E-6),
 	 f(f_), 
 	 u(u_), 
 	 fu(fu_)
 {
-	 //eps = std::sqrt(eps);
+	 // eps = std::sqrt(eps);
 }
 
 template<class T, class NL>
@@ -45,14 +45,22 @@ void GateauxFD<T,NL>::eval(const VecType & v, VecType & dfv) const
 
 	 DEBUG_PRINT_VAR( h );
 
-	 // Compute perturbed solution...
+	 // Compute perturbed solution and evaluate finite difference...
 
-	 VecType upert(u);
-	 upert += h*v;
+	 VecType fpert(v.size());
+	 VecType upert(v.size());
+
+	 upert  =  v;
+	 upert *=  h;
+	 upert +=  u;
 	 f.eval(upert, dfv); /* dfv = f(u+h*v) */
 
-	 // Evaluate finite difference...
+	 upert  =  v;
+	 upert *= -h;
+	 upert +=  u;
+	 f.eval(upert, fpert); /* fpert = f(u-h*v) */
 
-	 dfv -= fu; /* dfv = f(u+h*v) - f(u)     */
-	 dfv /= h;  /* dfv = [f(u+h*v) - f(u)]/h */
+	 dfv -= fpert;       /* dfv = f(u+h*v) - f(u-h*v)     */
+	 dfv /= (2.0*h);     /* dfv = [f(u+h*v) - f(u)]/2h */
+
 }
