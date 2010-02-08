@@ -64,7 +64,7 @@ RotInterp<GridType,TensorFieldType>::operator()(const TensorFieldType& srcField,
 	// Compute rotation field...
 
 	for(Index i=0; i<ndst; ++i)
-		dstField(i) = tensor::dot(r0, rot(rvdst(i)));
+		dstField(i) = dot(r0, rot(rvdst(i)));
 
 }
 
