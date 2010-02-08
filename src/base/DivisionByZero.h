@@ -12,7 +12,7 @@ namespace numlib{
 //! Exception denoting the occurance of division by zero
 class DivisionByZero: public NumLibError
 {
-	virtual char* what() throw()
+	virtual const char* what() throw()
 	{
 		return "NumLib error: Division by zero";
 	}
