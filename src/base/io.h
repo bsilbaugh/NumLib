@@ -9,17 +9,13 @@
 
 namespace numlib{
 
-//! Formats printing of Real numbers
-/*! 
- *	THIS CONFLICTS WITH STL DEF -- DO NOT USE -- NEEDS TO BE FIXED
- */
+//! Manipulator for formatting output of Real types
 inline
-std::ostream & operator<<(std::ostream & os, const Real & x)
+std::ostream & fmtReal(std::ostream & os)
 {
-	os<<std::scientific<<std::setw(16)<<std::setprecision(8)<<x;
-	return os;
+	 return os<<std::scientific<<std::setprecision(6)<<std::setw(15);
 }
 
-} //::numlib
+}
 
 #endif
