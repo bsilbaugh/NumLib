@@ -12,12 +12,25 @@ namespace numlib{
 //! Exception denoting the occurance of division by zero
 class DivisionByZero: public NumLibError
 {
-	virtual const char* what() throw()
+public:
+
+	DivisionByZero(const char* errmsg="Division by zero"):
+		NumLibError(errmsg) {}
+
+	DivisionByZero(const DivisionByZero & other):
+		NumLibError(other) {}
+
+	virtual
+	~DivisionByZero() throw() {}
+
+	DivisionByZero & operator=(const DivisionByZero& other)
 	{
-		return "NumLib error: Division by zero";
+		NumLibError::operator=(other);
+		return *this;
 	}
+
 };
 
-}
+}//::numlib
 
 #endif
