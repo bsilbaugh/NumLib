@@ -4,6 +4,7 @@ from distutils.core import setup
 from distutils.core import Extension
 
 boost_dir="/Users/silbaugh/CodeLib/Boost"
+boost_dir="/usr/local"
 numlib_dir='..'
 
 # *** NOTE: WE'RE EXPLICITLY SPECIFYING THE BOOST PYTHON LIBRARY
@@ -29,7 +30,8 @@ libs.append("numlib_tensor")
 
 dmacros = [('DEBUG', 1)]
 undmacros = ['NDEBUG']
-arch = ['-arch', 'i386']
+#arch = ['-arch', 'i386']
+arch = None
 
 boostpy_test = Extension('boostpy_test',['numlib/boostpy_test.cpp'],\
 		define_macros=dmacros, \
