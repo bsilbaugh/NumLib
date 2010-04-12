@@ -10,7 +10,7 @@ namespace numlib{
 
 //! Recursive factorial function for integer type Int
 inline
-T factorial(const Int& k)
+Int factorial(const Int& k)
 {
 	if(x==0)
 		return k;
