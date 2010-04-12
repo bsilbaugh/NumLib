@@ -12,7 +12,7 @@ namespace numlib{
 inline
 Int factorial(const Int& k)
 {
-	if(x==0)
+	if(k==0)
 		return k;
 	return k*factorial(k-1);
 }
