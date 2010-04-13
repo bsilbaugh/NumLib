@@ -22,6 +22,7 @@ libnumlib_base_a_SOURCES = constants.cpp \
 						   numlib-config.h \
 						   debug_tools.h \
 						   NumLibError.h \
+						   NumLibError.cpp \
 						   IndexError.h \
 						   random.h \
 						   factoria.h \
