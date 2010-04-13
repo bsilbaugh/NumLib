@@ -13,7 +13,7 @@ namespace numlib{
 inline
 std::ostream & fmtReal(std::ostream & os)
 {
-	 return os<<std::scientific<<std::setprecision(6)<<std::setw(15);
+	 return os<<std::scientific<<std::setprecision(8)<<std::setw(15);
 }
 
 }
