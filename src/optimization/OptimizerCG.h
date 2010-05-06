@@ -20,8 +20,8 @@ public:
 
 	typedef typename CostFunction::VectorType VectorType;
 
-	OptimizerCG(Real bf_step=1.0, Real gs_reduction=0.1, Real tol=5.0E-3):
-		delta_f_max(tol), line_search(bf_step, gs_reduction, tol)
+	OptimizerCG(Real bf_step=1.0, Real gs_reduction=0.1, Real tol=5.0E-3, Size max_iter_=1000):
+		max_iter(max_iter_), delta_f_max(tol), line_search(bf_step, gs_reduction, tol)
 	{}
 
 	ErrorCode minimize(CostFunction& f, MinimumND<VectorType>& min)
@@ -48,7 +48,7 @@ public:
 
 		// Perform sequential line searches to find minimum...
 
-		do
+		for(Index n=0; n<max_iter; ++n)
 		{
 			// Perform line search...
 
@@ -66,6 +66,14 @@ public:
 
 			xopt += line_min.design()*dir;
 			fopt -= delta_f;
+
+			// Check convergence and exit if satisfied...
+
+			if( fabs(delta_f) < delta_f_max )
+			{
+				min.design(xopt, fopt);
+				return SUCCESS;
+			}
 		
 			// Update search direction...
 
@@ -78,17 +86,17 @@ public:
 			dir *= beta;
 			dir += grad;
 
-		}while( fabs(delta_f) > delta_f_max );
+		}
 
-		min.design(xopt, fopt);
-
-		return SUCCESS;
+		return EXCEEDED_MAX_ITER;
 
 	}
 
 private:
 
 	typedef LineRestriction<CostFunction> LineRes;
+
+	Size max_iter;
 
 	Real delta_f_max;
 
