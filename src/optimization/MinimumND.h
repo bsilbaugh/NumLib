@@ -14,7 +14,9 @@ public:
 
 	MinimumND(Size dim):
 		n(dim),xopt(n),fopt(1.0E10)
-	{}
+	{
+		xopt.zero();
+	}
 
 	MinimumND(const V& xopt_, Real fopt_):
 		n(xopt_.size()),xopt(xopt_), fopt(fopt_)
