@@ -153,7 +153,7 @@ public:
 			else if( (f0 < f1) and (f1 > f2) )
 			{
 				/* bracketed maximum => multiple minima */
-				return MULTIPLEMIN;
+				return MULTIPLE_MIN;
 			}
 			else if( (f0 == f1) and (f1 == f2) )
 			{
@@ -172,7 +172,7 @@ public:
 
 		/* optimimum was not bracketd */
 
-		return NOMIN;
+		return NO_MIN;
 	}
 
 private:

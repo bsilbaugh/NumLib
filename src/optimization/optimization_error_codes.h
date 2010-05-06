@@ -9,10 +9,11 @@ namespace numlib{ namespace optimization{
 
 //! Standard error code values and meanings used by NumLib optimizers
 /*!
- *  SUCCESS....... a local minimum was found
- *  NOMIN......... no minimum could be found
- *  MULTIPLEMIN... multiple minima were detected
- *  ERROR......... a generic error occurred - stop execution
+ *  SUCCESS............. a local minimum was found
+ *  NO_MIN.............. no minimum could be found
+ *  MULTIPLE_MIN........ multiple minima were detected
+ *  EXCEEDED_MAX_ITER... exceeded user specified iteration limits
+ *  ERROR............... a generic error occurred - stop execution
  *
  *  When checking error codes it is strongly recommended that
  *  the code value be implicitly checked by comparing against
@@ -21,7 +22,7 @@ namespace numlib{ namespace optimization{
  *  integer values to be redefined.
  *
  */
-enum ErrorCode{ SUCCESS, ERROR, NOMIN, MULTIPLEMIN };
+enum ErrorCode{ SUCCESS, ERROR, NO_MIN, MULTIPLE_MIN, EXCEEDED_MAX_ITER };
 
 }}//::numlib::optimization
 
