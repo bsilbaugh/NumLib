@@ -116,7 +116,6 @@ public:
 	 */
 	ErrorCode minimize(CostFunction& f, Minimum& min)
 	{
-		Real fopt = min.cost();
 		ErrorCode code = SUCCESS;
 
 		// Initialize optimization search...
@@ -129,6 +128,9 @@ public:
 
 		for(Index n=0; n<max_iter; ++n)
 		{
+
+			Real fopt = min.cost();
+
 			// Execute line search and check for error...
 		
 			code = iter(f, min);
@@ -140,7 +142,7 @@ public:
 			if(fabs(delta_f) < tol) return code;
 		}
 
-		return ERROR;
+		return EXCEEDED_MAX_ITER;
 	}
 
 private:
