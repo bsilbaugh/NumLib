@@ -89,10 +89,10 @@ public:
 
 		f(xopt, grad);
 
-		Real beta = prod(grad, grad - grad_prev)/prod(grad, grad);
+		Real beta = prod(grad, grad - grad_prev)/prod(grad_prev, grad_prev);
 
 		dir *= beta;
-		dir += grad;
+		dir -= grad;
 
 		return SUCCESS;
 
