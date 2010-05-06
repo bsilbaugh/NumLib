@@ -73,6 +73,7 @@ AC_CONFIG_FILES([Makefile
 				 src/tensor/Makefile
 				 src/integration/Makefile
 				 src/reconstruction/Makefile
+				 src/optimization/Makefile
 				 src/nnet/Makefile
 				 ])
 AC_OUTPUT
