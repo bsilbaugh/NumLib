@@ -13,6 +13,7 @@
 
 namespace numlib{ namespace optimization{
 
+//! Multi-variate optimizer based on the Conjugate Gradient algorithm
 template<class CostFunction>
 class OptimizerCG
 {
