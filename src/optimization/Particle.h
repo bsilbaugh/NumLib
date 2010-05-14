@@ -28,7 +28,7 @@ public:
 
 	Particle(Size dim, Index id_):
 		id(id_),
-		w(1.0), c1(1.5), c2(2.5),
+		w(1.0), c1(1.5), c2(2.5), tau(0.1),
 		cst(0), pos(dim), vel(dim),
 		pbest_cst(0), pbest_pos(dim),
 		gbest(NULL)
@@ -69,11 +69,15 @@ public:
 
 	void swarmTrust(Real c2_) {c2 = c2_;}
 
+	void timeConstant(Real tau_) {tau = tau_;}
+
 	const Real inertia() const {return w;}
 
 	const Real confidence() const {return c1;}
 
 	const Real trust() const {return c2;}
+
+	const Real timeConstant() const {return tau;}
 	
 	const VectorType& bestPosition() const {return pbest_pos;}
 
@@ -131,7 +135,7 @@ public:
 
 		// Update position...
 		
-		pos += vel;
+		pos += tau*vel;
 
 		// Update cost...
 
