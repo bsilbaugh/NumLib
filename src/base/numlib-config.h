@@ -88,10 +88,11 @@ Real max(const Real & a, const Real & b)
 
 //! Returns the sign of a floating point number
 inline
-Real sign(const Real & val)
+Real sgn(const Real & val)
 {
-	 if(val < 0.0) return -1;
-	 return 1;
+	if(val < 0) return -1;
+	if(val > 0) return  1;
+	return 0;
 }
 
 //! Checks if a value is zero

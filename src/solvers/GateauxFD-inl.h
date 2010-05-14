@@ -30,7 +30,7 @@ void GateauxFD<T,NL>::eval(const VecType & v, VecType & dfv) const
 
 	 Real uTv = prod(u,v);
 	 Real uTv_abs = fabs(uTv);
-	 Real uTv_sign = sign(uTv);
+	 Real uTv_sign = uTv/uTv_abs;
 	 Real vn = norm2(v);
 
 	 ASSERT( vn > 0 );
