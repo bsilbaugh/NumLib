@@ -10,4 +10,6 @@ library_include_HEADERS = optimization_error_codes.h \
 						  GoldenSection.h   \
 						  QuadraticInterp.h \
 						  OptimizerBGQ.h \
-						  OptimizerCG.h
+						  OptimizerCG.h \
+						  Particle.h \
+						  OptimizerPSO.h
