@@ -97,7 +97,7 @@ public:
 
 		Size dim = pos.size();
 
-		randomSeed();
+		//randomSeed();
 
 		for(Index i=0; i<dim; ++i)
 		{
@@ -153,6 +153,8 @@ public:
 private:
 
 	Index id;
+
+	Real tau;
 
 	Real w, c1, c2;
 
