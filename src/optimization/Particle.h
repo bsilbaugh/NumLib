@@ -28,6 +28,7 @@ public:
 
 	Particle(Size dim, Index id_):
 		id(id_),
+		vmax(0.5),
 		w(1.0), c1(1.5), c2(2.5),
 		cst(0), pos(dim), vel(dim),
 		pbest_cst(0), pbest_pos(dim),
@@ -63,11 +64,15 @@ public:
 		/* all data auto delete */
 	}
 
+	void maxVelocity(Real vmax_) {vmax = vmax_;}
+
 	void inertia(Real w_) {w = w_;}
 
 	void selfTrust(Real c1_) {c1 = c1_;}
 
 	void swarmTrust(Real c2_) {c2 = c2_;}
+
+	const Real maxVelocity() const {return vmax;}
 
 	const Real inertia() const {return w;}
 
@@ -101,6 +106,8 @@ public:
 			vel(i) = 2.0*randomNumber() - 1.0;
 		}
 
+		constrictionOperator(vel);
+
 		// Compute cost at initial position...
 
 		cst = f(pos);
@@ -129,6 +136,8 @@ public:
 		vel += c1*r1*(pbest_pos - pos);
 		vel += c2*r2*(gbest->bestPosition() - pos);
 
+		constrictionOperator(vel);
+
 		// Update position...
 		
 		pos += vel;
@@ -150,6 +159,8 @@ private:
 
 	Index id;
 
+	Real vmax;
+
 	Real w, c1, c2;
 
 	Real cst;
@@ -163,6 +174,13 @@ private:
 	VectorType pbest_pos;
 
 	const Particle* gbest;
+
+	void constrictionOperator(VectorType& u)
+	{
+		Real umag = norm2(u);
+		if(umag > vmax)
+			u *= vmax/umag;
+	}
 
 };
 
