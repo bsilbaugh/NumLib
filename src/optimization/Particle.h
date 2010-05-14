@@ -66,6 +66,21 @@ public:
 
 	void maxVelocity(Real vmax_) {vmax = vmax_;}
 
+	//! Sets particle ``inertia''
+	/*!
+	 *	This parameters was introduced by Eberhart and Kennedy
+	 *	to mitigate the convergence to local minima. Choosing
+	 *	a large value results in a more global exploration of
+	 *	the design space but may hinder convergence to a minima.
+	 *	Choosing a small value results in a more local exploration
+	 *	of the design space but may cause the swarm to get trapped
+	 *	into a local minima. Numerical experiments would suggest
+	 *	that the decreasing the inertia from a large value (e.g. 1.2) 
+	 *	to zero over the duration of the simulation yeilds good results.
+	 *
+	 *	If alternative globalization techniques are used, such as function
+	 *	stretching, then in princple this parameter could be set to zero.
+	 */
 	void inertia(Real w_) {w = w_;}
 
 	void selfTrust(Real c1_) {c1 = c1_;}
