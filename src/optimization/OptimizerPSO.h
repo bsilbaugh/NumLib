@@ -38,6 +38,11 @@ namespace numlib{ namespace optimization{
  *	termination. A plot of the cost estimate versus iteration will
  *	show a monotone non-increasing graph with many plateaus. Unfortunately,
  *	a rigourous stopping criterion does not currently exist for PSO.
+ *	An interesting observation is that the number of iterations between
+ *	each incremental change if gbest seems to increase as the swarm
+ *	converges toward the optimum; perhaps monitoring the number of
+ *	iterations since last change in gbest would be a better stopping
+ *	criterion?
  *
  *	\todo Find better container type for swarm - one with a proper iterator
  *	would be nice.
