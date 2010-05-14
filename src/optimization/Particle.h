@@ -29,7 +29,7 @@ public:
 	Particle(Size dim, Index id_):
 		id(id_),
 		vmax(0.5),
-		w(1.0), c1(1.5), c2(2.5),
+		w(0.0), c1(1.5), c2(2.5),
 		cst(0), pos(dim), vel(dim),
 		pbest_cst(0), pbest_pos(dim),
 		gbest(NULL)
