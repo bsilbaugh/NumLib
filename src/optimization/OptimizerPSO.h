@@ -61,8 +61,8 @@ public:
 	typedef P ParticleType;
 	typedef MinimumND<VectorType> Minimum;
 
-	OptimizerPSO(Size dim, Size np, Real tol_=5.0E-3, Size max_iter_=1000):
-		swarm(np),gbest(NULL), tol(tol_), max_iter(max_iter_)
+	OptimizerPSO(Size dim, Size np, Real tol_=5.0E-3, Size max_count_=10, Size max_iter_=1000):
+		swarm(np),gbest(NULL), tol(tol_), max_count(max_count_), max_iter(max_iter_)
 	{
 		for(Index i=0; i<np; ++i)
 			swarm[i] = new ParticleType(dim, i);
@@ -79,6 +79,13 @@ public:
 
 	//! Returns const pointer to the ith particle
 	const ParticleType* particle(Index i) const {return swarm[i];}
+
+	//! Sets the inertial of each particle to common value
+	void inertia(const Real w)
+	{
+		for(Index i=0; i<swarm.size(); ++i)
+			swarm[i]->inertia(w);
+	}
 
 	//! Initializes particle positions and velocities in the design space
 	ErrorCode newSequence(FunctionType& f, Minimum& min)
@@ -143,6 +150,7 @@ public:
 
 		ErrorCode code = newSequence(f, min);
 
+		Index count(0);
 		for(Index n=0; n<max_iter; ++n)
 		{
 			Real fopt = min.cost();
@@ -155,7 +163,12 @@ public:
 
 			ASSERT( !(delta_f < 0) );
 
-			if(delta_f < tol) /* this is not the best criterion */
+			if(delta_f < tol) 
+				count++;
+			else
+				count = 0;
+
+			if(count > max_count)
 			{
 				min.cost( gbest->bestCost() );
 				min.design( gbest->bestPosition() );
@@ -179,6 +192,8 @@ private:
 	const ParticleType* gbest;
 
 	Real tol;
+
+	Size max_count;
 
 	Size max_iter;
 
