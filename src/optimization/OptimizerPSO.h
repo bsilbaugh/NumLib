@@ -5,8 +5,10 @@
 #ifndef OPTIMIZER_PSO_H
 #define OPTIMIZER_PSO_H
 
+#include "../base/random.h"
 #include "../array/PointerArray.h"
 
+#include "optimization_error_codes.h"
 #include "Particle.h"
 #include "MinimumND.h"
 
@@ -90,10 +92,24 @@ public:
 	//! Initializes particle positions and velocities in the design space
 	ErrorCode newSequence(FunctionType& f, Minimum& min)
 	{
+		// Re-seed random number generator ...
+
+		randomSeed();
+
 		// Initialize particles...
 
-		for(Index i=0; i<swarm.size(); ++i)
-			swarm[i]->newSequence(f);
+		VectorType pos0(min.design().size());
+		VectorType vel0(min.design().size());
+
+		randomVector(vel0, -0.1, 0.1);
+		swarm[0]->newSequence(min.cost(), min.design(), vel0);
+
+		for(Index i=1; i<swarm.size(); ++i)
+		{
+			randomVector(pos0, -1.0, 1.0);
+			randomVector(vel0, -0.1, 0.1);
+			swarm[i]->newSequence(f(pos0), pos0, vel0);
+		}
 
 		// Find best...
 
@@ -170,8 +186,7 @@ public:
 
 			if(count > max_count)
 			{
-				min.cost( gbest->bestCost() );
-				min.design( gbest->bestPosition() );
+				min.design( gbest->bestPosition(), gbest->bestCost() );
 				return SUCCESS;
 			}
 
