@@ -30,6 +30,29 @@ Real randomNumber()
 	return ((Real)random_int)/(Real)RAND_MAX;
 }
 
+//! Populates a vector with random values
+/*!
+ *	The container 'V' may be any vector type which supports
+ *	indexed assignment. NumLib::linalg::Vector, NumLib::array::Array1D,
+ *	as well as the uBLAS vector type are supported.
+ */
+template<class V>
+void randomVector(V& u)
+{
+	for(Index i=0; i<u.size(); ++i)
+		u(i) = randomNumber();
 }
+
+template<class V>
+void randomVector(V& u, Real a, Real b)
+{
+	Real d = (b - a);         /* dilation */
+	Real s = 0.5*(a + b - d); /* shift */
+
+	for(Index i=0; i<u.size(); ++i)
+		u(i) = d*randomNumber() + s;
+}
+
+}//::numlib
 
 #endif
