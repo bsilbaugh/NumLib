@@ -85,17 +85,17 @@ public:
 
 	void swarmTrust(Real c2_) {c2 = c2_;}
 
-	const Real maxVelocity() const {return vmax;}
+	const Real& maxVelocity() const {return vmax;}
 
-	const Real inertia() const {return w;}
+	const Real& inertia() const {return w;}
 
-	const Real confidence() const {return c1;}
+	const Real& confidence() const {return c1;}
 
-	const Real trust() const {return c2;}
+	const Real& trust() const {return c2;}
 	
 	const VectorType& bestPosition() const {return pbest_pos;}
 
-	const Real bestCost() const {return pbest_cst;}
+	const Real& bestCost() const {return pbest_cst;}
 
 	const VectorType& position() const {return pos;}
 
