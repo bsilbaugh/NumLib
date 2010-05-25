@@ -89,6 +89,13 @@ public:
 			swarm[i]->inertia(w);
 	}
 
+	//! Sets maximum velocity of each particle to a common value
+	void maxVelocity(const Real vmax)
+	{
+		for(Index i=0; i<swarm.size(); ++i)
+			swarm[i]->maxVelocity(vmax);
+	}
+
 	//! Initializes particle positions and velocities in the design space
 	ErrorCode newSequence(FunctionType& f, Minimum& min)
 	{
