@@ -113,8 +113,12 @@ public:
 
 		for(Index i=1; i<swarm.size(); ++i)
 		{
+			
 			randomVector(pos0, -1.0, 1.0);
 			randomVector(vel0, -0.1, 0.1);
+
+			pos0 += min.design(); /* center swarm about initial guess */
+
 			swarm[i]->newSequence(f(pos0), pos0, vel0);
 		}
 
