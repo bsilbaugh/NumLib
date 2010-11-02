@@ -30,7 +30,8 @@ public:
 	{}
 
 	//! Sets tunning parameters
-	void tuningParams(Real gamma_1, Real gamma_2, Real mu);
+	void tunningParams(const Real gamma_1_, const Real gamma_2_, const Real mu_)
+	{gamma_1 = gamma_1_; gamma_2 = gamma_2_; mu = mu_;}
 
 	//! Sets local minimum where function is to be stretched relative to
 	void localMinimum(const VectorType& x_lmin_, const Real fx_lmin_)
