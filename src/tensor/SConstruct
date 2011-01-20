@@ -1,0 +1,31 @@
+Import('env prefix')
+
+lib_name = 'numlib_tensor'
+
+src = (
+	'TensorR2.cpp',
+	'TensorExpressions.cpp',
+	'EulerParameterVector.cpp',
+	'RotVector.cpp',
+	'FiniteRotations.cpp',
+	'MovingReferenceFrame.cpp'
+)
+
+headers = (
+	'TensorR1.h',
+	'TensorR1-inl.h',
+	'TensorR2.h',
+	'TensorR2-inl.h',
+	'TensorExpressions.h',
+	'EulerParameterVector.h',
+	'RotVector.h',
+	'FiniteRotations.h',
+	'ReferenceFrame.h',
+	'ReferenceFrame-inl.h',
+	'MovingReferenceFrame.h'
+)
+
+lib = env.StaticLibrary(lib_name, src)
+
+env.Install(prefix+'/lib', lib)
+env.Install(prefix+'/include/numlib/tensor', headers)

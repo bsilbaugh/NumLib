@@ -1,0 +1,36 @@
+
+Import('env prefix')
+lib_name = 'numlib_base'
+
+# Define sources to be compiled...
+
+src = (
+	'constants.cpp',
+	'NumLibError.cpp'
+)
+
+# Define headers to be installed...
+
+headers = (
+	'constants.h',
+	'DivisionByZero.h',
+	'numlib-config.h',
+	'nocopy.h',
+	'debug_tools.h',
+	'NumLibError.h',
+	'IndexError.h',
+	'random.h',
+	'factorial.h',
+	'StopWatch.h',
+	'ScopedTimer.h',
+	'io.h'
+)
+
+# Define library to be constructed...
+
+lib = env.StaticLibrary(lib_name, src)
+
+# Define installation location...
+
+env.Install(prefix+'/lib', lib)
+env.Install(prefix+'/include/numlib/base', headers)

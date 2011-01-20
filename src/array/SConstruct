@@ -1,0 +1,20 @@
+
+Import('env prefix')
+lib_name = 'numlib_array'
+
+# Define sources to be compiled...
+
+# Define headers to be installed...
+
+headers = (	
+	'ArrayBase.h',
+	'Array1D.h',
+	'Array2D.h',
+	'PointerArray.h',
+	'PointerArray-inl.h',
+	'ShapeMismatch.h'
+)
+
+# Define installation location...
+
+env.Install(prefix+'/include/numlib/array', headers)

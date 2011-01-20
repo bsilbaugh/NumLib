@@ -1,0 +1,13 @@
+Import('env prefix')
+
+headers = (
+	'HypTan.h',
+	'Neuron.h',
+	'Neuron-imp.h',
+	'FCRNN.h',
+	'FCRNN-imp.h',
+	'RTRL.h',
+	'RTRL-imp.h'
+)
+
+env.Install(prefix+'/include/numlib/nnet', headers)

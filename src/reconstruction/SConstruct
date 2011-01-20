@@ -1,0 +1,15 @@
+Import('env prefix')
+
+lib_name = 'numlib_reconstruction'
+
+headers = (
+	'interp_utils.h',
+	'LinearPW.h',
+	'LinearPW-inl.h',
+	'LinearPWGrad.h',
+	'LinearPWGrad-inl.h',
+	'RotInterp.h',
+	'RotInterp-inl.h'
+)
+
+env.Install(prefix+'/include/numlib/reconstruction', headers)
