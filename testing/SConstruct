@@ -1,0 +1,19 @@
+
+
+include = ['../include']
+lib_path = ['../lib']
+libs = ['boost_unit_test_framework.so',
+		'numlib_base.a']
+
+source_dir = './src'
+install_dir = './bin'
+
+test_suites = ('base',)
+
+env = Environment()
+
+for s in test_suites:
+	prog = env.Program(target='test-%s' %s, 
+			           source=source_dir+'/%s-test_suite.cpp' %s, 
+					   LIBS=libs, LIBPATH=lib_path, CPPPATH=include)
+	#env.Install(install_dir, prog)
