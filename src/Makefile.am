@@ -6,5 +6,4 @@ SUBDIRS = base\
 		  tensor \
 		  integration \
 		  reconstruction \
-		  optimization \
-		  nnet
+		  optimization
