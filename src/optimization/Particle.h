@@ -5,8 +5,6 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
-#include "../base/random.h"
-
 namespace numlib{ namespace optimization{
 
 //! Model of a basic ``particle'' used in Particle Swarm Optimization (PSO)
@@ -87,17 +85,17 @@ public:
 
 	void swarmTrust(Real c2_) {c2 = c2_;}
 
-	const Real maxVelocity() const {return vmax;}
+	const Real& maxVelocity() const {return vmax;}
 
-	const Real inertia() const {return w;}
+	const Real& inertia() const {return w;}
 
-	const Real confidence() const {return c1;}
+	const Real& confidence() const {return c1;}
 
-	const Real trust() const {return c2;}
+	const Real& trust() const {return c2;}
 	
 	const VectorType& bestPosition() const {return pbest_pos;}
 
-	const Real bestCost() const {return pbest_cst;}
+	const Real& bestCost() const {return pbest_cst;}
 
 	const VectorType& position() const {return pos;}
 
@@ -105,27 +103,18 @@ public:
 
 	const Real& cost() const {return cst;}
 
-	void newSequence(FunctionType& f)
+	void newSequence(Real fp, const VectorType& p, const VectorType& v)
 	{
 		// Set initial position and velocity...
 
-		ASSERT( vel.size() == pos.size() );
-
-		Size dim = pos.size();
-
-		//randomSeed();
-
-		for(Index i=0; i<dim; ++i)
-		{
-			pos(i) = 2.0*randomNumber() - 1.0;
-			vel(i) = 2.0*randomNumber() - 1.0;
-		}
+		pos = p;
+		vel = v;
 
 		constrictionOperator(vel);
 
-		// Compute cost at initial position...
+		// Set cost associated with initial position...
 
-		cst = f(pos);
+		cst = fp;
 
 		// Set pbest to initial position and cost...
 
