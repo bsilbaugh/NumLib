@@ -56,8 +56,7 @@ libs = (
 	'optimization',
 	'reconstruction',
 	'tensor',
-	'solvers',
-	'nnet'
+	'solvers'
 )
 
 # Define subsidiary SConstruct files...
