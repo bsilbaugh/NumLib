@@ -35,9 +35,19 @@ techniques can consistently exceed a tuned Fortran library (e.g. ATLAS).
 DIRECTORY STRUCTURE
 ---------------------------------------------------------------------------
 
-src/
-	array/
- 	base/
-	linalg/
-	integration/
-	tensor/
+doc... Contains all NumLib documentation
+
+src... Contains all source code (including headers)
+|--->base........... Core NumLib components and typedefs
+|--->array.......... Numerical array types and templates
+|--->linalg......... Linear algebra tools
+|--->integration.... Numerical quadrature tools
+|--->tensor......... Cartesian tensor library for (dim-3 spaces)
+|--->optimization... Numerical optimization tools
+|--->solvers........ Nonlinear solver templates
+
+examples... Example usage of NumLib tools
+
+python..... Python language bindings for a subset of NumLib
+
+testing.... Unit testing suite (for NumLib developers)
