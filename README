@@ -78,6 +78,11 @@ source tree:
 	$ cd numlib-v.x.y.z
 	$ scons
 
+To build the documentation, execute doxygen from within the top level
+of the source tree:
+	
+	$ doxygen
+
 Installation
 ------------
 
@@ -85,3 +90,23 @@ Currently, the numlib build system does not support global installation
 (e.g. to /usr/local). All libraries and headers and ``installed'' locally
 under the top level numlib directory. This behavior will be changed in
 future releases.
+
+VERSION NUMBERING SCHEME
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Each NumLib distribution will be taged with a version number of the form vA.B.C 
+(e.g. v1.0.10 or v2.100.1). The rules for incrementing the version
+numbers A, B, and C are as follows:
+1.	A is incremented when a major structural change is made to the code
+	(e.g. complete rewrite of the code, change in common data structures or
+	interfaces, etc); i.e. the entire code was essentially redesigned. Backwards 
+	compatibility may be lost and user interface may have changed.
+2.	B is incremented upon the addition of a new feature, removal of an
+	obsolete/troublesome feature, or performance improvement. Any rewriting or 
+	modification of existing code was minor (e.g. localized to a few
+	functions or classes); the change is primarily the addition new code or 
+	deletion of old code. The underlying design essentially remains unchanged.
+	B is reset to 0 upon incrementation of A.
+3.	C is incremented upon a bug fix in a previously released version and
+	no new features were added (or removed). C is reset to 0 upon incrementation 
+	of B.
