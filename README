@@ -1,11 +1,11 @@
-===========================================================================
-                                 NumLib
+================================================================================
+                                   NumLib
 
-                        A C++ numerical library
-===========================================================================
+                       Yet another C++ numerical library
+================================================================================
 
 DESCRIPTION
----------------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	The objective of this library is to provide a consistent set of tools 
 for numerical computing in C++, while also provide efficient array 
@@ -33,7 +33,7 @@ performance of a Fortran library. It remains to be shown that templating
 techniques can consistently exceed a tuned Fortran library (e.g. ATLAS).
 
 DIRECTORY STRUCTURE
----------------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 doc... Contains all NumLib documentation
 
@@ -51,3 +51,37 @@ examples... Example usage of NumLib tools
 python..... Python language bindings for a subset of NumLib
 
 testing.... Unit testing suite (for NumLib developers)
+
+BUILDING AND INSTALLATION
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Prerequisites
+-------------
+
+*	NumLib currently uses the SCons build system. Thus, you must have SCons
+	installed on your system.
+*	To build the Python language bindings, you will need Python version >= 
+	2.6 (but less than 3.0) and Boost Python version >= 1.40
+
+Configuring
+-----------
+
+Currently, custom configuration is not supported. All compile options are
+automatically detected by SCons. This will be changed in future releases.
+
+Compiling
+---------
+
+To build NumLib, simply execute scons from within the top level of the
+source tree:
+
+	$ cd numlib-v.x.y.z
+	$ scons
+
+Installation
+------------
+
+Currently, the numlib build system does not support global installation
+(e.g. to /usr/local). All libraries and headers and ``installed'' locally
+under the top level numlib directory. This behavior will be changed in
+future releases.
