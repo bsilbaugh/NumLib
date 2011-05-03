@@ -1,4 +1,4 @@
-/*! \brief Macro for disabling copy and assignment
+/*! \brief Macros for disabling copy and assignment
  */
 
 #ifndef NOCOPY_H
@@ -20,6 +20,18 @@
  */
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) 	\
 	TypeName(const TypeName&); 				\
-	void operator=(const TypeName&)
+	TypeName& operator=(const TypeName&)
+
+//! A macro to disable object assignment operator
+/*!
+ *	This is useful in situations where it is desirable to restrict
+ *	duplication of objects to cloning operations only.
+ *
+ *	To disable assignment, place this macro in the private
+ *	section of a class declaration. Any subsequent attempt to 
+ *	execute assignment will result in a compilation error.
+ */
+#define DISALLOW_ASSIGN(TypeName) 	\
+	TypeName& operator=(const TypeName&)
 
 #endif
