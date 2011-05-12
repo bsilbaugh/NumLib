@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <string>
 
 #include "numlib-config.h"
 
@@ -24,7 +25,7 @@ std::ostream & fmtReal(std::ostream & os)
  *  - std::oct
  */
 template<class T>
-bool fromString(T& t, const String & s, std::ios_base& (*f)(std::ios_base&)=std::dec)
+bool fromString(T& t, const std::string & s, std::ios_base& (*f)(std::ios_base&)=std::dec)
 {
 	 std::istringstream iss(s);
 	 return !(iss >> f >> t).fail();
