@@ -11,7 +11,10 @@ headers = (
 	'TriMatrixExpressions.h',
 	'HessMatrix.h',
 	'HessMatrix-inl.h',
-	'HessMatrixExpressions.h'
+	'HessMatrixExpressions.h',
+	'SquareMatrix.h',
+	'SquareMatrix-inl.h',
+	'SquareMatrixExpressions.h'
 )
 
 env.Install(prefix+'/include/numlib/linalg', headers)
