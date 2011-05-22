@@ -2,26 +2,38 @@
  */
 
 template<class T>
-Vector<T>::Vector(Size n):data(n)
+Vector<T>::Vector(Size n_):
+	n(n_),
+	data(NULL)
 {
+	data = new T[n];
 }
 
 template<class T>
-Vector<T>::Vector(const Vector & other):data(other.data)
+Vector<T>::Vector(const Vector & other)
 {
+	n = other.n;
+	data = new T[n];
+	for(Index i=0; i<n; ++i)
+		data[i] = other.data[i];
 }
 
 template<class T>
 Vector<T>::~Vector()
 {
-  /* nothing to delete */
+	delete[] data;
 }
 
 template<class T>
 Vector<T> & Vector<T>::operator=(const Vector & other)
 {
-  if(&other!=this)
-	data = other.data;
+  if(&other==this) return *this;
+
+  delete[] data;
+  n = other.n;
+  data = new T[n];
+  for(Index i=0; i<n; ++i)
+	  data[i] = other.data[i];
   return *this;
 }
 
@@ -29,59 +41,67 @@ template<class T>
 void Vector<T>::zero()
 {
   T z(0);
-  data = z; /* broadcast zero to all elements */
+  for(Index i=0; i<n; ++i)
+  	data[i] = z;
 }
 
 template<class T> inline
 Size Vector<T>::size() const
 {
-  return data.size();
+  return n;
 }
 
 template<class T>
 void Vector<T>::resize(Size n_)
 {
-  data.resize(n_);
+	delete[] data;
+	n = n_;
+	data = new T[n];
 }
 
 template<class T> inline
 T & Vector<T>::operator()(Index i)
 {
-  return data(i);
+  return data[i];
 }
 
 template<class T> inline
 const T & Vector<T>::operator()(Index i) const
 {
-  return data(i);
+  return data[i];
 }
 
 template<class T> inline
 Vector<T> & Vector<T>::operator*=(const T & c)
 {
-  data *= c;
-  return *this;
+	for(Index i=0; i<n; ++i)
+  		data[i] *= c;
+  	return *this;
 }
 
 template<class T> inline
 Vector<T> & Vector<T>::operator/=(const T & c)
 {
-  data /= c;
-  return *this;
+	ASSERT( !is_zero(c) );
+	for(Index i=0; i<n; ++i)
+  		data[i] /= c;
+  	return *this;
 }
 
 template<class T> inline
 Vector<T> & Vector<T>::operator+=(const Vector & other)
 {
-  ASSERT( data.size() == other.size() );
-  data += other.data;
+  ASSERT( n == other.size() );
+  for(Index i=0; i<n; ++i)
+  	data[i] += other.data[i];
   return *this;
 }
 
 template<class T> inline
 Vector<T> & Vector<T>::operator-=(const Vector & other)
 {
-  ASSERT( data.size() == other.size() );
-  data -= other.data;
-  return *this;
+  	ASSERT( n == other.size() );
+	for(Index i=0; i<n; ++i)
+  		data[i] -= other.data[i];
+  	return *this;
 }

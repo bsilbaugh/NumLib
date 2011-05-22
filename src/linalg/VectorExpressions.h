@@ -77,15 +77,22 @@ void setPartition(Vector<T> & u, const Vector<T> & up, Index first, Index last)
 template<class T>
 T norm2(const Vector<T> & u)
 {
-  T tmp( sum(u.data*u.data) );
-  return std::sqrt(tmp);
+  T val(0);
+  T ui;
+  for(Index i=0; i<u.size(); ++i)
+  {
+	  ui = u(i);
+	  val += ui*ui;
+  }
+  return std::sqrt(val);
 }
 
 template<class T>
 Vector<T> abs(const Vector<T> & u)
 {
 	 Vector<T> tmp(u.size());
-	 tmp.data = ::numlib::array::abs(u.data);
+	 for(Index i=0; i<u.size(); ++i)
+		 tmp(i) = std::fabs(u(i));
 	 return tmp;
 }
 
