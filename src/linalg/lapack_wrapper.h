@@ -38,12 +38,6 @@ Int lapack_dgesv(const Size n, const Size nrhs, const Real* a, const Size lda,
 	double* b_c = (double*) b;
 	long* ipiv_c = (long*) ipiv;
 
-	DEBUG_PRINT_VAR(n_c);
-	DEBUG_PRINT_VAR(nrhs_c);
-	DEBUG_PRINT_VAR(lda_c);
-	DEBUG_PRINT_VAR(ldb_c);
-	DEBUG_PRINT_VAR(info_c);
-
 	F77_SUBROUTINE(dgesv)(&n_c, &nrhs_c, a_c, &lda_c, ipiv_c, b_c, &ldb_c, &info_c);
 
 	return info_c;

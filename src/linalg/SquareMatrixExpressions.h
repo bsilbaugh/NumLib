@@ -130,8 +130,6 @@ void solve(const SquareMatrix<Real>& a, Vector<Real>& u)
 
 	Int info = lapack_dgesv(n, nrhs, a_data, n, p_data, u_data, n);
 
-	DEBUG_PRINT_VAR( info );
-
 	for(Index i=0; i<n; ++i)
 		u(i) = u_data[i];
 
