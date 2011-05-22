@@ -91,7 +91,7 @@ Vector<T> & Vector<T>::operator/=(const T & c)
 template<class T> inline
 Vector<T> & Vector<T>::operator+=(const Vector & other)
 {
-  ASSERT( data.size() == other.size() );
+  ASSERT( n == other.size() );
   for(Index i=0; i<n; ++i)
   	data[i] += other.data[i];
   return *this;
@@ -100,7 +100,7 @@ Vector<T> & Vector<T>::operator+=(const Vector & other)
 template<class T> inline
 Vector<T> & Vector<T>::operator-=(const Vector & other)
 {
-  	ASSERT( data.size() == other.size() );
+  	ASSERT( n == other.size() );
 	for(Index i=0; i<n; ++i)
   		data[i] -= other.data[i];
   	return *this;
