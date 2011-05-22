@@ -11,11 +11,12 @@
  *  to LAPACK.
  */
 
-#ifndef SQUARE_MATRIX_OVERLOADS_H
-#define SQUARE_MATRIX_OVERLOADS_H
+#ifndef SQUARE_MATRIX_EXPRESSION_H
+#define SQUARE_MATRIX_EXPRESSION_H
 
 #include "Vector.h"
 #include "SquareMatrix.h"
+#include "lapack_wrapper.h"
 
 namespace numlib{ namespace linalg{
 
@@ -88,6 +89,73 @@ Vector<T> prod(const SquareMatrix<T>& a, const Vector<T>& u)
 		v(i) = val;
 	}
 	return v;
+}
+
+//! Directly solves [A]{x} = {b} where [A] is a dense square matrix
+/*!
+ *	Solves [A]{x} = {b} using the LU decomposition. The argument 'a' is
+ *	the square coefficient matrix [A]. Upon input 'u' is the the 
+ *	right-hand-side vector {b}; upon output 'u' is the solution vector
+ *	{x}. This is intended as a high-level (i.e. quick-and-dirty) function
+ *	for solving dense linear systems.
+ *
+ *	This function assumes only one right-hand-side vector. The underlying
+ *	LAPACK subroutine DGESV does allow multiple right-hand-sides. If this
+ *	is needed, use/create a solve function which exposes this functionality
+ *	or use/create a lower level solver which treats LU factorization as
+ *	an separate pre-processing step.
+ *
+ *	Note that a temporary work matrix is created to hold the LU factored
+ *	[A] matrix (so as to preserve the original [A]). If you're solving a
+ *	really big problem use a lower level solver which allows in-place
+ *	modification of [A].
+ */
+template<class T>
+void solve(const SquareMatrix<T>& a, Vector<T>& u)
+{
+	throw NumLibError("solve function not implemented; only implemented for Real matricies");
+}
+
+//! Specialization of template<class T> solve function for T=Real.
+/*!
+ *  This forwards the solution of [A]{x} = {b} to the LAPACK subroutine DGESV.
+ *
+ *  \todo Look into making this a friend function so that the internal
+ *  data of SquareMatrix and Vector can be passed directly to the
+ *  fortran LAPACK routine.
+ */
+template<>
+void solve<Real>(const SquareMatrix<Real>& a, Vector<Real>& u)
+{
+	ASSERT( a.size() == u.size() );
+
+	Size nrhs = 1;
+	Size n = a.size();
+
+	Real* a_data = new Real[n*n];
+	for(Index j=0; j<n; ++j)
+		for(Index i=0; i<n; ++i)
+			a_data[i+j*n] = a(i,j);
+
+	Real* u_data = new Real[n];
+	for(Index i=0; i<n; ++i)
+		u_data[i] = u(i);
+
+	Int* p_data = new Int[n];
+
+	Int info = lapack_dgesv(n, nrhs, a_data, n, p_data, u_data, n);
+
+	DEBUG_PRINT_VAR( info );
+
+	for(Index i=0; i<n; ++i)
+		u(i) = u_data[i];
+
+	delete[] a_data;
+	delete[] u_data;
+	delete[] p_data;
+
+	if(info!=0)
+		throw NumLibError("Failed to solve linear system");
 }
 
 }}//::numlib::linalg

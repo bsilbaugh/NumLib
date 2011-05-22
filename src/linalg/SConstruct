@@ -14,7 +14,8 @@ headers = (
 	'HessMatrixExpressions.h',
 	'SquareMatrix.h',
 	'SquareMatrix-inl.h',
-	'SquareMatrixExpressions.h'
+	'SquareMatrixExpressions.h',
+	'lapack_wrapper.h'
 )
 
 env.Install(prefix+'/include/numlib/linalg', headers)
