@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <iomanip>
+#include <sstream>
+#include <string>
 
 #include "numlib-config.h"
 
@@ -14,6 +16,20 @@ inline
 std::ostream & fmtReal(std::ostream & os)
 {
 	 return os<<std::scientific<<std::setprecision(8)<<std::setw(15);
+}
+
+//! A utility for extracting numeric types from strings
+/*!
+ *  The third parameter should be one of the following:
+ *  - std::hex
+ *  - std::dec
+ *  - std::oct
+ */
+template<class T>
+bool fromString(T& t, const std::string & s, std::ios_base& (*f)(std::ios_base&)=std::dec)
+{
+	 std::istringstream iss(s);
+	 return !(iss >> f >> t).fail();
 }
 
 }
