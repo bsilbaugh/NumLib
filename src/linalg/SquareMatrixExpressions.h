@@ -110,22 +110,7 @@ Vector<T> prod(const SquareMatrix<T>& a, const Vector<T>& u)
  *	really big problem use a lower level solver which allows in-place
  *	modification of [A].
  */
-template<class T>
-void solve(const SquareMatrix<T>& a, Vector<T>& u)
-{
-	throw NumLibError("solve function not implemented; only implemented for Real matricies");
-}
-
-//! Specialization of template<class T> solve function for T=Real.
-/*!
- *  This forwards the solution of [A]{x} = {b} to the LAPACK subroutine DGESV.
- *
- *  \todo Look into making this a friend function so that the internal
- *  data of SquareMatrix and Vector can be passed directly to the
- *  fortran LAPACK routine.
- */
-template<>
-void solve<Real>(const SquareMatrix<Real>& a, Vector<Real>& u)
+void solve(const SquareMatrix<Real>& a, Vector<Real>& u)
 {
 	ASSERT( a.size() == u.size() );
 
