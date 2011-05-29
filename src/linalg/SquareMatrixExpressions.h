@@ -110,6 +110,7 @@ Vector<T> prod(const SquareMatrix<T>& a, const Vector<T>& u)
  *	really big problem use a lower level solver which allows in-place
  *	modification of [A].
  */
+inline
 void solve(const SquareMatrix<Real>& a, Vector<Real>& u)
 {
 	ASSERT( a.size() == u.size() );
