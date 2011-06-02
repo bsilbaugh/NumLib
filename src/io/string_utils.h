@@ -6,10 +6,9 @@
 
 #include <sstream>
 #include <iostream>
-#include "rodymol-config.h"
+#include "../base/numlib-config.h"
 
-namespace rodymol
-{
+namespace numlib{ namespace io{
 
 //! A utility for extracting numeric types from strings
 /*!
@@ -34,6 +33,6 @@ void stripWhiteSpace(String & s, const char* whitespace=" \t");
 //! A utility for stripping comment lines from string
 void stripComments(String & s, char cc='#');
 
-}//::rodymol
+}}//::numlib::io
 
 #endif

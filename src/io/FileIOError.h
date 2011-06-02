@@ -4,32 +4,31 @@
 #ifndef FILEIOERROR_H
 #define FILEIOERROR_H
 
-#include "RodymolError.h"
+#include "NumLibError.h"
 
-namespace rodymol
-{
+namespace numlib{ namespace io{
 
-class FileIOError: public RodymolError
+class FileIOError: public NumLibError
 {
 public:
 	 
 	 FileIOError(const char* errmsg="Failure during file IO"):
-		  RodymolError(errmsg) {}
+		  NumLibError(errmsg) {}
 
 	 FileIOError(const FileIOError & other):
-		  RodymolError(other) {}
+		  NumLibError(other) {}
 
 	 virtual
 	 ~FileIOError() throw() {}
 
 	 FileIOError & operator=(const FileIOError & other)
      {
-		  RodymolError::operator=(other);
+		  NumLibError::operator=(other);
 		  return *this;
 	 }
 
 };
 
-}
+}}//::numlib::io
 
 #endif

@@ -4,31 +4,30 @@
 #ifndef SYNTAXERROR_H
 #define SYNTAXERROR_H
 
-#include "RodymolError.h"
+#include "../base/NumLibError.h"
 
-namespace rodymol
-{
+namespace numlib{ namespace io{
 
-class SyntaxError: public RodymolError
+class SyntaxError: public NumLibError
 {
 public:
 	 
 	 SyntaxError(const char* errmsg="Unrecognized syntax in input stream"):
-		  RodymolError(errmsg) {}
+		  NumLibError(errmsg) {}
 
 	 SyntaxError(const SyntaxError & other):
-		  RodymolError(other) {}
+		  NumLibError(other) {}
 
 	 virtual
 	 ~SyntaxError() throw() {}
 
 	 SyntaxError & operator=(const SyntaxError & other)
      {
-		  RodymolError::operator=(other);
+		  NumLibError::operator=(other);
 		  return *this;
 	 }
 };
 
-}
+}}//::numlib::io
 
 #endif

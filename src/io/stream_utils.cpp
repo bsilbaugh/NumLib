@@ -3,8 +3,7 @@
 
 #include "stream_utils.h"
 
-namespace rodymol
-{
+namespace numlib{ io{
 
 std::ostream & operator<<(std::ostream & os, const Dict & dict)
 {
@@ -306,4 +305,4 @@ void parseConnInst(StringStream & buff,
 	 }
 }
 
-}//::rodymol
+}}//::numlib::io

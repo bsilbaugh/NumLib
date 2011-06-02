@@ -10,11 +10,8 @@
 #include "string_utils.h"
 #include "FileIOError.h"
 #include "SyntaxError.h"
-#include "CompModelNameList.h"
-#include "ConnInstSet.h"
 
-namespace rodymol
-{
+namespace numlib{ namespace io{
 
 //! Manipulator for formatting output of Real types
 inline
@@ -71,6 +68,6 @@ void parseConnInst(StringStream & buff,
 				   ConnInstSet & cisCurveLinear,
 				   ConnInstSet & cisCurveRotational);
 
-}//::rodymol
+}}//::numlib::io
 
 #endif

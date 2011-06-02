@@ -3,8 +3,7 @@
 
 #include "string_utils.h"
 
-namespace rodymol
-{
+namespace numlib{ namespace io{
 
 void stripWhiteSpace(String & s, const char* whitespace)
 {
@@ -30,4 +29,4 @@ void stripComments(String & s, char cc)
 		  s.erase(pos);
 }
 
-}//::rodymol
+}//::numlib::io
