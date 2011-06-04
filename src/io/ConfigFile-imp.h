@@ -29,6 +29,10 @@ template<class V>
 void ConfigFile::loadVector(const String& name, V& val)
 {
 
+	const char del=','; /* array element delimiter */
+
+	// Lookup requested variable for extraction...
+
 	Dictionary::iterator it = input_dict.find(name);
 
 	if(it==input_dict.end())
@@ -38,6 +42,8 @@ void ConfigFile::loadVector(const String& name, V& val)
 		msg += "' but no value was given";
 		throw SyntaxError(msg.c_str());
 	}
+
+	// Verify that input is a vector...
 
 	if((it->second)[0]!='[') 
 	{
@@ -54,15 +60,20 @@ void ConfigFile::loadVector(const String& name, V& val)
 		throw SyntaxError(msg.c_str());
 	}
 
-	std::stringstream buff;
-	char c;
+	// Strip opening and closing brackets...
+
+	String s(it->second); /* temporary work string */
+	s.erase(0,1);
+	s.erase(s.length()-1);
+
+	// Parse remaining input string...
+
+	std::stringstream buff(s); /* transfer input string to stream buffer */
 	typename V::value_type x;
-  	buff<<it->second;
-	buff>>c; /* purge opening bracket */
-	do
+	getline(buff, s, del);
+	while(buff)
 	{
-		buff>>x>>c;
-		if(buff.fail())
+		if(!fromString(x,s))
 		{
 			String msg("Error while reading element values for vector '");
 			msg+=it->first;
@@ -70,7 +81,8 @@ void ConfigFile::loadVector(const String& name, V& val)
 			throw SyntaxError(msg.c_str());
 		}
 		val.push_back(x);
-	}while(c!=']');
+		getline(buff,s,del);
+	}
 }
 
 }}//::numlib::io

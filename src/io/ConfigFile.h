@@ -39,6 +39,8 @@ namespace numlib{ namespace io{
  *	supported as they do not implement STL protocals. The template function 
  *	numlib::io::fromString is used to handle the type conversion; thus, the 
  *	element type must be a type understood by numlib::io::fromString.
+ *	The following element types are known to work for both scalar and
+ *	vector inputs: double, float, int, std::string.
  *
  *  \todo Remove some of the code duplication between load and loadVector
  *	\todo Enable support of multi-dimensional arrays
