@@ -8,7 +8,7 @@ src = (
 )
 
 headers = (
-	'io.h',
+	'stream_manip.h',
 	'string_utils.h',
 	'FileIOError.h',
 	'SyntaxError.h',
