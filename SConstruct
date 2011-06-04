@@ -26,7 +26,7 @@
 
 # Setup contruction environment(s)...
 
-env = Environment()
+env = Environment(CPP='g++', CPPFLAGS='-DDEBUG=2')
 
 # Explicity set path...
 
@@ -50,6 +50,7 @@ You are very smart. I'm sure you'll figure this out.
 
 libs = (
 	'base', 
+	'io',
 	'array',
 	'integration',
 	'linalg',
