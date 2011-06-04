@@ -22,8 +22,7 @@ headers = (
 	'random.h',
 	'factorial.h',
 	'StopWatch.h',
-	'ScopedTimer.h',
-	'io.h'
+	'ScopedTimer.h'
 )
 
 # Define library to be constructed...

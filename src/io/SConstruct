@@ -1,0 +1,22 @@
+Import('env prefix')
+
+lib_name = 'numlib_io'
+
+src = (
+	'string_utils.cpp',
+	'ConfigFile.cpp'
+)
+
+headers = (
+	'stream_manip.h',
+	'string_utils.h',
+	'FileIOError.h',
+	'SyntaxError.h',
+	'ConfigFile.h',
+	'ConfigFile-imp.h'
+)
+
+lib = env.StaticLibrary(lib_name, src)
+
+env.Install(prefix+'/lib', lib)
+env.Install(prefix+'/include/numlib/io', headers)
