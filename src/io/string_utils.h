@@ -24,8 +24,16 @@ typedef std::string String;
 template<class T>
 bool fromString(T& t, const String & s, std::ios_base& (*f)(std::ios_base&)=std::dec)
 {
-	 std::istringstream iss(s);
-	 return !(iss >> f >> t).fail();
+	std::istringstream iss(s);
+	return !(iss >> f >> t).fail();
+}
+
+//! Overloaded version of fromString to handle special case of T=String
+inline
+bool fromString(String& t, const String & s)
+{
+	t=s;
+	return true;
 }
 
 //! A utility for striping all white-space from a std::string
