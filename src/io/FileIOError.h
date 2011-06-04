@@ -4,7 +4,7 @@
 #ifndef FILEIOERROR_H
 #define FILEIOERROR_H
 
-#include "NumLibError.h"
+#include "../base/NumLibError.h"
 
 namespace numlib{ namespace io{
 
