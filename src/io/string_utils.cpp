@@ -29,4 +29,21 @@ void stripComments(String & s, char cc)
 		  s.erase(pos);
 }
 
-}//::numlib::io
+bool split(const String & line, String & substr1, String & substr2, const char* delim)
+{
+	 Size pos1;
+	 Size pos2;
+	 Size len = std::strlen(delim);
+
+	 pos1 = line.find(delim);
+	 if(pos1 == String::npos)
+		 return true;
+		
+	 pos2 = pos1+len;
+	 substr1 = line.substr(0,pos1);
+	 substr2 = line.substr(pos2);
+
+	 return false;
+}
+
+}}//::numlib::io
