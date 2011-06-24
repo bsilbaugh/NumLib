@@ -4,7 +4,8 @@ lib_name = 'numlib_io'
 
 src = (
 	'string_utils.cpp',
-	'ConfigFile.cpp'
+	'ConfigFile.cpp',
+	'TableLoader.cpp'
 )
 
 headers = (
@@ -13,7 +14,8 @@ headers = (
 	'FileIOError.h',
 	'SyntaxError.h',
 	'ConfigFile.h',
-	'ConfigFile-imp.h'
+	'ConfigFile-imp.h',
+	'TableLoader.h'
 )
 
 lib = env.StaticLibrary(lib_name, src)
