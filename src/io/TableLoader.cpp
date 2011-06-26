@@ -3,9 +3,21 @@
 
 namespace numlib{ namespace io{
 
+TableLoader::TableLoader():
+	ncol(0), nrow(0), data(0)
+{
+}
+
 TableLoader::TableLoader(const String& file_name):
 	ncol(0), nrow(0), data(0)
 {
+	load(file_name);
+}
+
+void TableLoader::load(const String& file_name)
+{
+	data.resize(0);
+
 	typedef std::vector<Real> Row;
 
 	// Load table...
@@ -44,7 +56,6 @@ TableLoader::TableLoader(const String& file_name):
 		for(Index j=1; j<nrow; ++j)
 			if(!(data[j].size() == ncol + 1))
 				throw NumLibError("Table contains unequal columns");
-
 }
 
 }}//::namespace::io

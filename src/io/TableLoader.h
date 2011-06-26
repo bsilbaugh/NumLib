@@ -16,8 +16,14 @@ class TableLoader
 {
 public:
 
+	//! Default initialization (empty table)
+	TableLoader();
+
 	//! Loads table from ASCII file
 	TableLoader(const String& file_name);
+
+	//! Loads table from ASCII file
+	void load(const String& file_name);
 
 	//! Returns the number of data rows in the table
 	const Size number_of_rows() const { return nrow; }
