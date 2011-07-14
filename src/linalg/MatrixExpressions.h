@@ -5,6 +5,9 @@
 #ifndef MATRIX_EXPRESSIONS_H
 #define MATRIX_EXPRESSIONS_H
 
+#include "Matrix.h"
+#include "Vector.h"
+
 namespace numlib{ namespace linalg{
 
 template<class T> inline
