@@ -68,13 +68,13 @@ void Matrix<T>::resize(const Size nrows, const Size ncols)
 }
 
 template<class T>
-T& operator()(Index i, Index j)
+T& Matrix<T>::operator()(Index i, Index j)
 {
 	return data[i + j*n];
 }
 
 template<class T>
-const T& operator()(Index i, Index j) const
+const T& Matrix<T>::operator()(Index i, Index j) const
 {
 	return data[i + j*n];
 }
