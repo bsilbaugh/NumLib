@@ -26,7 +26,7 @@ Matrix<T>::Matrix(const Matrix& other):
 	m(other.m)
 {
 	data = new T[n*m];
-	for(Index k=0; i<n*m; ++i)
+	for(Index i=0; i<n*m; ++i)
 		data[i] = other.data[i];
 }
 
