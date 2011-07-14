@@ -14,7 +14,7 @@ Matrix<T>::Matrix():
 template<class T>
 Matrix<T>::Matrix(Size nrows, Size ncols):
 	n(nrows),
-	m(ncols)
+	m(ncols),
 	data(0)
 {
 	data = new T[n*m];
