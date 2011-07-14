@@ -5,6 +5,8 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+#include "../base/numlib-config.h"
+
 namespace numlib{ namespace linalg{
 
 template<class T>
