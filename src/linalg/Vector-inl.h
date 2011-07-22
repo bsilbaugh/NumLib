@@ -62,13 +62,15 @@ void Vector<T>::resize(Size n_)
 template<class T> inline
 T & Vector<T>::operator()(Index i)
 {
-  return data[i];
+	ASSERT( i < n );
+  	return data[i];
 }
 
 template<class T> inline
 const T & Vector<T>::operator()(Index i) const
 {
-  return data[i];
+	ASSERT( i < n );
+  	return data[i];
 }
 
 template<class T> inline
