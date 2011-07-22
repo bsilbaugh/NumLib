@@ -70,12 +70,16 @@ void Matrix<T>::resize(const Size nrows, const Size ncols)
 template<class T>
 T& Matrix<T>::operator()(Index i, Index j)
 {
+	ASSERT( i < n );
+	ASSERT( j < m );
 	return data[i + j*n];
 }
 
 template<class T>
 const T& Matrix<T>::operator()(Index i, Index j) const
 {
+	ASSERT( i < n );
+	ASSERT( j < m );
 	return data[i + j*n];
 }
 
