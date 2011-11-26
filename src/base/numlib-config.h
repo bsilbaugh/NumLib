@@ -12,6 +12,7 @@
 
 #include <cmath>
 #include <list>
+#include <cstddef>
 
 namespace numlib{
 
