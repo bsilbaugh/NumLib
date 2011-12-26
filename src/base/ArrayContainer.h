@@ -33,6 +33,8 @@ class ArrayContainer
 {
 public:
 
+	typedef T ValueType;
+
 	/*------------------------------------------------------------------------*/
 	/*                                         INITIALIZATION AND DUPLICATION */
 
