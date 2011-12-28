@@ -22,7 +22,11 @@ headers = (
 	'FiniteRotations.h',
 	'ReferenceFrame.h',
 	'ReferenceFrame-inl.h',
-	'MovingReferenceFrame.h'
+	'MovingReferenceFrame.h',
+	'TensorFieldBase.h',
+	'TensorFieldR0.h',
+	'TensorFieldR1.h',
+	'TensorFieldR2.h'
 )
 
 lib = env.StaticLibrary(lib_name, src)
