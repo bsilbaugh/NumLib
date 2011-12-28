@@ -52,6 +52,12 @@ public:
 	}
 };
 
+/*----------------------------------------------------------------------------*/
+/*                                                         OPERATOR OVERLOADS */
+
+TENSOR_FIELD_ARITHMETIC_OVERLOADS( TensorFieldR1, TensorR1 );
+
+
 }}//::numlib::tensor
 
 #endif

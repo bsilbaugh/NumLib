@@ -37,6 +37,11 @@ public:
 
 };
 
+/*----------------------------------------------------------------------------*/
+/*                                                         OPERATOR OVERLOADS */
+
+TENSOR_FIELD_ARITHMETIC_OVERLOADS( TensorFieldR0, Real );
+
 }}//::numlib::tensor
 
 #endif

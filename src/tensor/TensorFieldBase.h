@@ -163,4 +163,46 @@ protected:
 		return *this; 								\
 	} 
 
+//! Common operator overloads
+#define TENSOR_FIELD_ARITHMETIC_OVERLOADS( FTYPE, T )			\
+	inline FTYPE operator*(const FTYPE & u, const Real c )		\
+	{															\
+		FTYPE r(u);												\
+		return r *= c;											\
+	}															\
+	inline FTYPE operator*(const Real c, FTYPE & u )			\
+	{															\
+		FTYPE r(u);												\
+		return r *= c;											\
+	}															\
+	inline FTYPE operator/(const FTYPE & u, const Real c )		\
+	{															\
+		ASSERT( c ); 											\
+		FTYPE r(u);												\
+		return r /= c;											\
+	}															\
+	inline FTYPE operator+(const FTYPE & u, const FTYPE & v )	\
+	{															\
+		ASSERT( u.size() == v.size() ); 						\
+		FTYPE r(u);												\
+		return r+= v;											\
+	}															\
+	inline FTYPE operator-(const FTYPE & u, const FTYPE & v )	\
+	{															\
+		ASSERT( u.size() == v.size() ); 						\
+		FTYPE r(u);												\
+		return r-= v;											\
+	}															\
+	inline FTYPE operator+(const FTYPE & u, const T & v )		\
+	{															\
+		FTYPE r(u);												\
+		return r+= v;											\
+	}															\
+	inline FTYPE operator-(const FTYPE & u, const T & v )		\
+	{															\
+		FTYPE r(u);												\
+		return r-= v;											\
+	}
+
+
 #endif
