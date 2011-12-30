@@ -97,14 +97,14 @@ public:
 	}
 
 	//! Mutable element access
-	T& operator[](const Index i) 
+	T& operator()(const Index i) 
 	{
 		ASSERT( i < n );
 		return data[i];
 	}
 
 	//! Immutable element access
-	const T& operator[](const Index i) const 
+	const T& operator()(const Index i) const 
 	{
 		ASSERT( i < n );
 		return data[i];
