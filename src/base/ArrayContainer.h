@@ -31,9 +31,96 @@ namespace numlib{
 template<class T>
 class ArrayContainer
 {
+protected:
+
+	T* data; //*!< internal data array */
+
+	Size n; //*!< number of elements in the array */
+
+
+	//! Bidirectional iterator template
+	template<class NodeType>
+	class IteratorBase
+	{
+	public:
+
+		//! Constructs a non-associated iterator
+		IteratorBase():d_ptr(NULL){}
+
+		//! Constructs an iterator and associates it with the address `start'
+		IteratorBase(T* start):d_ptr(start){}
+
+		//! Copies internal reference (shallow copy)
+		IteratorBase(const IteratorBase& other){ d_ptr = other.d_ptr; }
+
+		~IteratorBase(){}
+
+		//! Assigns internal ref held by `other' iterator (shallow copy)
+		IteratorBase& operator=(const IteratorBase& other)
+		{
+			if(&other==this) return *this;
+			d_ptr = other.d_ptr;
+			return *this;
+		}
+
+		//! Comparison operator; true when both iterators point to the same element
+		bool operator==(const IteratorBase& other) const { return d_ptr==other.d_ptr; }
+
+		//! Returns false when both iterators point to the same element
+		bool operator!=(const IteratorBase& other) const {return d_ptr!=other.d_ptr; }
+
+		//! pre-fix increment: ++it
+		IteratorBase& operator++()
+		{
+			ASSERT(d_ptr);
+			++d_ptr;
+			return *this;
+		}
+
+		//! pre-fix decriment: --it
+		IteratorBase& operator--()
+		{
+			ASSERT(d_ptr);
+			--d_ptr;
+			return *this;
+		}
+
+		//! post-fix increment: it++
+		IteratorBase operator++(int)
+		{
+			IteratorBase tmp(*this);
+			++(*this);
+			return tmp;
+		}
+
+		//! post-fix decriment: it--
+		IteratorBase operator--(int)
+		{
+			ASSERT(d_ptr);
+			IteratorBase tmp(*this);
+			--(*this);
+			return *this;
+		}
+
+		//! Dereference operator
+		NodeType& operator*() 
+		{
+			ASSERT(d_ptr);
+			return *d_ptr;
+		}
+
+	private:
+
+		NodeType* d_ptr;
+
+	};
+
+
 public:
 
 	typedef T ValueType;
+	typedef IteratorBase<T>       Iterator;
+	typedef IteratorBase<const T> ConstIterator;
 
 	/*------------------------------------------------------------------------*/
 	/*                                         INITIALIZATION AND DUPLICATION */
@@ -110,82 +197,6 @@ public:
 		return data[i];
 	}
 
-	//! Bidirectional iterator
-	class Iterator
-	{
-	public:
-
-		//! Constructs a non-associated iterator
-		Iterator():d_ptr(NULL){}
-
-		//! Constructs an iterator and associates it with the address `start'
-		Iterator(T* start):d_ptr(start){}
-
-		//! Copies internal reference (shallow copy)
-		Iterator(const Iterator& other){ d_ptr = other.d_ptr; }
-
-		~Iterator(){}
-
-		//! Assigns internal ref held by `other' iterator (shallow copy)
-		Iterator& operator=(const Iterator& other)
-		{
-			if(&other==this) return *this;
-			d_ptr = other.d_ptr;
-			return *this;
-		}
-
-		//! Comparison operator; true when both iterators point to the same element
-		bool operator==(const Iterator& other) { return d_ptr==other.d_ptr; }
-
-		//! Returns false when both iterators point to the same element
-		bool operator!=(const Iterator& other) {return d_ptr!=other.d_ptr; }
-
-		//! pre-fix increment: ++it
-		Iterator& operator++()
-		{
-			ASSERT(d_ptr);
-			++d_ptr;
-			return *this;
-		}
-
-		//! pre-fix decriment: --it
-		Iterator& operator--()
-		{
-			ASSERT(d_ptr);
-			--d_ptr;
-			return *this;
-		}
-
-		//! post-fix increment: it++
-		Iterator operator++(int)
-		{
-			Iterator tmp(*this);
-			++(*this);
-			return tmp;
-		}
-
-		//! post-fix decriment: it--
-		Iterator operator--(int)
-		{
-			ASSERT(d_ptr);
-			Iterator tmp(*this);
-			--(*this);
-			return *this;
-		}
-
-		//! Dereference operator
-		T& operator*() 
-		{
-			ASSERT(d_ptr);
-			return *d_ptr;
-		}
-
-	private:
-
-		T* d_ptr;
-
-	};
-
 	//! Returns iterator pointing to the first element
 	Iterator begin() {return Iterator(data);}
 
@@ -198,12 +209,17 @@ public:
 	//! Returns an iterator pointing to +1 before the first element
 	Iterator rend() {return Iterator(data-1);}
 
+	//! Returns const iterator pointing to the first element
+	ConstIterator begin() const {return ConstIterator(data);}
 
-protected:
+	//! Returns const iterator pointing to +1 past end
+	ConstIterator end() const {return ConstIterator(data+n);}
 
-	T* data; //*!< internal data array */
+	//! Returns const iterator pointing to the last element
+	ConstIterator rbegin() const {return ConstIterator(data+n-1);}
 
-	Size n; //*!< number of elements in the array */
+	//! Returns const iterator pointing to +1 before the first element
+	ConstIterator rend() const {return ConstIterator(data-1);}
 
 };
 
