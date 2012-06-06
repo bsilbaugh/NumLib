@@ -41,7 +41,7 @@ EulerParameterVector::EulerParameterVector(const TensorR2 & r)
 		of rotation angle via acos(q4) will give NaN. So, if q4 > 1.0 we 
 		assume its due to rounding error and manually fix it. */
 
-	 if( (q4 > 1.0) and (q4 - 1.0 < 1.0E-8) ) q4 = 1.0;
+	 if( (q4 > 1.0) and (q4 - 1.0 < 1.0E-6) ) q4 = 1.0;
 
 	 ASSERT( !(q4 > 1.0) );
 
