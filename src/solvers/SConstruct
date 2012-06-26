@@ -13,6 +13,7 @@ headers = (
 	'GateauxFD-inl.h',
 	'NewtonKrylov-inl.h',
 	'NewtonKrylov.h',
+	'NewtonArnoldi.h',
 	'NewtonArnoldi-inl.h',
 	'PseudoTransientOperator.h',
 	'PseudoTransientOperator-inl.h'
