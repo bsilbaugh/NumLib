@@ -84,7 +84,7 @@ Vector<T> & Vector<T>::operator*=(const T & c)
 template<class T> inline
 Vector<T> & Vector<T>::operator/=(const T & c)
 {
-	ASSERT( !is_zero(c) );
+	ASSERT( !(c == 0.0) );
 	for(Index i=0; i<n; ++i)
   		data[i] /= c;
   	return *this;
