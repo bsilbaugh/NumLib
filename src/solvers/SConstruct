@@ -4,7 +4,9 @@ lib_name = 'numlib_solvers'
 
 headers = (
 	'Arnoldi.h',
+	'GMRES.h',
 	'GalerkinProjection.h',
+	'GMRESProjection.h',
 	'Krylov-inl.h',
 	'Krylov.h',
 	'KrylovSpaceAO-inl.h',
@@ -15,6 +17,7 @@ headers = (
 	'NewtonKrylov.h',
 	'NewtonArnoldi.h',
 	'NewtonArnoldi-inl.h',
+	'NewtonGMRES.h',
 	'PseudoTransientOperator.h',
 	'PseudoTransientOperator-inl.h'
 )
