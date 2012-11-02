@@ -5,11 +5,12 @@
 #define HESSMATRIX_H
 
 #include "../base/numlib-config.h"
+#include "../base/debug_tools.h"
+#include "Vector.h"
 
 namespace numlib{ namespace linalg{
 
 // Forward declarations
-template<class T> class Vector;
 template<class T> class ExtHessMatrix;
 
 //! Hessenberg Matrix
@@ -97,10 +98,13 @@ HessMatrix<T>::HessMatrix(Size m_):
 	 columns(NULL),
 	 zero(0)
 {
-	columns = new Vector<T>[m];
-	for(Index j=0; j<m-1; ++j)
-		columns[j].resize(j+2);
-	columns[m-1].resize(m);
+	if(m > 0)
+	{
+		columns = new Vector<T>[m];
+		for(Index j=0; j<m-1; ++j)
+			columns[j].resize(j+2);
+		columns[m-1].resize(m);
+	}
 }
 
 template<class T>
@@ -141,7 +145,7 @@ HessMatrix<T> & HessMatrix<T>::operator=(const HessMatrix & other)
 template<class T> inline
 Size HessMatrix<T>::size1() const
 {
-	 return n;
+	 return m;
 }
 
 template<class T> inline
@@ -153,7 +157,7 @@ Size HessMatrix<T>::size2() const
 template<class T> inline
 T & HessMatrix<T>::operator()(Index i, Index j)
 {
-	ASSERT( i < n );
+	ASSERT( i < m );
 	ASSERT( j < m );
 
 	if(i < j+2)
@@ -165,7 +169,7 @@ T & HessMatrix<T>::operator()(Index i, Index j)
 template<class T> inline
 const T & HessMatrix<T>::operator()(Index i, Index j) const
 {
-	ASSERT( i < n );
+	ASSERT( i < m );
 	ASSERT( j < m );
 
 	if(i < j+2)
@@ -200,18 +204,6 @@ HessMatrix<T> & HessMatrix<T>::operator-=(const HessMatrix & other)
 {
 	 for(Index j=0; j<m; ++j)
 		  columns[j] -= other.columns[j];
-}
-
-template<class T>
-void HessMatrix<T>::copy(const HessMatrix & other)
-{
-	 delete[] columns;
-
-	 n = other.n;
-	 m = other.m;
-	 columns = new Vector<T>[m];
-	 for(Index i=0; i<m; ++i)
-		  columns[i] = other.columns[i];
 }
 
 }}//::numlib::linalg
