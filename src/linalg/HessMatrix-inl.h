@@ -2,41 +2,37 @@
  */
 
 template<class T>
-HessMatrix<T>::HessMatrix(Size m_, bool extended):
-	 n(m_),m(m_),columns(0),zero(0)
+HessMatrix<T>::HessMatrix(Size m_):
+	 m(m_),
+	 columns(NULL),
+	 zero(0)
 {
-
-	 if(extended) n=m+1;
-
-	 if(m > 0)
-	 {
-		  columns = new Vector<T>[m];
-		  for(Index j=0; j<m-1; ++j)
-			   columns[j].resize(j+2);
-		  columns[m-1].resize(n);
-	 }
+	columns = new Vector<T>[m];
+	for(Index j=0; j<m-1; ++j)
+		columns[j].resize(j+2);
+	columns[m-1].resize(m);
 }
 
 template<class T>
 HessMatrix<T>::HessMatrix(const HessMatrix & other):
-	 n(0),m(0),columns(0),zero(0)
+	 m(0),columns(0),zero(0)
 {
-	 copy(other);
+	 m = other.m;
+	 columns = new Vector<T>[m];
+	 for(Index j=0; j<m; ++j)
+		 columns[j] = other.columns[j];
 }
 
 template<class T>
-HessMatrix<T>::HessMatrix(const HessMatrix & other, bool extended):
-	 n(0),m(0),columns(0),zero(0)
+HessMatrix<T>::HessMatrix(const ExtHessMatrix<T> & other):
+	 m(0),columns(NULL),zero(0)
 {
-
-	/*** this needs to get cleaned up! ***/
-	/* Really should get rid of extended option and make as
-	 * separate type */
-
-	 ASSERT( extended == false );
-
- 	 copy(other);
- 	 n = m;
+	m = other.m;
+	columns = new Vector<T>[m];
+	for(Index j=0; j<m-1; ++j)
+		columns[j] = other.columns[j];
+	for(Index i=0; i<m; ++i)
+		columns[m-1](i) = other.columns[m-1](i);
 }
 
 template<class T>
@@ -67,17 +63,25 @@ Size HessMatrix<T>::size2() const
 template<class T> inline
 T & HessMatrix<T>::operator()(Index i, Index j)
 {
-	 if(i < j+2)
-		  return columns[j](i);
-	 return zero;
+	ASSERT( i < n );
+	ASSERT( j < m );
+
+	if(i < j+2)
+		return columns[j](i);
+
+	return zero;
 }
 
 template<class T> inline
 const T & HessMatrix<T>::operator()(Index i, Index j) const
 {
-	 if(i < j+2)
-		  return columns[j](i);
-	 return zero;
+	ASSERT( i < n );
+	ASSERT( j < m );
+
+	if(i < j+2)
+		return columns[j](i);
+
+	return zero;
 }
 
 template<class T>

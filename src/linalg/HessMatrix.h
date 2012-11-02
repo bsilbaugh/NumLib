@@ -4,7 +4,13 @@
 #ifndef HESSMATRIX_H
 #define HESSMATRIX_H
 
+#include "../base/numlib-config.h"
+
 namespace numlib{ namespace linalg{
+
+// Forward declarations
+template<class T> class Vector;
+template<class T> class ExtHessMatrix;
 
 //! Hessenberg Matrix
 /*! 
@@ -14,18 +20,6 @@ namespace numlib{ namespace linalg{
  *  matrix (i.e. all zeros below the first subdiagonal); a lower Hessenberg
  *  may be modeled by imposing a transpose operation.
  *
- *  The notion of an "extended" Hessenberg matrix arises in Krylov methods
- *  for solving linear systems. The extended Hessenberg matrix is equivolent
- *  to a regular Hessenberg matrix with an additional, m+1, row. The elements
- *  of the m+1 row are all zero except for the last element. Instead of modeling
- *  the extended Hessenberg with a different type, this class models both forms
- *  by allowing for a variable number of rows (i.e. either m or m+1, where m
- *  is the number of columns). Modeling regular and extended Hessenberg forms
- *  with distinct types would introduce significant implementation redundancy.
- *  The penalty is the additional bookeeping required to ensure
- *  consistent usage when both Hessenberg forms co-exist; this penalty, however,
- *  is no worse than ensuring proper matrix/vector dimensions when dealing with
- *  dense matrix/vector models.
  */
 template<class T>
 class HessMatrix
@@ -33,19 +27,22 @@ class HessMatrix
 public:
 
 	 //! Constructs a Hessenberg matrix of dim (m,m) or (m+1,m) if extended
-	 HessMatrix(Size m_, bool extended=false);
+	 HessMatrix(Size m_=0);
 
 	 //! Copy constructor (deep copy)
 	 HessMatrix(const HessMatrix & other);
 
 	 //! Constructs an m x m Hessenberg from and m+1 x m Hessenberg
-	 HessMatrix(const HessMatrix & other, bool extended);
+	 explicit HessMatrix(const ExtHessMatrix<T> & other);
 
 	 //! Destructor
 	 ~HessMatrix();
 
 	 //! Assignment (deep copy)
 	 HessMatrix & operator=(const HessMatrix & other);
+
+	/*------------------------------------------------------------------------*/
+	/*                                                        Array interface */
 
 	 //! Returns number of rows
 	 Size size1() const;
@@ -65,6 +62,9 @@ public:
 	 //! Return the (i,j) element
 	 const T & operator()(Index i, Index j) const;
 
+	/*------------------------------------------------------------------------*/
+	/*                                                     In-place operators */
+
 	 /* In-place arithmetic operations */
 
 	 HessMatrix & operator*=(const T & c);
@@ -77,9 +77,6 @@ public:
 
 private:
 
-	 //! Nubmer of rows
-	 Size n;
-
 	 //! Number of columns
 	 Size m;
 
@@ -88,9 +85,6 @@ private:
 
 	 //! Zero element
 	 T zero;
-
-	 //! Copy function
-	 void copy(const HessMatrix & other);
 
 };
 
