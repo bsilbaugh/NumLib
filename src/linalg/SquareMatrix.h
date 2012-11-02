@@ -50,6 +50,8 @@ public:
 	/*------------------------------------------------------------------------*/
 	/*                                                     In-place Operators */
 
+	SquareMatrix& zero();
+
 	SquareMatrix& operator*=(const T& c);
 
 	SquareMatrix& operator/=(const T& c);

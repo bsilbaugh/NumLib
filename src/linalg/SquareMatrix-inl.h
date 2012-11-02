@@ -67,6 +67,13 @@ const T& SquareMatrix<T>::operator()(Index i, Index j) const
 }
 
 template<class T>
+SquareMatrix<T>& SquareMatrix<T>::zero()
+{
+	for(Index i=0; i<n; ++i)
+		data[i] = 0.0;
+}
+
+template<class T>
 SquareMatrix<T>& SquareMatrix<T>::operator*=(const T& c)
 {
 	for(Index i=0; i<n; ++i)
