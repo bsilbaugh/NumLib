@@ -10,7 +10,6 @@ headers = (
 	'TriMatrix-inl.h',
 	'TriMatrixExpressions.h',
 	'HessMatrix.h',
-	'HessMatrix-inl.h',
 	'HessMatrixExpressions.h',
 	'SquareMatrix.h',
 	'SquareMatrix-inl.h',
