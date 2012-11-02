@@ -4,9 +4,13 @@
 #ifndef GMRES_H
 #define GMRES_H
 
+#include "../base/nocopy.h"
+
 #include "Krylov.h"
 #include "KrylovSpaceAO.h"
-#include "GalerkinProjection.h"
+#include "GMRESProjection.h"
+
+namespace numlib{ namespace solver{
 
 //! Generalized Minumum Residual (GMRES) linear solver
 /*
@@ -28,5 +32,7 @@ private:
 	DISALLOW_COPY_AND_ASSIGN( GMRES );
 
 };
+
+}} //numlib::solver
 
 #endif

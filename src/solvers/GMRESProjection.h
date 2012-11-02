@@ -29,7 +29,7 @@ public:
 	T solve(const T & beta, const HessType & hess, VecType & y)
 	{
 		// Initialize RHS...
-		VecType b(y.size() + 1);
+		VecType g(y.size() + 1);
 		g.zero();
 		g(0) = beta;
 
@@ -38,7 +38,7 @@ public:
 		linalg::solveInPlaceLeastSquare(h, g); /* g over-written with soln and res norm*/
 
 		// Extract soln vector and residual norm...
-		const n = y.size();
+		const Size n = y.size();
 		for(Index i=0; i<n; ++i)
 			y(i) = g(i);
 		const Real rn = g(n);
