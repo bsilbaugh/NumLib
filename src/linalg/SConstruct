@@ -12,7 +12,6 @@ headers = (
 	'HessMatrix.h',
 	'HessMatrixExpressions.h',
 	'SquareMatrix.h',
-	'SquareMatrix-inl.h',
 	'SquareMatrixExpressions.h',
 	'Matrix.h',
 	'Matrix-inl.h',
