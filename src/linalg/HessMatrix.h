@@ -53,14 +53,24 @@ public:
 
 	 //! Sets/returns (i,j) element
 	 /*!
+	  *  WARNING: Assignment to a element in the assumed zero region is undefined. 
+      *  An error of this nature is difficult to detect since it cannot
+	  *  be known (locally) if an assignment is being made. 
+      *
+      *  When compiled in debug mode, checks will be performed to ensure that
+      *  index values are sane. Otherwise, you're on your own.
+      *
+      *  \todo Fix this?
+	  */
+	 T & operator()(Index i, Index j);
+
+	 //! Return the (i,j) element
+	 /*!
 	  *  If the (i,j) is in the assumed zero region of the matrix, a zero element
 	  *  will be returned. Assignment to a element in the assumed zero region is
 	  *  undefined. An error of this nature is difficult to detect since it cannot
 	  *  be known (locally) if an assignment is being made. \todo Fix this?
 	  */
-	 T & operator()(Index i, Index j);
-
-	 //! Return the (i,j) element
 	 const T & operator()(Index i, Index j) const;
 
 	/*------------------------------------------------------------------------*/
@@ -85,7 +95,7 @@ private:
 	 Vector<T>* columns;
 
 	 //! Zero element
-	 T zero;
+	 const T zero;
 
 };
 
@@ -157,25 +167,26 @@ Size HessMatrix<T>::size2() const
 template<class T> inline
 T & HessMatrix<T>::operator()(Index i, Index j)
 {
-	ASSERT( i < m );
-	ASSERT( j < m );
+    ASSERT( i < m   );
+    ASSERT( j < m   );
+    ASSERT( i < j+2 );
+   	return columns[j](i);
 
-	if(i < j+2)
-		return columns[j](i);
-
-	return zero;
+    /********************************************************** 
+     * we can't return a zero for i >= j+2 here because
+     * we don't know if the user is getting or setting values.
+     * So, we throw an exception instead (when in debug mode).
+     *********************************************************/
 }
 
 template<class T> inline
 const T & HessMatrix<T>::operator()(Index i, Index j) const
 {
-	ASSERT( i < m );
-	ASSERT( j < m );
-
-	if(i < j+2)
-		return columns[j](i);
-
-	return zero;
+    ASSERT( i < m );
+    ASSERT( j < m );
+    if(i < j+2)
+    	return columns[j](i);
+    return T(zero);
 }
 
 template<class T>
