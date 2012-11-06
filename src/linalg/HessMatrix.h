@@ -148,8 +148,15 @@ HessMatrix<T>::~HessMatrix()
 template<class T>
 HessMatrix<T> & HessMatrix<T>::operator=(const HessMatrix & other)
 {
-	 if(&other != this) copy(other);
-	 return *this;
+    if(&other==this) return *this;
+    m = other.m;
+    columns = new Vector<T>[m];
+    for(Index j=0; j<m-1; ++j)
+        for(Index i=0; i<j+2; ++i)
+            columns[j] = other.columns[j];
+        for(Index i=0; i<m; ++i)
+            columns[m-1] = other.columns[m-1];
+    return *this;
 }
 
 template<class T> inline
@@ -186,7 +193,7 @@ const T & HessMatrix<T>::operator()(Index i, Index j) const
     ASSERT( j < m );
     if(i < j+2)
     	return columns[j](i);
-    return T(zero);
+    return zero;
 }
 
 template<class T>
