@@ -36,6 +36,9 @@ public:
 	//! Constructs extended hessinburg (m+1 X m) from hessinburg (m X m)
 	explicit ExtHessMatrix(const HessMatrix<T>& other);
 
+    //! Assignment (deep copy)
+    ExtHessMatrix& operator=(const ExtHessMatrix<T>& other);
+
 	//! Destructor
 	~ExtHessMatrix();
 
@@ -50,15 +53,26 @@ public:
 
 	//! Sets/returns (i,j) element
     /*!
+     *  Access to the (i,j) element in the assumed zero region of the matrix
+     *  is undefined. This is because we don't know if the user is setting or 
+     *  getting a value.
+     *
+     *  If compiled with debug enabled, checks on the index bounds will be
+     *  performed, and an exception will be thrown if an illegal value is given.
+     *  If not compiled with debug enabled, then caveat emptor.
+     *
+	 *  \todo This is evil. Fix this.
+	 */
+	T& operator()(Index i, Index j);
+
+	//! Returns the (i,j) element
+    /*!
      *  If the (i,j) is in the assumed zero region of the matrix, a zero element
 	 *  will be returned. Assignment to a element in the assumed zero region is
 	 *  undefined. An error of this nature is difficult to detect since it cannot
 	 *  be known (locally) if an assignment is being made. \todo Fix this?
 	 */
-	T& operator()(Index i, Index j) {return element(i,j);}
-
-	//! Returns the (i,j) element
-	const T& operator()(Index i, Index j) const {return element(i,j);}
+	const T& operator()(Index i, Index j) const;
 
 	/*------------------------------------------------------------------------*/
 	/*                                                     In-place operators */
@@ -80,17 +94,7 @@ private:
 	Vector<T>* columns;
 
 	// Zero element
-	T zero;
-
-	// A helper function for setting/getting elements...
-	T& element(Index i, Index j)
-	{
-		ASSERT( i < m+1 );
-		ASSERT( j < m );
-		if(i < j + 2) 
-			return columns[j](i);
-		return zero;
-	}
+	const T zero;
 
 };
 
@@ -115,7 +119,7 @@ ExtHessMatrix<T>::ExtHessMatrix(const ExtHessMatrix<T>& other):
 	m = other.m;
 	columns = new Vector<T>[m];
 	for(Index i=0; i<m; ++i)
-		columns[i] = other.column[i];
+		columns[i] = other.columns[i];
 
 }
 
@@ -148,8 +152,21 @@ ExtHessMatrix<T>::~ExtHessMatrix<T>()
 }
 
 template<class T>
+ExtHessMatrix<T>& ExtHessMatrix<T>::operator=(const ExtHessMatrix<T>& other)
+{
+    if(&other==this) return *this;
+    delete[] columns;
+    m = other.m;
+    columns = new Vector<T>[m];
+    for(Index j=0; j<m; ++j)
+        columns[j] = other.columns[j];
+    return *this;
+}
+
+template<class T>
 const Size ExtHessMatrix<T>::size1() const
 {
+    if(m==0) return 0;
 	return m+1;
 }
 
@@ -157,6 +174,26 @@ template<class T>
 const Size ExtHessMatrix<T>::size2() const
 {
 	return m;
+}
+
+template<class T>
+T& ExtHessMatrix<T>::operator()(Index i, Index j)
+{
+    ASSERT( i < m+1 );
+    ASSERT( j < m   );
+    ASSERT( i < j+2 );
+    return columns[j](i);
+}
+
+template<class T>
+const T& ExtHessMatrix<T>::operator()(Index i, Index j) const
+{
+    ASSERT( i < m+1 );
+    ASSERT( j < m   );
+
+    if( i < j + 2 )
+        return columns[j](i);
+    return zero;
 }
 
 template<class T>
