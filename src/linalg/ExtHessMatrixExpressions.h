@@ -45,7 +45,7 @@ Vector<T> prod(const ExtHessMatrix<T> & a, const Vector<T> & u)
  *  See Iterative Methods for Sparse Linear Systems by Yousef Saad.
  */
 template<class T>
-void solveInPlaceLeastSquare(HessMatrix<T>& hess, Vector<T>& x)
+void solveInPlaceLeastSquare(ExtHessMatrix<T>& hess, Vector<T>& x)
 {
 	// Get problem size...
 	const Size m = hess.size1();
@@ -100,5 +100,6 @@ void solveInPlaceLeastSquare(HessMatrix<T>& hess, Vector<T>& x)
 }
 
 }}//::numlib::linalg
+
 
 #endif
