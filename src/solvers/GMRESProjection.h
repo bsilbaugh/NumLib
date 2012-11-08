@@ -4,6 +4,10 @@
 #ifndef GMRESPROJECTION_H
 #define GMRESPROJECTION_H
 
+#include "../linalg/Vector.h"
+#include "../linalg/ExtHessMatrix.h"
+#include "../linalg/ExtHessMatrixExpressions.h"
+
 namespace numlib{ namespace solver{
 
 template<class T>
@@ -12,7 +16,7 @@ class GMRESProjection
 public:
 
 	typedef linalg::Vector<T> VecType;
-	typedef linalg::HessMatrix<T> HessType;
+	typedef linalg::ExtHessMatrix<T> HessType;
 
 	//! Computes the Krylov correction such that residual is A-ortho to K
 	/*!
@@ -34,7 +38,7 @@ public:
 		g(0) = beta;
 
 		// Solve least square problem ...
-		HessType h(hess,true);
+		HessType h(hess);
 		linalg::solveInPlaceLeastSquare(h, g); /* g over-written with soln and res norm*/
 
 		// Extract soln vector and residual norm...
