@@ -4,6 +4,7 @@
 #ifndef PSEUDOTRANSIENTOPERATOR_H
 #define PSEUDOTRANSIENTOPERATOR_H
 
+#include "../base/nocopy.h"
 #include "../linalg/Vector.h"
 
 namespace numlib{ namespace solver{
@@ -46,15 +47,31 @@ public:
 
 	 typedef linalg::Vector<T> VecType;
 
-	 PseudoTransientOperator(Size n, NL & f_);
+	 PseudoTransientOperator(Size n, NL & f_):
+	    dtau(1.0),        /* Default pseudo time step size */
+	    tscale(1.0/dtau), /* initialize to time scaling to Implicit Euler */
+	    uk(n),
+	    w(n),
+	    r_steady(n),
+	    f(f_)
+    {
+    	 // Set default initial condition to zero...
+    
+    	 uk.zero();
+    	 w.zero();
+    	 r_steady.zero();
+    
+    	 DEBUG_PRINT_VAR( dtau );
+    	 DEBUG_PRINT_VAR( tscale );
+    }
 
-	 ~PseudoTransientOperator();
+	 ~PseudoTransientOperator() { /* nothing to delete */ }
 
 	 //! Sets pseudo time step size
-	 void stepSize(Real dtau_);
+	 void stepSize(Real dtau_) { dtau = dtau_; }
 
 	 //! Returns pseudo time step size
-	 Real stepSize() const;
+	 Real stepSize() const { return dtau; }
 
 	 //! Sets initial conditions for pseudo march to steady state
 	 /*!
@@ -63,7 +80,18 @@ public:
 	  *  of dual-time stepping, u0, should be the predicted solution at n+1
 	  *  (physical) time level.
 	  */
-	 void setInitialConditions(const VecType & u0);
+	 void setInitialConditions(const VecType & u0)
+     {
+     	 // Set time scaling to implicit euler...
+     	 ASSERT(dtau > 0.0);
+     	 tscale = 1.0/dtau;
+     
+     	 // Reset work vector...
+     	 w.zero();
+     
+     	 // Set reference solution...
+     	 uk = u0;
+     }
 	 
 	 //! Advances the pseudo time level
 	 /*!
@@ -76,10 +104,33 @@ public:
 	  *  change in the solution and is returned as an rvalue.
 	  *
 	  */
-	 Real nextTimeLevel(const VecType & u);
+	 Real nextTimeLevel(const VecType & u)
+     {
+     	 ASSERT( dtau > 0.0 );
+
+     	 DEBUG_PRINT_VAR( dtau );
+          
+     	 // Pivot reference solution...
+     	 uk = u;
+    
+         // Return norm... 
+     	 return norm2( r_steady );
+     }
 
 	 //! Evaluates the pseudo-transient residual, r = d(u)/dt - F(u)
-	 void eval(const VecType & u, VecType & r);
+	 void eval(const VecType & u, VecType & r)
+     {
+     	 // Evaluate F(u)...
+     	 f.eval(u, r_steady);
+     
+     	 // Add contribution from pseudo transient ...
+     	 r = r_steady - (u - uk)/dtau;
+     
+     	 DEBUG_PRINT("Writting u, r, r_steady to log files...");
+     	 DEBUG_LOG("pseudo_tran_res_operator-u.dat", u);
+     	 DEBUG_LOG("pseudo_tran_res_operator-r.dat", r);
+     	 DEBUG_LOG("pseudo_tran_res_operator-r_steady.dat", r_steady);
+     }
 
 private:
 
@@ -104,8 +155,6 @@ private:
 	 NL & f;
 
 };
-
-#include "PseudoTransientOperator-inl.h"
 
 }}//::numlib::solver
 
