@@ -88,7 +88,6 @@ public:
              
              // Compute j+1 Krylov basis v_{j+1} = A v_{j} ...
              v = prod(linO, v);
-             
              // Project v onto existing orthonormal basis...
              for(Index i=0; i<m; ++i)
                hess(i,j) = prod(v,basis[i]);
@@ -119,9 +118,7 @@ public:
 	  */
 	 void projA(HessType & h)
      {
-        for(Index i=0; i<m+1; ++i)
-        for(Index j=0; j<m; ++j)
-        h(i,j) = hess(i,j);
+         h = hess;
      }
 
 	 //! Maps the vector y in K to vector z in R^n
