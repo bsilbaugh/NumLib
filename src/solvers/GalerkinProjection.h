@@ -41,23 +41,25 @@ public:
 	 {
            typedef numlib::linalg::HessMatrix<T> Hess;
 
-		   // Initialize y with RHS...
+           // Get subspace dimension...
+           const Size m = extHess.size2();
 
+           // Check for non-zero subspace, else return...
+           if(m == 0) return 0;
+
+		   // Initialize y with RHS...
 		   y.zero();
 		   y(0) = beta;
 
 		   // Initialize temporary Hessenberg from extended Hessenberg...
-
 		   Hess hess(extHess);
 
+           // Solve system...
 		   linalg::solveInPlace(hess, y);
 
 		   // Return residual 2-norm of subspace approximation ...
-
-		   Size m = extHess.size2();
-		   Index j = m-1;
+		   const Index j = m-1;
 		   return std::fabs(extHess(j+1,j)*y(j));
-
 	 }
 
 };
