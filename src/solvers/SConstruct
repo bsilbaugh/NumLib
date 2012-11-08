@@ -7,19 +7,13 @@ headers = (
 	'GMRES.h',
 	'GalerkinProjection.h',
 	'GMRESProjection.h',
-	'Krylov-inl.h',
 	'Krylov.h',
-	'KrylovSpaceAO-inl.h',
 	'KrylovSpaceAO.h',
 	'GateauxFD.h',
-	'GateauxFD-inl.h',
-	'NewtonKrylov-inl.h',
 	'NewtonKrylov.h',
 	'NewtonArnoldi.h',
-	'NewtonArnoldi-inl.h',
 	'NewtonGMRES.h',
-	'PseudoTransientOperator.h',
-	'PseudoTransientOperator-inl.h'
+	'PseudoTransientOperator.h'
 )
 
 env.Install(prefix+'include/numlib/solvers', headers)
