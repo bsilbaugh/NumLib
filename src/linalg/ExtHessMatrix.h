@@ -34,7 +34,7 @@ public:
 	ExtHessMatrix(const ExtHessMatrix& other);
 
 	//! Constructs extended hessinburg (m+1 X m) from hessinburg (m X m)
-	explicit ExtHessMatrix(const HessMatrix<T>& other);
+	explicit ExtHessMatrix(const HessMatrix<T>& hess);
 
     //! Assignment (deep copy)
     ExtHessMatrix& operator=(const ExtHessMatrix<T>& other);
@@ -124,25 +124,27 @@ ExtHessMatrix<T>::ExtHessMatrix(const ExtHessMatrix<T>& other):
 }
 
 template<class T>
-ExtHessMatrix<T>::ExtHessMatrix(const HessMatrix<T>& other):
+ExtHessMatrix<T>::ExtHessMatrix(const HessMatrix<T>& hess):
 	m(0),columns(NULL),zero(0)
 {
-	// Set number of columns...
-	m = other.m;
+	// Get size...
+	m = hess.size2();
 
-	// Allocate column vectors...
-
+	// Allocate ...
 	columns = new Vector<T>[m];
+    for(Index j=0; j<m; ++j)
+        columns[j].resize(j+2);
 
-	// copy all columns vectors but the last...
-	for(Index i=0; i<m-1; ++i)
-		columns[i] = other.columns[i];
+	// copy element values from hess to ext hess...
+    for(Index j=0; j<m-1; ++j)
+        for(Index i=0; i<j+2; ++i)
+            columns[j](i) = hess(i,j);
+    for(Index j=m-1,i=0; i<m; ++i)
+        columns[j](i) = hess(i,j);
 
-	// Now copy the last column vector into the "extended" column vector...
-	columns[m-1].resize(m+1);
-	for(Index i=0; i<m+1; ++i)
-		columns[m-1](i) = other.columns[m-1](i);
-	columns[m-1](m) = 0;
+    // Set (m+1,m) element to zero...
+    columns[m-1](m) = zero;
+
 }
 
 template<class T>

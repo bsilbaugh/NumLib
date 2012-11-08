@@ -34,7 +34,7 @@ public:
 	 HessMatrix(const HessMatrix & other);
 
 	 //! Constructs an m x m Hessenberg from and m+1 x m Hessenberg
-	 explicit HessMatrix(const ExtHessMatrix<T> & other);
+	 explicit HessMatrix(const ExtHessMatrix<T> & ext_hess);
 
 	 //! Destructor
 	 ~HessMatrix();
@@ -128,15 +128,22 @@ HessMatrix<T>::HessMatrix(const HessMatrix & other):
 }
 
 template<class T>
-HessMatrix<T>::HessMatrix(const ExtHessMatrix<T> & other):
+HessMatrix<T>::HessMatrix(const ExtHessMatrix<T> & ext_hess):
 	 m(0),columns(NULL),zero(0)
 {
-	m = other.m;
+    // Get size...
+	m = ext_hess.size2();
+    // Allocate columns...
 	columns = new Vector<T>[m];
-	for(Index j=0; j<m-1; ++j)
-		columns[j] = other.columns[j];
-	for(Index i=0; i<m; ++i)
-		columns[m-1](i) = other.columns[m-1](i);
+    for(Index j=0; j<m-1; ++j)
+        columns[j].resize(j+2);
+    columns[m-1].resize(m);
+    // Copy values from ext hess to hess...
+    for(Index j=0; j<m-1; ++j)
+        for(Index i=0; i<j+2; ++i)
+            columns[j](i) = ext_hess(i,j);
+    for(Index j=m-1,i=0; i<m; ++i)
+        columns[j](i) = ext_hess(i,j);
 }
 
 template<class T>
