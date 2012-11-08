@@ -42,19 +42,33 @@ public:
 
 	 typedef linalg::Vector<T> VecType;
 
-	 NewtonKrylov(Size n_, Size mmax_, Size lmax_, Real tol_);
+	 NewtonKrylov(Size n_, Size mmax_, Size lmax_, Real tol_):
+	 n(n_), mmax(mmax_), lmax(lmax_), tol(tol_), r(n_), rn(0), krylov(n_,mmax_)
+     { }
 
 	 //! Sets convergence tolerance
-	 void tolerance(Real tol_);
+	 void tolerance(Real tol_) { tol = tol_; }
 
 	 //! Returns convergence tolerance currently being used by solver
-	 Real tolerance() const;
+	 Real tolerance() const { return tol; }
 
 	 //! Initialize a new non-linear iteration sequence
 	 /*!
 	  *  The residual 2-norm of the nonlinear system, f(u), is returned
 	  */
-	 T newSequence(NL & f, const VecType & u0);
+	 T newSequence(NL & f, const VecType & u0)
+     {
+     	 // Compute initial residual...
+     
+     	 DEBUG_PRINT( "Computing initial residual" );
+     
+     	 f.eval(u0, r);
+     	 rn = norm2(r);
+     
+     	 DEBUG_PRINT_VAR( rn );
+     
+     	 return rn;
+     }
 
 	 //! Executes a single non-linear iteration
 	 /*!
@@ -63,7 +77,61 @@ public:
 	  *  solution estimate. The residual 2-norm of the nonlinear system, f(u), 
 	  *  is returned as rvalue.
 	  */
-	 T iter(NL & f, VecType & u);
+	 T iter(NL & f, VecType & u)
+     {
+     	 // Clear convergent histories for linear solver...
+     
+     	 DEBUG_PRINT("Clearing linear convergence history...");
+     
+     	 convHist.clear();
+     	 dimHist.clear();
+     
+     	 // Create approximate Gateaux operator...
+     
+     	 GateauxFD<T,NL> gateaux(f, u, r); /* r = f(u) */
+     
+     	 // Set initial guess for linear problem...
+     
+     	 VecType du(n);
+     	 du.zero();
+     
+     	 /* Since initial guess, du, is set to zero, the current nonlinear residual
+     	  * is equal to the initial residual of the linearized system */
+     
+     	 // Solve for Newton correction...
+     
+     	 DEBUG_PRINT( "Solving for newton correction..." );
+     
+     	 r *= -1.0;
+     	 Index liter = 0;
+     	 Size m;
+          while( (rn > tol) and (liter++ < lmax) )
+     	 {
+     		  rn = krylov.solve(gateaux, du, r, tol);
+     		  m = krylov.subSpaceDim();
+     
+     		  DEBUG_PRINT_VAR( rn );
+     		  DEBUG_PRINT_VAR( m );
+     
+     		  convHist.push_back(rn);
+     		  dimHist.push_back(m);
+     	 }
+     
+     	 DEBUG_PRINT_VAR( du );
+     
+     	 u += du;
+     
+     	 // Update nonlinear residual...
+     
+     	 DEBUG_PRINT( "Updating nonlinear residual" );
+     
+     	 f.eval(u, r); /* r = f(u) */
+     	 rn = norm2(r);
+     
+     	 DEBUG_PRINT_VAR( rn );
+     
+     	 return rn;
+     }
 
 	 //! Returns a reference to the internally held residual vector
 	 /*!
@@ -71,11 +139,11 @@ public:
 	  *  of this solver. This is primarily provided for solution error
 	  *  estimation and monitoring.
 	  */
-	 const VecType & residual(){return r;}
+	 const VecType & residual() { return r; }
 
-	 const RealList & krylovConvHist() const;
+	 const RealList & krylovConvHist() const { return convHist; }
 
-	 const SizeList & krylovDimHist() const;
+	 const SizeList & krylovDimHist() const { return dimHist; }
 
 private:
 
@@ -109,8 +177,6 @@ private:
 	 SizeList dimHist;
 
 };
-
-#include "NewtonKrylov-inl.h"
 
 }}//::numlib::sovler
 
