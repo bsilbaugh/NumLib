@@ -36,7 +36,7 @@ class KrylovSpaceAO
 public:
 
 	 typedef linalg::Vector<T> VecType;
-	 typedef linalg::HessMatrix<T> HessType;
+	 typedef linalg::ExtHessMatrix<T> HessType;
 
 	 //! Constructs a Krylov space with maximum dimension of maxSpaceDim
 	 /*!
@@ -46,7 +46,7 @@ public:
 	  *  The initial dimension of the Krylov space is 0.
 	  */
 	 KrylovSpaceAO(Size n_, Size maxSpaceDim):
-        n(n_),m(0),mmax(maxSpaceDim),basis(0),hess(mmax,true)
+        n(n_),m(0),mmax(maxSpaceDim),basis(0),hess(mmax)
      {
         basis = new VecType[mmax];
         for(Index i=0; i<mmax; ++i)

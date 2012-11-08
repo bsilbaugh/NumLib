@@ -7,8 +7,8 @@
 #include "../base/nocopy.h"
 #include "../linalg/Vector.h"
 #include "../linalg/VectorExpressions.h"
-#include "../linalg/HessMatrix.h"
-#include "../linalg/HessMatrixExpressions.h"
+#include "../linalg/ExtHessMatrix.h"
+#include "../linalg/ExtHessMatrixExpressions.h"
 
 namespace numlib{ namespace solver{
 
@@ -38,7 +38,7 @@ class Krylov
 public:
 
 	 typedef linalg::Vector<T> VecType;
-	 typedef linalg::HessMatrix<T> HessType;
+	 typedef linalg::ExtHessMatrix<T> HessType;
 
 	 Krylov(Size n_, Size mmax_):n(n_),m(0),mmax(mmax_),krylovSpace(n_,mmax_)
      {
@@ -68,7 +68,7 @@ public:
         
         // Get the projection of A (i.e. 'linO') on the Krylov subspace...
         
-        HessType hess(m, true);
+        HessType hess(m);
         krylovSpace.projA(hess);
         
         // Compute correction vector...
