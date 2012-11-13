@@ -118,7 +118,9 @@ public:
 	  */
 	 void projA(HessType & h)
      {
-         h = hess;
+         for(Index j=0; j<m; ++j)
+             for(Index i=0; i<j+2; ++i)
+                h(i,j) = hess(i,j);
      }
 
 	 //! Maps the vector y in K to vector z in R^n
