@@ -41,6 +41,8 @@ public:
 	 {
            typedef numlib::linalg::HessMatrix<T> Hess;
 
+           ASSERT( extHess.size2() == y.size() );
+
            // Get subspace dimension...
            const Size m = extHess.size2();
 
