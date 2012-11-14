@@ -4,6 +4,7 @@
 #ifndef GATEAUXFD_H
 #define GATEAUXFD_H
 
+#include "../base/nocopy.h"
 #include "../linalg/Vector.h"
 
 namespace numlib{ namespace solver{
@@ -38,9 +39,13 @@ public:
 	  *  discrete operator) prior to computing its Gateaux derivative.
 	  *  This saves a potentially costly function evaluation.
 	  */
-	 GateauxFD(NL & f_, const VecType & u_, const VecType & fu_);
+	 GateauxFD(NL & f_, const VecType & u_, const VecType & fu_):
+	    eps(1.0E-9), f(f_), u(u_), fu(fu_)
+     {
+        eps = std::sqrt(eps);
+     }
 
-	 ~GateauxFD();
+	 ~GateauxFD() { /* nothing to delete */ }
 
 	 //! Evaluates the Gateaux derivative of f(u) with respect to v
 	 /*!
@@ -48,7 +53,41 @@ public:
 	  *  v := Vector to differentiate f(u) with respect to
 	  *  dfv := Finite difference result
 	  */
-	 void eval(const VecType & v, VecType & dfv) const;
+	 void eval(const VecType & v, VecType & dfv) const
+     {
+         ASSERT( v.size() == dfv.size() );
+         ASSERT( &v != &dfv );
+         
+         // Compute step size...
+         
+         Real h = eps;
+         
+         dfv = abs(v); /* temporarily store |v| in dfv */
+         
+         Real uTv = prod(u,v);
+         Real uTv_abs = fabs(uTv);
+         Real uTv_sign = 1;
+         if(uTv < 0) uTv_sign = -1;
+         Real vn = norm2(v);
+         
+         ASSERT( vn > 0 );
+         
+         h = (eps/vn)*max(uTv_abs, eps)*uTv_sign;
+         
+         ASSERT( fabs(h) > 0 );
+         
+         DEBUG_PRINT_VAR( h );
+         
+         // Compute perturbed solution and evaluate finite difference...
+         
+         VecType upert(v);
+         upert *=  h;
+         upert +=  u;
+         f.eval(upert, dfv); /* dfv = f(u+h*v) */
+         
+         dfv -= fu;   /* dfv = f(u+h*v) - f(u)     */
+         dfv /= h;    /* dfv = [f(u+h*v) - f(u)]/h */
+     }
 
 private:
 
@@ -67,8 +106,6 @@ private:
 	 VecType fu;
 
 };
-
-#include "GateauxFD-inl.h"
 
 //! Linear operator wrapper function for GateauxFD
 template<class T, class NL> inline

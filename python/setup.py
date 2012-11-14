@@ -27,6 +27,7 @@ inc_dirs.append(boost_dir+'/include')
 libs = []
 libs.append("boost_python")
 libs.append("numlib_tensor")
+libs.append("numlib_base")
 
 dmacros = [('DEBUG', 1)]
 undmacros = ['NDEBUG']

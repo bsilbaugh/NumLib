@@ -6,7 +6,9 @@
 
 #include "../linalg/Vector.h"
 #include "../linalg/HessMatrix.h"
+#include "../linalg/ExtHessMatrix.h"
 #include "../linalg/HessMatrixExpressions.h"
+#include "../linalg/ExtHessMatrixExpressions.h"
 
 namespace numlib{ namespace solver{
 
@@ -16,7 +18,7 @@ class GalerkinProjection
 public:
 
 	 typedef linalg::Vector<T> VecType;
-	 typedef linalg::HessMatrix<T> HessType;
+	 typedef linalg::ExtHessMatrix<T> HessType;
 
 	 //! Computes the Krylov correction vector per Galerkin projection scheme
 	 /*!
@@ -36,27 +38,31 @@ public:
 	  *  \todo Allow both 'hess' and 'y' to be sized to mmax instead of m?
 	  */
 	 T solve(const T & beta, const HessType & extHess, VecType & y)
-	  {
+	 {
+           typedef numlib::linalg::HessMatrix<T> Hess;
 
+           ASSERT( extHess.size2() == y.size() );
+
+           // Get subspace dimension...
+           const Size m = extHess.size2();
+
+           // Check for non-zero subspace, else return...
+           if(m == 0) return 0;
 
 		   // Initialize y with RHS...
-
 		   y.zero();
 		   y(0) = beta;
 
 		   // Initialize temporary Hessenberg from extended Hessenberg...
+		   Hess hess(extHess);
 
-		   HessType hess(extHess, false);
-
+           // Solve system...
 		   linalg::solveInPlace(hess, y);
 
 		   // Return residual 2-norm of subspace approximation ...
-
-		   Size m = extHess.size2();
-		   Index j = m-1;
+		   const Index j = m-1;
 		   return std::fabs(extHess(j+1,j)*y(j));
-
-	  }
+	 }
 
 };
 

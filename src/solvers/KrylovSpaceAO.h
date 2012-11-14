@@ -36,7 +36,7 @@ class KrylovSpaceAO
 public:
 
 	 typedef linalg::Vector<T> VecType;
-	 typedef linalg::HessMatrix<T> HessType;
+	 typedef linalg::ExtHessMatrix<T> HessType;
 
 	 //! Constructs a Krylov space with maximum dimension of maxSpaceDim
 	 /*!
@@ -45,10 +45,19 @@ public:
 	  *
 	  *  The initial dimension of the Krylov space is 0.
 	  */
-	 KrylovSpaceAO(Size n_, Size maxSpaceDim);
+	 KrylovSpaceAO(Size n_, Size maxSpaceDim):
+        n(n_),m(0),mmax(maxSpaceDim),basis(0),hess(mmax)
+     {
+        basis = new VecType[mmax];
+        for(Index i=0; i<mmax; ++i)
+            basis[i].resize(n);
+     };
 
 	 //! Returns the current space dimension
-	 Size size(){return m;}
+	 Size size()
+     {
+         return m;
+     }
 
 	 //! Constructs a Krylov space up to maximum specified space dimension
 	 /*!
@@ -59,7 +68,41 @@ public:
 	  *  "happy" breakdown is declared and the construction of the space is
 	  *  terminated early with m < mmax.
 	  */
-	 void buildSpace(const L & linO, const VecType & r, const T & tol);
+	 void buildSpace(const L & linO, const VecType & r, const T & tol)
+     {
+        // Reset Krylov space dimension...
+        m = 0;
+        
+        // Seed Krylov space using normalized residual vector...
+        VecType v(r);
+        T beta = norm2(v);
+        if(beta < tol) return; /* "happy breakdown" */
+        v /= beta;
+        
+        // Construct orthonomal Krylov basis using modified Grahm-Schmit ...
+        for(Index j=0; j<mmax; ++j)
+        {
+             // Update subspace basis set...
+             ++m;
+             basis[j] = v;
+             
+             // Compute j+1 Krylov basis v_{j+1} = A v_{j} ...
+             v = prod(linO, v);
+             // Project v onto existing orthonormal basis...
+             for(Index i=0; i<m; ++i)
+               hess(i,j) = prod(v,basis[i]);
+             
+             // Reduce v to it's ortho component...
+             for(Index i=0; i<m; ++i)
+               v -= hess(i,j)*basis[i];
+             
+             // Normalize v...
+             T h = norm2(v);
+             hess(j+1,j) = h;
+             if(h < tol) return; /* happy breakdown */
+             v /= h;
+        } // for j
+     }
 
 	 //! Sets the Hessenberg matrix representation of the projection of A onto K
 	 /*!
@@ -73,10 +116,20 @@ public:
 	  *
 	  *  \todo Is there a clean way to avoid copy operation?
 	  */
-	 void projA(HessType & h);
+	 void projA(HessType & h)
+     {
+         for(Index j=0; j<m; ++j)
+             for(Index i=0; i<j+2; ++i)
+                h(i,j) = hess(i,j);
+     }
 
 	 //! Maps the vector y in K to vector z in R^n
-	 void map(const VecType & y, VecType & z);
+	 void map(const VecType & y, VecType & z)
+     {
+        z.zero();
+        for(Index i=0; i<m; ++i)
+            z += basis[i]*y(i);
+     }
 
 private:
 
@@ -98,8 +151,6 @@ private:
 	 HessType hess;
 
 };
-
-#include "KrylovSpaceAO-inl.h"
 
 }}//::numlib::solver
 

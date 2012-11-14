@@ -4,6 +4,8 @@
 #ifndef HESSMATRIXEXPRESSIONS_H
 #define HESSMATRIXEXPRESSIONS_H
 
+#include "HessMatrix.h"
+
 namespace numlib{ namespace linalg{
 
 	/*** HessMatrix-Scalar operations ***/

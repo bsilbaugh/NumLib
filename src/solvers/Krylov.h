@@ -4,10 +4,11 @@
 #ifndef KRYLOV_H
 #define KRYLOV_H
 
+#include "../base/nocopy.h"
 #include "../linalg/Vector.h"
 #include "../linalg/VectorExpressions.h"
-#include "../linalg/HessMatrix.h"
-#include "../linalg/HessMatrixExpressions.h"
+#include "../linalg/ExtHessMatrix.h"
+#include "../linalg/ExtHessMatrixExpressions.h"
 
 namespace numlib{ namespace solver{
 
@@ -37,11 +38,55 @@ class Krylov
 public:
 
 	 typedef linalg::Vector<T> VecType;
-	 typedef linalg::HessMatrix<T> HessType;
+	 typedef linalg::ExtHessMatrix<T> HessType;
 
-	 Krylov(Size n_, Size mmax_);
+	 Krylov(Size n_, Size mmax_):n(n_),m(0),mmax(mmax_),krylovSpace(n_,mmax_)
+     {
+        ASSERT(mmax <= n);
+     }
 
-	 T solve(const L & linO, VecType & x, const VecType & b, const T & tol);
+	 T solve(const L & linO, VecType & x, const VecType & b, const T & tol)
+     {
+        // Initialize working data structure...
+        
+        T zero(0);    // zero element of type T
+        VecType r(b); // Residual vector initialized to RHS vector, b
+        
+        // Compute residual due to initial guess x...
+        
+        T xn = norm2(x);
+        if(xn > zero) r -= prod(linO, x);
+        
+        T beta = norm2(r);
+        T rn = beta;
+        
+        // Construct Krylov suspace...
+        
+        krylovSpace.buildSpace(linO, r, tol); /* Arnoldi or Housholder */
+        
+        m = krylovSpace.size();
+        
+        // Get the projection of A (i.e. 'linO') on the Krylov subspace...
+        
+        HessType hess(m);
+        krylovSpace.projA(hess);
+        
+        // Compute correction vector...
+        
+        VecType y(m);
+        VecType z(n);
+        rn = projectionScheme.solve(beta, hess, y); /* GMRES or Galerkin projection */
+        krylovSpace.map(y, z);
+        
+        // Apply correction to intial guess...
+        
+        x += z;
+        
+        // Return residual norm...
+        
+        return rn;
+    	
+     }
 
 	 Size subSpaceDim() const {return m;}
 
@@ -60,8 +105,6 @@ private:
 	 P projectionScheme;
 
 };
-
-#include "Krylov-inl.h"
 
 }}//::numlib::solver
 
