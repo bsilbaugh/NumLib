@@ -26,7 +26,7 @@
 
 # Setup contruction environment(s)...
 
-env = Environment(CPP='g++', CPPFLAGS='-DDEBUG=2')
+env = Environment(CPP='g++', CPPFLAGS='-DDEBUG=2 -O2 -fPIC')
 
 # Explicity set path...
 
