@@ -110,6 +110,8 @@ public:
      		  rn = krylov.solve(gateaux, du, r, tol);
      		  m = krylov.subSpaceDim();
      
+     		  DEBUG_PRINT_VAR( tol );
+     		  DEBUG_PRINT_VAR( lmax );
      		  DEBUG_PRINT_VAR( rn );
      		  DEBUG_PRINT_VAR( m );
      
