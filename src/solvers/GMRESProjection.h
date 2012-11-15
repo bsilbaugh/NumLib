@@ -45,7 +45,7 @@ public:
 		const Size n = y.size();
 		for(Index i=0; i<n; ++i)
 			y(i) = g(i);
-		const Real rn = g(n);
+		const Real rn = std::fabs(g(n));
 
 		// Return residual norm of subspace approximation...
 		return rn;
