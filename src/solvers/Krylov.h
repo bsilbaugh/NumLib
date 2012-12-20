@@ -55,11 +55,10 @@ public:
      {
         // Initialize working data structure...
         T zero(0);    // zero element of type T
-        r = b; // Residual vector initialized to RHS vector, b
         
         // Compute residual due to initial guess x...
-        T xn = norm2(x);
-        if(xn > zero) r -= prod(linO, x);
+        r = b;
+        if(norm2(x) > zero) r -= prod(linO, x);
         
         T beta = norm2(r);
         T rn = beta;
