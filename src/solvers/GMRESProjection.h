@@ -59,7 +59,7 @@ public:
 	 */
 	void calc_residual(const T& beta, const HessType& hess, const VecType& y, VecType& r)
 	{
-		VecType r = prod(hess, y);
+		r = prod(hess, y);
 		r *= -1.0;
 		r(0) += beta;
 	}
