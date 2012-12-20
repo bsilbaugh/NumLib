@@ -54,12 +54,10 @@ public:
 	 T solve(const L & linO, VecType & x, const VecType & b, const T & tol, VecType& r)
      {
         // Initialize working data structure...
-        
         T zero(0);    // zero element of type T
         r = b; // Residual vector initialized to RHS vector, b
         
         // Compute residual due to initial guess x...
-        
         T xn = norm2(x);
         if(xn > zero) r -= prod(linO, x);
         
@@ -67,25 +65,20 @@ public:
         T rn = beta;
         
         // Construct Krylov suspace...
-        
         krylovSpace.buildSpace(linO, r, tol); /* Arnoldi or Housholder */
-        
         m = krylovSpace.size();
         
         // Get the projection of A (i.e. 'linO') on the Krylov subspace...
-        
         HessType hess(m);
         krylovSpace.projA(hess);
         
         // Compute correction vector...
-        
         VecType y(m);
         VecType z(n);
         rn = projectionScheme.solve(beta, hess, y); /* GMRES or Galerkin projection */
         krylovSpace.map(y, z);
         
         // Apply correction to intial guess...
-        
         x += z;
 
 		// Compute residual vector...
@@ -96,7 +89,6 @@ public:
 		krylovSpace.map(rk, r);
         
         // Return residual norm...
-        
         return rn;
     	
      }
