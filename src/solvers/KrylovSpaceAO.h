@@ -78,13 +78,15 @@ public:
         T beta = norm2(v);
         if(beta < tol) return; /* "happy breakdown" */
         v /= beta;
+
+		// Store first basis vector...
+        basis[0] = v;
         
         // Construct orthonomal Krylov basis using modified Grahm-Schmit ...
         for(Index j=0; j<mmax; ++j)
         {
              // Update subspace basis set...
              ++m;
-             basis[j] = v;
              
              // Compute j+1 Krylov basis v_{j+1} = A v_{j} ...
              v = prod(linO, v);
@@ -101,6 +103,11 @@ public:
              hess(j+1,j) = h;
              if(h < tol) return; /* happy breakdown */
              v /= h;
+
+			 // Store j+1 basis vector...
+			 // -- we'll need this when computing residual vectors
+			 basis[j+1] = v;
+
         } // for j
      }
 
@@ -123,11 +130,11 @@ public:
                 h(i,j) = hess(i,j);
      }
 
-	 //! Maps the vector y in K to vector z in R^n
+	 //! Computes [v_1, ..., v_p]*y, where p = dim(y), and v_i is the ith basis
 	 void map(const VecType & y, VecType & z)
      {
         z.zero();
-        for(Index i=0; i<m; ++i)
+        for(Index i=0; i<y.size(); ++i)
             z += basis[i]*y(i);
      }
 
