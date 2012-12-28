@@ -48,8 +48,9 @@ public:
 	 KrylovSpaceAO(Size n_, Size maxSpaceDim):
         n(n_),m(0),mmax(maxSpaceDim),basis(0),hess(mmax)
      {
-        basis = new VecType[mmax+1];
-        for(Index i=0; i<mmax; ++i)
+        const Size n_basis = mmax+1;
+        basis = new VecType[n_basis];
+        for(Index i=0; i<n_basis; ++i)
             basis[i].resize(n);
      };
 
