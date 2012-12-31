@@ -288,7 +288,7 @@ private:
 	void newton_correction(const VecType& r, const VecType& u, VecType& du, VecType& rlin)
 	{
 		// Setup finite difference operator...
-		GateauxFD<T,NL> gateaux(f, u, fu);
+		GateauxFD<T,NL> gateaux(f, u, r);
 
 		// Set tolerance used to determine "happy breakdown"...
 		const T breakdown_tol=0.5E-6;
