@@ -50,6 +50,8 @@ class NewtonKrylovLB
 {
 public:
 
+	typedef linalg::Vector<T> VecType;
+
 	//! Initializes solver
 	/*!
 	 *  Sets internal reference to the nonlinear operator f,
