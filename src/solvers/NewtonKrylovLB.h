@@ -198,8 +198,8 @@ private:
 		ConvCrit(NL& f_, 
 				 const VecType& u_, const VecType& du_, 
 				 const T& fu, const T& fup, 
-				 const T& alpha_, const T& beta):
-			a(alpha_),b(beta_),fu(0),fup(0),
+				 const T& alpha, const T& beta):
+			a(alpha),b(beta),fu(0),fup(0),
 			u(u_),du(du_),u_new(u_.size()),r_new(u_.size()),
 			f(f_) {}
 
