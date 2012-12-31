@@ -378,7 +378,7 @@ private:
 		}
 		
 		// Now interpolate a new lambda value that satisfies both conditions...
-		const T alpha = conv_hist.alpha();
+		const T alpha = conv_crit.alpha();
 		while(true){
 			T m = (fu_hi - fu_low)/(lambda_hi - lambda_low);
 			T lambda = (fu0 - fu_low + m*lambda_low)/(m - alpha*fup0);
