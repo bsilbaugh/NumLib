@@ -51,6 +51,7 @@ class NewtonKrylovLB
 public:
 
 	typedef linalg::Vector<T> VecType;
+	typedef Krylov<T,GateauxFD<T,NL>,K,P> KrylovSolver;
 
 	//! Initializes solver
 	/*!
@@ -290,6 +291,9 @@ private:
 		// Setup finite difference operator...
 		GateauxFD<T,NL> gateaux(f, u, r);
 
+		// Setup Krylov solver...
+		KrylovSolver krylov_solver(n,mmax);
+
 		// Set tolerance used to determine "happy breakdown"...
 		const T breakdown_tol=0.5E-6;
 
@@ -297,7 +301,7 @@ private:
 		// -- we'll do a little trick: 
 		// -- first solve J(u)*du = f(u), instead of J(u)*du = -f(u)
 		// -- then fix sign in-place, du = -du;
-		rn = krylov.solve(gateaux, du, r, breakdown_tol, rlin);
+		T rn = krylov_solver.solve(gateaux, du, r, breakdown_tol, rlin);
 		du *= -1.0;
 
 		/************************************************************************
@@ -321,7 +325,7 @@ private:
 		while(cond){
 			lambda *= 2.0;
 			conv_crit.check(lambda);
-			cond = crit.beta_satisfied();
+			cond = conv_crit.beta_satisfied();
 			const T fu = conv_crit.objective_function_value();
 			conv_hist.append(lambda, fu);
 		}
@@ -375,7 +379,7 @@ private:
 		
 		// Now interpolate a new lambda value that satisfies both conditions...
 		const T alpha = conv_hist.alpha();
-		do{
+		while(true){
 			T m = (fu_hi - fu_low)/(lambda_hi - lambda_low);
 			T lambda = (fu0 - fu_low + m*lambda_low)/(m - alpha*fup0);
 			conv_crit.check(lambda);
