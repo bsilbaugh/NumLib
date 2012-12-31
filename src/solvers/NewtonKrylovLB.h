@@ -163,17 +163,17 @@ private:
 			return append(Elem(lambda,fu));
 		}
 		
-		const SolnPair& first() const
+		const Elem& first() const
 		{
 			return data.front();
 		}
 		
-		const SolnPair& last() const
+		const Elem& last() const
 		{
 			return data.back();
 		}
 		
-		const SolnPair& second_last() const
+		const Elem& second_last() const
 		{
 			return *(++(data.rend()));
 		}
