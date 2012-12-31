@@ -197,7 +197,7 @@ private:
 				 const VecType& u_, const VecType& du_, 
 				 const T& fu, const T& fup, 
 				 const T& alpha_, const T& beta):
-			alpha(alpha_),beta(beta_),fu(0),fup(0),
+			a(alpha_),b(beta_),fu(0),fup(0),
 			u(u_),du(du_),u_new(u_.size()),r_new(u_.size()),
 			f(f_) {}
 
@@ -211,10 +211,10 @@ private:
 			fu_new = 0.5*prod(r_new,r_new);
 
 			// Check alpha condition (upper limit)...
-			alpha_check = !(fu_new > fu + alpha*lam*fup);
+			alpha_check = !(fu_new > fu + a*lam*fup);
 
 			// Check beta condition (lower limit)...
-			beta_check = !(fu_new < fu + beta*lam*fup);
+			beta_check = !(fu_new < fu + b*lam*fup);
 			
 			// Return true if both conditions satisfied...
 			return alpha_check and beta_check;
@@ -222,12 +222,12 @@ private:
 
 		const T& alpha() const 
 		{
-			return alpha;
+			return a;
 		}
 		
 		const T& beta() const
 		{
-			return beta;
+			return b;
 		}
 		
 		const bool alpha_satisfied() const
@@ -263,7 +263,7 @@ private:
 	private:
 
 		bool alpha_check, beta_check;
-		const T alpha, beta, fu, fup;
+		const T a, b, fu, fup;
 		const VecType u, du;
 		T fu_new;
 		VecType u_new, r_new;
