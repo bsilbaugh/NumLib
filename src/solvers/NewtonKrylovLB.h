@@ -385,9 +385,9 @@ private:
 			conv_crit.check(lambda);
 			const T fu = conv_crit.objective_function_value();
 			conv_hist.append(lambda, fu);
-			if(conv_crit.both_satisfied){
+			if(conv_crit.both_satisfied()){
 				return;
-			} else if(conv_hist.alpha_satisfied){
+			} else if(conv_crit.alpha_satisfied()){
 				/********************************************************
 				 * If we're here, then the new lambda value is too small
 				 * and should be taken as the new lower lambda value.
