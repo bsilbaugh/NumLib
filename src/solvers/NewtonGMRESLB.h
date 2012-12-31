@@ -11,7 +11,7 @@ namespace numlib{ namespace solver{
 
 template<class T, class NL>
 class NewtonGMRESLB:
-	public: NewtonKrylovLB<T,NL,KrylovSpaceAO<T,GateauxFD<T,NL> >,GMRESProjection<T> >
+	public NewtonKrylovLB<T,NL,KrylovSpaceAO<T,GateauxFD<T,NL> >,GMRESProjection<T> >
 {
 public:
 
