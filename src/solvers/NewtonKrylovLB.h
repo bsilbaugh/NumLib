@@ -64,7 +64,9 @@ public:
 	 *    alpha: slope scaling factor (upper limit)
 	 *    beta: slope scaling factor (lower limit)
 	 */
-	NewtonKrylovLB(NL& f_, Size n_, Size mmax_, T alpha_, T beta_);
+	NewtonKrylovLB(NL& f_, Size n_, Size mmax_, T alpha_, T beta_):
+		f(f_),n(n_),mmax(mmax_),alpha(alpha_),beta(beta_)
+	{}
 
 	//! Executes a single iteration of the nonlinear solver
 	/*!
@@ -145,7 +147,7 @@ private:
 
 		struct Elem
 		{
-			T lamda;
+			T lambda;
 			T fu;
 			Elem(T lambda_, T fu_):lambda(lambda_),fu(fu_){}
 		};
@@ -273,9 +275,11 @@ private:
 
 /*----------------------------------------------------------------------------*/
 /*                                                                Member data */
-
-	Size n;             /* nonlinear operator rank */
 	NL& f;              /* nonlinear operator */
+	Size n;             /* nonlinear operator rank */
+	Size mmax;
+	T alpha;
+	T beta;
 
 /*----------------------------------------------------------------------------*/
 /*                                                           Helper functions */
