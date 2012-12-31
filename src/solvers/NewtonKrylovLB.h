@@ -111,15 +111,18 @@ public:
 			/* If we're here, then Newton step is too big. */
 			// Scale back by fitting a quadratic and finding its minimum...
 			// -- Remember, this will always reduce lambda.
+			DEBUG_PRINT("Applying min quad strategy");
 			min_quadratic_strategy(conv_crit, conv_hist, fu, fup);
 	    } else if(beta_failed){
 			/* If we're here, then Newton step is too small. */
 			// Scale up by doubling lambda...
+			DEBUG_PRINT("Applying doubling strategy");
 			doubling_strategy(conv_crit, conv_hist);
 		}
 
 		// Correct any overshoots, if any...
 		if(!conv_crit.both_satisfied()){
+			DEBUG_PRINT("Applying successive linear interp");
 			successive_linear_interp_strategy(conv_crit, conv_hist, fu, fup);
 		}
 
@@ -129,6 +132,7 @@ public:
 		}
 		
 		// Return result...
+		DEBUG_PRINT("Returning result");
 		u = conv_crit.soln_vector();
 		r = conv_crit.residual_vector();
 		return norm2(r);
