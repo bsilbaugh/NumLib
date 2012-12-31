@@ -139,8 +139,6 @@ private:
 /*----------------------------------------------------------------------------*/
 /*                                                Helper classes and typedefs */
 
-	typedef typename std::list< SolnPair > ConvHist;
-
 	class ConvHist
 	{
 	public:
