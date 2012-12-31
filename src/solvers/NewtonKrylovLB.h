@@ -203,9 +203,9 @@ private:
 
 		ConvCrit(NL& f_, 
 				 const VecType& u_, const VecType& du_, 
-				 const T& fu, const T& fup, 
+				 const T& fu_, const T& fup_, 
 				 const T& alpha, const T& beta):
-			a(alpha),b(beta),fu(0),fup(0),
+			a(alpha),b(beta),fu(fu_),fup(fup_),
 			u(u_),du(du_),u_new(u_.size()),r_new(u_.size()),
 			f(f_) {}
 
@@ -219,12 +219,18 @@ private:
 			fu_new = 0.5*prod(r_new,r_new);
 
 			DEBUG_PRINT_VAR(fu_new);
+			DEBUG_PRINT_VAR(fu);
+			DEBUG_PRINT_VAR(fup);
 
 			// Check alpha condition (upper limit)...
 			alpha_check = !(fu_new > fu + a*lam*fup);
 
+			DEBUG_PRINT_VAR( alpha_check );
+
 			// Check beta condition (lower limit)...
 			beta_check = !(fu_new < fu + b*lam*fup);
+
+			DEBUG_PRINT_VAR( beta_check );
 			
 			// Return true if both conditions satisfied...
 			return alpha_check and beta_check;
