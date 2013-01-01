@@ -65,8 +65,8 @@ public:
 	 *    alpha: slope scaling factor (upper limit)
 	 *    beta: slope scaling factor (lower limit)
 	 */
-	NewtonKrylovLB(NL& f_, Size n_, Size mmax_, T alpha_, T beta_):
-		f(f_),n(n_),mmax(mmax_),alpha(alpha_),beta(beta_)
+	NewtonKrylovLB(NL& f_, Size n_, Size mmax_, T alpha_, T beta_, T lambda_min_):
+		f(f_),n(n_),mmax(mmax_),alpha(alpha_),beta(beta_),lambda_min(lambda_min_)
 	{}
 
 	//! Executes a single iteration of the nonlinear solver
@@ -157,7 +157,12 @@ private:
 			Elem(T lambda_, T fu_):lambda(lambda_),fu(fu_){}
 		};
 
-		ConvHist():data(){}
+		ConvHist():data(),log_file("newton_krylov_conv.log"){}
+
+		~ConvHist()
+		{
+			log_file.close();
+		}
 
 		ConvHist& append(const Elem& elem)
 		{
@@ -168,6 +173,7 @@ private:
 		ConvHist& append(const T& lambda, const T& fu)
 		{
 			DEBUG_PRINT_VAR(lambda);
+			log_file<<lambda<<" "<<fu<<std::endl;
 			return append(Elem(lambda,fu));
 		}
 		
@@ -189,6 +195,7 @@ private:
 	private:
 		typedef typename std::list< Elem > Data;
 		Data data;
+		std::ofstream log_file;
 	};
 
 	//! Model of the Goldstien-Armijo conditions
@@ -297,6 +304,7 @@ private:
 	Size mmax;
 	T alpha;
 	T beta;
+	T lambda_min;
 
 /*----------------------------------------------------------------------------*/
 /*                                                           Helper functions */
@@ -355,7 +363,7 @@ private:
 		bool cond(true);
 		while(cond){
 			lambda = -0.5*fup0*lambda*lambda/(fu - fu0 - fup0*lambda);
-			lambda = min(0.1, lambda);
+			lambda = min(lambda_min, lambda);
 			conv_crit.check(lambda);
 			cond = conv_crit.alpha_satisfied();
 			const T fu = conv_crit.objective_function_value();
