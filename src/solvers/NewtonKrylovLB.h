@@ -273,7 +273,7 @@ private:
 		
 		const T& objective_function_value() const
 		{
-			fu_new;
+			return fu_new;
 		}
 		
 		const VecType& soln_vector() const
