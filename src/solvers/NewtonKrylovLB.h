@@ -396,8 +396,11 @@ private:
 		// Now interpolate a new lambda value that satisfies both conditions...
 		const T alpha = conv_crit.alpha();
 		while(true){
-			T m = (fu_hi - fu_low)/(lambda_hi - lambda_low);
-			T lambda = (fu0 - fu_low + m*lambda_low)/(m - alpha*fup0);
+			const T m = (fu_hi - fu_low)/(lambda_hi - lambda_low);
+			const T den = m - alpha*fup0;
+			if(numlib::is_zero(den))
+				throw numlib::NumLibError("Division by zero in NewtonKrylovLB linear interp");
+			T lambda = (fu0 - fu_low + m*lambda_low)/den;
 			conv_crit.check(lambda);
 			const T fu = conv_crit.objective_function_value();
 			conv_hist.append(lambda, fu);
