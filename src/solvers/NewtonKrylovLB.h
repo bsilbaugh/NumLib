@@ -365,7 +365,7 @@ private:
 			lambda = -0.5*fup0*lambda*lambda/(fu - fu0 - fup0*lambda);
 			lambda = min(lambda_min, lambda);
 			conv_crit.check(lambda);
-			cond = conv_crit.alpha_satisfied();
+			cond = !conv_crit.alpha_satisfied();
 			const T fu = conv_crit.objective_function_value();
 			conv_hist.append(lambda, fu);
 		}
