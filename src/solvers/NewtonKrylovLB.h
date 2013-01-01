@@ -222,6 +222,7 @@ private:
 			f.eval(u_new,r_new);
 			fu_new = 0.5*prod(r_new,r_new);
 
+			DEBUG_PRINT_VAR( lam );
 			DEBUG_PRINT_VAR(fu_new);
 
 			// Check alpha condition (upper limit)...
