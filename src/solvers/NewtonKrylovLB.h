@@ -183,7 +183,7 @@ private:
 		
 		const Elem& second_last() const
 		{
-			return *(++(data.rend()));
+			return *(++(data.rbegin()));
 		}
 		
 	private:
@@ -392,6 +392,9 @@ private:
 			lambda_hi = conv_hist.second_last().lambda;
 			fu_hi = conv_hist.second_last().fu;
 		}
+
+		DEBUG_PRINT_VAR( lambda_hi );
+		DEBUG_PRINT_VAR( lambda_low );
 		
 		// Now interpolate a new lambda value that satisfies both conditions...
 		const T alpha = conv_crit.alpha();
