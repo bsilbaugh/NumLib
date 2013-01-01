@@ -51,6 +51,19 @@ public:
 		return rn;
 	}
 
+	//! Computes the residual vector for an approximate soln vector y
+	/*!
+	 *  The residual vector is computed in the krylove subspace. To recover the
+	 *  residual vector in the containing space (R^n), you'll need to multiply
+	 *  by V_{m+1}.
+	 */
+	void calc_residual(const T& beta, const HessType& hess, const VecType& y, VecType& r)
+	{
+		r = prod(hess, y);
+		r *= -1.0;
+		r(0) += beta;
+	}
+
 };
 
 }}//::numlib::solver

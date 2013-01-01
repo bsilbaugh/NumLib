@@ -13,6 +13,7 @@
 #include <cmath>
 #include <list>
 #include <cstddef>
+#include <algorithm>
 
 namespace numlib{
 
@@ -70,21 +71,15 @@ using std::cos;
 
 using std::sin;
 
+using std::min; /* template function */
+
+using std::max; /* template function */
+
 //! Computes the absolute value of a number
 inline
 Real abs(const Real & x)
 {
 	 return std::fabs(x);
-}
-
-//! Returns the maximum value of a pair of Real numbers
-inline
-Real max(const Real & a, const Real & b)
-{
-	 if(b > a)
-		  return b;
-	 else
-		  return a;
 }
 
 //! Returns the sign of a floating point number

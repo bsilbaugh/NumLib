@@ -40,50 +40,54 @@ public:
 	 typedef linalg::Vector<T> VecType;
 	 typedef linalg::ExtHessMatrix<T> HessType;
 
-	 Krylov(Size n_, Size mmax_):n(n_),m(0),mmax(mmax_),krylovSpace(n_,mmax_)
+     Krylov(Size n_, Size mmax_):n(n_),m(0),mmax(mmax_),krylovSpace(n_,mmax_)
      {
         ASSERT(mmax <= n);
      }
 
 	 T solve(const L & linO, VecType & x, const VecType & b, const T & tol)
+	 {
+		 VecType r(b.size());
+		 return solve(linO, x, b, tol, r);
+	 }
+
+	 T solve(const L & linO, VecType & x, const VecType & b, const T & tol, VecType& r)
      {
         // Initialize working data structure...
-        
         T zero(0);    // zero element of type T
-        VecType r(b); // Residual vector initialized to RHS vector, b
         
         // Compute residual due to initial guess x...
-        
-        T xn = norm2(x);
-        if(xn > zero) r -= prod(linO, x);
+        r = b;
+        if(norm2(x) > zero) r -= prod(linO, x);
         
         T beta = norm2(r);
         T rn = beta;
         
         // Construct Krylov suspace...
-        
         krylovSpace.buildSpace(linO, r, tol); /* Arnoldi or Housholder */
-        
         m = krylovSpace.size();
         
         // Get the projection of A (i.e. 'linO') on the Krylov subspace...
-        
         HessType hess(m);
         krylovSpace.projA(hess);
         
         // Compute correction vector...
-        
         VecType y(m);
         VecType z(n);
         rn = projectionScheme.solve(beta, hess, y); /* GMRES or Galerkin projection */
         krylovSpace.map(y, z);
         
         // Apply correction to intial guess...
-        
         x += z;
+
+		// Compute residual vector...
+		// -- This is needed for globalization schemes like line backtracking.
+		// -- This is an ugly way to do it, but it'll do for now.
+		VecType rk(m+1);
+		projectionScheme.calc_residual(beta, hess, y, rk);
+		krylovSpace.map(rk, r);
         
         // Return residual norm...
-        
         return rn;
     	
      }
