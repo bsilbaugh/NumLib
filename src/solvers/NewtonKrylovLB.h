@@ -207,7 +207,11 @@ private:
 				 const T& alpha, const T& beta):
 			a(alpha),b(beta),fu(fu_),fup(fup_),
 			u(u_),du(du_),u_new(u_.size()),r_new(u_.size()),
-			f(f_) {}
+			f(f_) 
+		{
+			DEBUG_PRINT_VAR( fu );
+			DEBUG_PRINT_VAR( fup );
+		}
 
 		bool check(const T& lam)
 		{
@@ -219,8 +223,6 @@ private:
 			fu_new = 0.5*prod(r_new,r_new);
 
 			DEBUG_PRINT_VAR(fu_new);
-			DEBUG_PRINT_VAR(fu);
-			DEBUG_PRINT_VAR(fup);
 
 			// Check alpha condition (upper limit)...
 			alpha_check = !(fu_new > fu + a*lam*fup);
