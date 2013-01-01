@@ -95,7 +95,7 @@ public:
 
 		// Initialize convergence history...
 		ConvHist conv_hist;
-		conv_hist.append(0.0, fup);
+		conv_hist.append(0.0, fu);
 
 		// Initialize convergence criteria...
 		ConvCrit conv_crit(f, u, du, fu, fup, alpha, beta);
