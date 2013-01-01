@@ -15,9 +15,9 @@ class NewtonGMRESLB:
 {
 public:
 
-	NewtonGMRESLB(NL& f_, Size n_, Size mmax_, T alpha_, T beta_):
+	NewtonGMRESLB(NL& f_, Size n_, Size mmax_, T alpha_, T beta_, T lambda_min_):
 		NewtonKrylovLB<T,NL,KrylovSpaceAO<T,GateauxFD<T,NL> >,GMRESProjection<T> >
-		(f_, n_, mmax_, alpha_, beta_)
+		(f_, n_, mmax_, alpha_, beta_, lambda_min_)
 		{}
 
 private:
