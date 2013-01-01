@@ -11,8 +11,10 @@ headers = (
 	'KrylovSpaceAO.h',
 	'GateauxFD.h',
 	'NewtonKrylov.h',
+	'NewtonKrylovLB.h',
 	'NewtonArnoldi.h',
 	'NewtonGMRES.h',
+	'NewtonGMRESLB.h',
 	'PseudoTransientOperator.h'
 )
 

@@ -64,6 +64,20 @@ public:
 		   return std::fabs(extHess(j+1,j)*y(j));
 	 }
 
+	void calc_residual(const T& beta, const HessType& extHess, const VecType& y, VecType& r)
+	{
+		// Get subspace dimension...
+		const Size m = extHess.size2();
+
+		// Verify dimension...
+		ASSERT( m+1 == r.size());
+		ASSERT( m == y.size());
+		
+		// Compute residual vector...
+		r.zero();
+		r(m) = -1.0*(y(m-1));
+	}
+
 };
 
 }}//::numlib::solver
