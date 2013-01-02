@@ -218,6 +218,8 @@ private:
 		{
 			DEBUG_PRINT_VAR( fu );
 			DEBUG_PRINT_VAR( fup );
+			u_new.zero();
+			r_new.zero();
 		}
 
 		bool check(const T& lam)
