@@ -355,7 +355,7 @@ private:
 		while(cond){
 			lambda *= 2.0;
 			conv_crit.check(lambda);
-			cond = conv_crit.beta_satisfied();
+			cond = !conv_crit.beta_satisfied();
 			const T fu = conv_crit.objective_function_value();
 			conv_hist.append(lambda, fu);
 		}
