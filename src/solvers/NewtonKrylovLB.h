@@ -321,6 +321,10 @@ private:
 		// Set tolerance used to determine "happy breakdown"...
 		const T breakdown_tol=0.5E-6;
 
+		// Set initial guess to zero...
+		// -- This is actually required by algorithm
+		du.zero();
+
 		// Compute Newton correction using Krylov solver...
 		// -- we'll do a little trick: 
 		// -- first solve J(u)*du = f(u), instead of J(u)*du = -f(u)
