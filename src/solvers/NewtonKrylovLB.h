@@ -366,15 +366,13 @@ private:
 	{
 		T lambda = conv_hist.last().lambda;
 		T fu = conv_hist.last().fu;
-		bool cond(true);
-		while(cond){
+		do{
 			lambda = -0.5*fup0*lambda*lambda/(fu - fu0 - fup0*lambda);
 			lambda = min(lambda_min, lambda);
 			conv_crit.check(lambda);
-			cond = !conv_crit.alpha_satisfied();
 			const T fu = conv_crit.objective_function_value();
 			conv_hist.append(lambda, fu);
-		}
+		}while(!conv_crit.alpha_satisfied() and (lambda > lambda_min));
 	}
 	
 	void successive_linear_interp_strategy(ConvCrit& conv_crit, ConvHist& conv_hist,
