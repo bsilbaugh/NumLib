@@ -218,6 +218,8 @@ private:
 		{
 			DEBUG_PRINT_VAR( fu );
 			DEBUG_PRINT_VAR( fup );
+			u_new.zero();
+			r_new.zero();
 		}
 
 		bool check(const T& lam)
@@ -321,6 +323,10 @@ private:
 		// Set tolerance used to determine "happy breakdown"...
 		const T breakdown_tol=0.5E-6;
 
+		// Set initial guess to zero...
+		// -- This is actually required by algorithm
+		du.zero();
+
 		// Compute Newton correction using Krylov solver...
 		// -- we'll do a little trick: 
 		// -- first solve J(u)*du = f(u), instead of J(u)*du = -f(u)
@@ -349,7 +355,7 @@ private:
 		while(cond){
 			lambda *= 2.0;
 			conv_crit.check(lambda);
-			cond = conv_crit.beta_satisfied();
+			cond = !conv_crit.beta_satisfied();
 			const T fu = conv_crit.objective_function_value();
 			conv_hist.append(lambda, fu);
 		}
@@ -360,15 +366,13 @@ private:
 	{
 		T lambda = conv_hist.last().lambda;
 		T fu = conv_hist.last().fu;
-		bool cond(true);
-		while(cond){
+		do{
 			lambda = -0.5*fup0*lambda*lambda/(fu - fu0 - fup0*lambda);
 			lambda = min(lambda_min, lambda);
 			conv_crit.check(lambda);
-			cond = !conv_crit.alpha_satisfied();
 			const T fu = conv_crit.objective_function_value();
 			conv_hist.append(lambda, fu);
-		}
+		}while(!conv_crit.alpha_satisfied() and (lambda > lambda_min));
 	}
 	
 	void successive_linear_interp_strategy(ConvCrit& conv_crit, ConvHist& conv_hist,
@@ -407,14 +411,11 @@ private:
 		// Now interpolate a new lambda value that satisfies both conditions...
 		const T alpha = conv_crit.alpha();
 		while(true){
-#if 0
 			const T m = (fu_hi - fu_low)/(lambda_hi - lambda_low);
 			const T den = m - alpha*fup0;
 			if(numlib::is_zero(den))
 				throw numlib::NumLibError("Division by zero in NewtonKrylovLB linear interp");
 			T lambda = (fu0 - fu_low + m*lambda_low)/den;
-#endif
-			T lambda = 0.5*(lambda_low + lambda_hi);
 			conv_crit.check(lambda);
 			const T fu = conv_crit.objective_function_value();
 			conv_hist.append(lambda, fu);
