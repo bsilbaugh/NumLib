@@ -1,66 +1,62 @@
-================================================================================
-                                   NumLib
 
-                       Yet another C++ numerical library
-================================================================================
+                              === NumLib ===
+
+A collection of numerical algorithms and utilities written in C++.
+
+Copyright 2013 Benjamin Silbaugh
+
+Permission is granted to copy and/or redistribute this software under the
+terms of the MIT License. See LICENSE file for more information.
+
 
 DESCRIPTION
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+===========
 
-	The objective of this library is to provide a consistent set of tools 
-for numerical computing in C++, while also provide efficient array 
-interoperability with Fortran and Python numerical libraries. The objective 
-is not to compete with NumPy, or future Python numerical libraries, but to 
-provide a library that is interoperable with such libraries while 
-facilitating the rapid development of hybrid Python/C++ computational 
-software.
+NumLib is a collection of C++ utilities for composing numerical
+simulations. 
 
-	Many numerical libraries already exist within the C++ community; e.g. 
-Boost uBlas, MTL, Blitz++, TNT (NIST), LAPACK++, JAMA, etc. So one approach 
-would be to simply develop python bindings for one of these. However, each 
-of these libraries seem to only provide a subset of the tools needed to
-support the development of computational mechanics software. 
+This project started as a way for me to develop my C++ programming skills;
+however, some of these tools have found their way into some of my other
+work. That said, parts of this library are reasonably well thought out and
+tested, and other parts are not.
 
-	In regards to performance, the philosphy adopted here is, if one
-can deligate the CPU intensive task to optimized Fortran libraries
-(e.g. system tuned LAPACK or FFT libraries) then why not use these?
-Thus, while the focus of this library is to provide tools for numerical
-computing in C++, the implementation of some C++ class methods may be 
-delagated to legacy fortran libraries (either system installed libraries 
-or internal fortran code snipets). An alternative is to use advanced 
-templating techniques; however, these methods at best match the 
-performance of a Fortran library. It remains to be shown that templating 
-techniques can consistently exceed a tuned Fortran library (e.g. ATLAS).
+If you're looking for a production quality C++ linear algebra library, you
+may want to take a look at Armadillo. For production quality sparse linear
+solvers, you may want to consider PETSc or Trilinos.
 
-DIRECTORY STRUCTURE
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+LIBRARY STRUCTURE
+=================
 
 doc... Contains all NumLib documentation
 
-src... Contains all source code (including headers)
-|--->base........... Core NumLib components and typedefs
-|--->array.......... Numerical array types and templates
-|--->linalg......... Linear algebra tools
-|--->integration.... Numerical quadrature tools
-|--->tensor......... Cartesian tensor library for (dim-3 spaces)
-|--->optimization... Numerical optimization tools
-|--->solvers........ Nonlinear solver templates
+src................ Contains all source code (including headers)
+src/base........... Core NumLib components and typedefs
+src/array.......... Numerical array types and templates
+src/linalg......... Linear algebra tools
+src/integration.... Numerical quadrature tools
+src/tensor......... Cartesian tensor library for (dim-3 spaces)
+src/optimization... Numerical optimization tools
+src/solvers........ Nonlinear solver templates
 
 examples... Example usage of NumLib tools
 
 python..... Python language bindings for a subset of NumLib
 
-testing.... Unit testing suite (for NumLib developers)
+testing.... Testing suite: incremental and unit tests.
+
+old-test... The original test suite. This is partially broken.
 
 BUILDING AND INSTALLATION
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=========================
 
 Prerequisites
 -------------
 
-*	NumLib currently uses the SCons build system. Thus, you must have SCons
-	installed on your system.
-*	To build the Python language bindings, you will need Python version >= 
+* NumLib currently uses the SCons build system. Thus, you must have SCons
+	installed on your system. See the SCons build script for customization
+	parameters.
+
+* To build the Python language bindings, you will need Python version >=
 	2.6 (but less than 3.0) and Boost Python version >= 1.40
 
 Configuring
@@ -86,27 +82,5 @@ of the source tree:
 Installation
 ------------
 
-Currently, the numlib build system does not support global installation
-(e.g. to /usr/local). All libraries and headers and ``installed'' locally
-under the top level numlib directory. This behavior will be changed in
-future releases.
-
-VERSION NUMBERING SCHEME
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Each NumLib distribution will be taged with a version number of the form vA.B.C 
-(e.g. v1.0.10 or v2.100.1). The rules for incrementing the version
-numbers A, B, and C are as follows:
-1.	A is incremented when a major structural change is made to the code
-	(e.g. complete rewrite of the code, change in common data structures or
-	interfaces, etc); i.e. the entire code was essentially redesigned. Backwards 
-	compatibility may be lost and user interface may have changed.
-2.	B is incremented upon the addition of a new feature, removal of an
-	obsolete/troublesome feature, or performance improvement. Any rewriting or 
-	modification of existing code was minor (e.g. localized to a few
-	functions or classes); the change is primarily the addition new code or 
-	deletion of old code. The underlying design essentially remains unchanged.
-	B is reset to 0 upon incrementation of A.
-3.	C is incremented upon a bug fix in a previously released version and
-	no new features were added (or removed). C is reset to 0 upon incrementation 
-	of B.
+By default, the SCons build script installs into the top level source
+tree.
